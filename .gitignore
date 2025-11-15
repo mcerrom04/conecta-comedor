@@ -1,0 +1,152 @@
+# ===========================
+# Sistema Operativo
+# ===========================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+# ===========================
+# IDEs y Editores
+# ===========================
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (PhpStorm, WebStorm, etc)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ===========================
+# PHP
+# ===========================
+# Composer
+/vendor/
+composer.phar
+composer.lock
+
+# Laravel (por si se usa en el futuro)
+/.env
+/.env.backup
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+
+# Archivos de log y cache
+*.log
+/logs/
+/cache/
+*.cache
+
+# ===========================
+# JavaScript / Node.js
+# ===========================
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Build
+/dist/
+/build/
+
+# ===========================
+# Base de Datos
+# ===========================
+# Archivos de backup de BD
+*.sql.backup
+*.sql.bak
+*.dump
+
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+
+# ===========================
+# Archivos temporales
+# ===========================
+# Archivos temporales generales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Archivos de respaldo
+*.bak
+*.old
+*.orig
+
+# ===========================
+# Archivos de configuración local
+# ===========================
+# Configuraciones locales de desarrollo
+config.local.php
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ===========================
+# Archivos de sesión y uploads
+# ===========================
+# Directorio de uploads temporal (ajustar según necesidad)
+/src/www/uploads/temp/
+/src/www/uploads/tmp/
+
+# Sesiones PHP
+/tmp/
+/sessions/
+
+# ===========================
+# Documentos de trabajo (NO finales)
+# ===========================
+# Borradores y trabajos en progreso
+*.draft
+*.wip
+/doc/drafts/
+/doc/temp/
+
+# ===========================
+# Archivos de prueba
+# ===========================
+# Tests temporales
+/tests/temp/
+/test-results/
+
+# ===========================
+# Archivos personales
+# ===========================
+mario.md
