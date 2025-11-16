@@ -6,10 +6,10 @@
 
 ## Historias de Usuario del Sprint
 
-- ✅ **HU-011:** Autenticación de Administrador (Administrador del Sistema) - TERMINADO
-- ✅ **HU-009:** Aprobar un nuevo comedor (Administrador del Sistema) - TERMINADO
 - ✅ **HU-001:** Búsqueda geolocalizada (Ciudadano) - TERMINADO
-- 🚧 **HU-003:** Ver ficha detallada (Ciudadano) - EN DESARROLLO
+- ✅ **HU-003:** Ver ficha detallada (Ciudadano) - TERMINADO
+- ✅ **HU-009:** Aprobar un nuevo comedor (Administrador del Sistema) - TERMINADO
+- ✅ **HU-011:** Autenticación de Administrador (Administrador del Sistema) - TERMINADO
 
 ---
 
