@@ -18,6 +18,24 @@ INSERT INTO COMEDORES (nombre, direccion, latitud, longitud, telefono, normas, v
 ('Comedor Tetuán', 'Calle Bravo Murillo 300', 40.4600, -3.7030, '911111119', 'Normas básicas', 1),
 ('Comedor Retiro', 'Calle Retiro 50', 40.4210, -3.6740, '911111120', 'Normas básicas', 1);
 
--- Ejemplo de horario de prueba
+
+-- Horarios de prueba para comedores
 INSERT INTO HORARIOS (id_comedor, dia, hora_ini, hora_fin) VALUES
-(1, 'Lunes', '12:00:00', '15:00:00');
+(1, 'Lunes', '12:00:00', '15:00:00'),
+(1, 'Miércoles', '12:00:00', '15:00:00'),
+(2, 'Martes', '13:00:00', '16:00:00'),
+(2, 'Jueves', '13:00:00', '16:00:00'),
+(3, 'Lunes', '11:30:00', '14:30:00'),
+(3, 'Viernes', '11:30:00', '14:30:00'),
+(4, 'Miércoles', '12:30:00', '15:30:00'),
+(5, 'Sábado', '13:00:00', '16:00:00'),
+(6, 'Domingo', '12:00:00', '15:00:00'),
+(7, 'Lunes', '12:00:00', '15:00:00'),
+(7, 'Martes', '12:00:00', '15:00:00'),
+(8, 'Jueves', '13:00:00', '16:00:00'),
+(9, 'Viernes', '12:00:00', '15:00:00'),
+(10, 'Sábado', '13:00:00', '16:00:00'),
+(11, 'Domingo', '12:00:00', '15:00:00'),
+(12, 'Lunes', '12:00:00', '15:00:00'),
+(13, 'Martes', '13:00:00', '16:00:00'),
+(14, 'Miércoles', '12:00:00', '15:00:00');
