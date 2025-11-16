@@ -10,19 +10,23 @@ class ComedorSolicitudVista {
         $comedor = $this->comedor;
         $html = '';
         if ($comedor) {
+            $html .= '<div class="solicitud-datos">';
             $html .= '<p><strong>Nombre:</strong> ' . htmlspecialchars($comedor['nombre']) . '</p>';
             $html .= '<p><strong>Dirección:</strong> ' . htmlspecialchars($comedor['direccion']) . '</p>';
             $html .= '<p><strong>ID comedor:</strong> ' . htmlspecialchars($comedor['id_comedor']) . '</p>';
             $html .= '<p><strong>Teléfono:</strong> ' . htmlspecialchars($comedor['telefono']) . '</p>';
             $html .= '<p><strong>Normas:</strong> ' . htmlspecialchars($comedor['normas']) . '</p>';
-            $html .= '<form method="post" action="index.php?controlador=admin&metodo=aprobar" style="display:inline;">'
+            $html .= '</div>';
+            $html .= '<div class="solicitud-actions">';
+            $html .= '<form method="post" action="index.php?controlador=admin&metodo=aprobar">'
                 . '<input type="hidden" name="id" value="' . $comedor['id_comedor'] . '">' 
-                . '<button type="submit" class="btn">Aprobar</button>'
+                . '<button type="submit" class="btn-aprobar">Aprobar</button>'
                 . '</form>';
-            $html .= '<form method="post" action="index.php?controlador=admin&metodo=rechazar" style="display:inline;">'
+            $html .= '<form method="post" action="index.php?controlador=admin&metodo=rechazar">'
                 . '<input type="hidden" name="id" value="' . $comedor['id_comedor'] . '">' 
-                . '<button type="submit" class="btn" style="background:#DD4B39;">Rechazar</button>'
+                . '<button type="submit" class="btn-rechazar">Rechazar</button>'
                 . '</form>';
+            $html .= '</div>';
         } else {
             $html = '<p>No se encontró la solicitud.</p>';
         }

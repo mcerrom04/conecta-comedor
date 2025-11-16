@@ -5,12 +5,19 @@
     <title>Detalles Solicitud Comedor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/panel_admin.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Detalles Solicitud</h2>
+    <div class="panel-header panel-header-detail">
+        <a href="index.php?controlador=admin&metodo=panel" class="btn-back" title="Volver al panel" aria-label="Volver al panel">
+            <span class="btn-back-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/><line x1="9" y1="12" x2="21" y2="12"/></svg>
+            </span>
+        </a>
+        <h2 class="panel-header-title">Detalles Solicitud</h2>
+    </div>
+    <div class="panel-content">
         <?= $html ?>
-        <a href="index.php?controlador=admin&metodo=panel" class="btn" style="margin-top:1em;">Volver al panel</a>
     </div>
 </body>
 </html>
