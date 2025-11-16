@@ -129,6 +129,7 @@ body {
     margin-bottom: 1em;
     padding-bottom: 0.8em;
     border-bottom: 1px solid #eaeaea;
+    position: relative;
 }
 
 .info-item:last-child {
@@ -148,6 +149,33 @@ body {
     color: #555;
     font-size: 1em;
     line-height: 1.4;
+    flex: 1;
+}
+
+.btn-action {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #3C8DBC;
+    border: none;
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: #fff;
+    padding: 0;
+}
+
+.btn-action:hover {
+    background: #2980b9;
+}
+
+.btn-action svg {
+    display: block;
 }
 
 /* Tabla de horarios */
