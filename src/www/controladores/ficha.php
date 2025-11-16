@@ -10,7 +10,8 @@ class Ficha {
         require_once __DIR__ . '/../vistas/ficha_comedor.php';
         $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         $comedor = Comedor::obtenerPorId($id);
-        $vista = new FichaComedorVista($this->config, $comedor);
+        $horarios = Comedor::obtenerHorarios($id);
+        $vista = new FichaComedorVista($this->config, $comedor, $horarios);
         $vista->mostrar();
     }
 }

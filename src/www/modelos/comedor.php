@@ -22,6 +22,13 @@ class Comedor {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function obtenerHorarios($id_comedor) {
+        $bd = (new BD())->obtenerConexion();
+        $stmt = $bd->prepare('SELECT dia, hora_ini, hora_fin FROM horarios WHERE id_comedor = ? ORDER BY FIELD(dia, "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo")');
+        $stmt->execute([$id_comedor]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function aprobar($id) {
         $bd = (new BD())->obtenerConexion();
         $stmt = $bd->prepare('UPDATE comedores SET visible = 1 WHERE id_comedor = ?');
