@@ -8,5 +8,8 @@ return [
     'dir_modelos' => __DIR__ . '/modelos/',
     'dir_css' => __DIR__ . '/css/',
     'dir_js' => __DIR__ . '/js/',
-    // Configuración de base de datos se añadirá más adelante
+    'bd_host' => 'localhost',
+    'bd_nombre' => 'conecta_comedor',
+    'bd_usuario' => 'root',
+    'bd_clave' => '',
 ];
