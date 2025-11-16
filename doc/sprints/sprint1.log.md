@@ -17,7 +17,7 @@
 
 - ✅ **TT-001:** Configurar entorno de desarrollo (Apache, MySQL, PHP) y repositorio Git - TERMINADO
 - ✅ **TT-002:** Crear estructura de directorios del proyecto - TERMINADO
-- 🚧 **TT-003:** Implementar scripts SQL (bbdd.sql) para tablas del Sprint 1 - EN DESARROLLO
+- ✅ **TT-003:** Implementar scripts SQL (bbdd.sql) para tablas del Sprint 1 - TERMINADO
 - ✅ **TT-004:** Crear script de conexión a BBDD (/src/www/modelos/DB.php) - TERMINADO
 - 🚧 **TT-005:** Implementar sistema de gestión de sesiones PHP - EN DESARROLLO
 - 🚧 **TT-006:** Integrar librería Leaflet.js para visualización de mapa - EN DESARROLLO

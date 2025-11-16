@@ -1,0 +1,37 @@
+-- Tabla: ROLES
+CREATE TABLE IF NOT EXISTS ROLES (
+    id_rol VARCHAR(20) PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    desc_rol VARCHAR(100)
+);
+
+-- Tabla: USUARIOS
+CREATE TABLE IF NOT EXISTS USUARIOS (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    id_rol VARCHAR(20) NOT NULL,
+    FOREIGN KEY (id_rol) REFERENCES ROLES(id_rol)
+);
+
+-- Tabla: COMEDORES
+CREATE TABLE IF NOT EXISTS COMEDORES (
+    id_comedor INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    direccion VARCHAR(255) NOT NULL,
+    latitud DECIMAL(9,6) NOT NULL,
+    longitud DECIMAL(9,6) NOT NULL,
+    telefono VARCHAR(20),
+    normas TEXT,
+    visible BOOLEAN NOT NULL
+);
+
+-- Tabla: HORARIOS
+CREATE TABLE IF NOT EXISTS HORARIOS (
+    id_horario INT AUTO_INCREMENT PRIMARY KEY,
+    id_comedor INT NOT NULL,
+    dia VARCHAR(20) NOT NULL,
+    hora_ini TIME NOT NULL,
+    hora_fin TIME NOT NULL,
+    FOREIGN KEY (id_comedor) REFERENCES COMEDORES(id_comedor)
+);
