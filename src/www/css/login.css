@@ -1,0 +1,56 @@
+/* login.css - Estilos específicos para el formulario de login, mobile-first */
+
+.login-container {
+  margin: 2em auto;
+  padding: 2em 1.5em;
+  background: var(--color-fondo-contenedor);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(60,141,188,0.08);
+  max-width: 400px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.login-container label {
+  margin-bottom: 0.2em;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+  padding: 0.7em;
+  border: 1px solid #bfc9d1;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.login-container button {
+  margin-top: 0.5em;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.login-container .error {
+  color: var(--color-peligro);
+  background: #fff0f0;
+  border: 1px solid var(--color-peligro);
+  border-radius: 4px;
+  padding: 0.7em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+@media (min-width: 600px) {
+  .login-container {
+    max-width: 420px;
+    padding: 2.5em 2em;
+  }
+}
