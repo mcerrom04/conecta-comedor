@@ -21,7 +21,7 @@ class BD {
         }
     }
 
-    public function getConexion() {
+    public function obtenerConexion() {
         return $this->conexion;
     }
 }
