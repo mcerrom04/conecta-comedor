@@ -40,9 +40,10 @@ try {
             throw new Exception("Controlador '$clase' no encontrado.");
         }
     } else {
-        // Página principal pública
-        echo '<h1>Bienvenido a Conecta Comedor</h1>';
-        echo '<a href="index.php?controlador=login&metodo=index">Acceso Administrador</a>';
+        // Página principal pública: mostrar el mapa
+        require_once($config['dir_controladores'] . 'mapa.php');
+        $controlador = new Mapa($config);
+        $controlador->index();
     }
 } catch (Throwable $exception) {
     header('HTTP/2 500 Internal Server Error');
