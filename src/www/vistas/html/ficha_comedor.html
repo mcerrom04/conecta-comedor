@@ -5,6 +5,11 @@
     <title>Ficha comedor</title>
 </head>
 <body>
-    <h1>Ficha comedor (en desarrollo)</h1>
+    <h1><?= htmlspecialchars($comedor['nombre']) ?></h1>
+    <ul>
+        <li><strong>Dirección:</strong> <?= htmlspecialchars($comedor['direccion']) ?></li>
+        <li><strong>Teléfono:</strong> <?= htmlspecialchars($comedor['telefono']) ?></li>
+        <li><strong>Normas:</strong> <?= htmlspecialchars($comedor['normas']) ?></li>
+    </ul>
 </body>
 </html>

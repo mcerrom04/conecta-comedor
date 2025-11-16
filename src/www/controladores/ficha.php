@@ -6,8 +6,11 @@ class Ficha {
         $this->config = $config;
     }
     public function ver() {
+        require_once __DIR__ . '/../modelos/comedor.php';
         require_once __DIR__ . '/../vistas/ficha_comedor.php';
-        $vista = new FichaComedorVista($this->config);
+        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        $comedor = Comedor::obtenerPorId($id);
+        $vista = new FichaComedorVista($this->config, $comedor);
         $vista->mostrar();
     }
 }
