@@ -2,6 +2,12 @@
 require_once __DIR__ . '/bd.php';
 
 class Comedor {
+    public static function obtenerVisibles() {
+        $bd = (new BD())->obtenerConexion();
+        $stmt = $bd->prepare('SELECT id_comedor, nombre, latitud, longitud FROM comedores WHERE visible = 1');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public static function obtenerPendientes() {
         $bd = (new BD())->obtenerConexion();
         $stmt = $bd->prepare('SELECT * FROM comedores WHERE visible = 0');
