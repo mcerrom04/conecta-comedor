@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración - Comedores Pendientes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Panel de Administración</h2>
+        <nav>
+            <button class="btn" disabled>Comedores Pendientes</button>
+            <button class="btn" disabled>Comentarios Pendientes</button>
+        </nav>
+        <div style="margin-top:1em;">
+            <?php if ($noHayPendientes): ?>
+                <p>No hay comedores pendientes.</p>
+            <?php else: ?>
+                <?= implode("\n", $tarjetas) ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</body>
+</html>

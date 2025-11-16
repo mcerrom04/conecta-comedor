@@ -24,23 +24,13 @@ class Login {
         $usuario = Usuario::autenticarAdmin($email, $password);
         if ($usuario) {
             $_SESSION['admin'] = $usuario;
-            header('Location: index.php?controlador=login&metodo=dashboard');
+            header('Location: index.php?controlador=admin&metodo=panel');
             exit;
         } else {
             $_SESSION['login_error'] = 'Credenciales incorrectas o no es administrador.';
             header('Location: index.php?controlador=login&metodo=index');
             exit;
         }
-    }
-
-    // Dashboard simple para admin autenticado
-    public function dashboard() {
-        if (!isset($_SESSION['admin'])) {
-            header('Location: index.php?controlador=login&metodo=index');
-            exit;
-        }
-        echo '<h2>Bienvenido, Administrador</h2>';
-        echo '<a href="index.php?controlador=login&metodo=logout">Cerrar sesión</a>';
     }
 
     // Cerrar sesión
