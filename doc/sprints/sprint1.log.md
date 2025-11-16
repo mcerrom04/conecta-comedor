@@ -22,6 +22,7 @@
 - 🚧 **TT-005:** Implementar sistema de gestión de sesiones PHP - EN DESARROLLO
 - 🚧 **TT-006:** Integrar librería Leaflet.js para visualización de mapa - EN DESARROLLO
 - ✅ **TT-007:** Crear enrutador básico en index.php - TERMINADO
+- ✅ **TT-008:** Crear main.css con estilos generales y mobile-first - TERMINADO
 
 ---
 
