@@ -10,8 +10,11 @@ window.addEventListener('DOMContentLoaded', function() {
     if (typeof comedores !== 'undefined' && Array.isArray(comedores)) {
         comedores.forEach(function(comedor) {
             if (comedor.latitud && comedor.longitud) {
-                L.marker([comedor.latitud, comedor.longitud]).addTo(map)
-                    .bindPopup(comedor.nombre);
+                var marker = L.marker([comedor.latitud, comedor.longitud]).addTo(map);
+                marker.on('click', function() {
+                    window.location.href = 'index.php?controlador=ficha&metodo=ver&id=' + encodeURIComponent(comedor.id_comedor);
+                });
+                marker.bindPopup(comedor.nombre);
             }
         });
     }
