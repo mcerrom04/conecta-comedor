@@ -1,8 +1,21 @@
 <?php
 require_once __DIR__ . '/../modelos/comedor.php';
 
+/**
+ * Controlador para la administración de comedores.
+ * Gestiona el panel de administración, aprobación y rechazo de solicitudes.
+ */
 class Admin {
+    /**
+     * Configuración global de la aplicación.
+     * @var array
+     */
     private $config;
+
+    /**
+     * Constructor. Inicia sesión y verifica acceso de administrador.
+     * @param array $config Configuración global
+     */
     public function __construct($config) {
         $this->config = $config;
         session_start();
@@ -12,7 +25,10 @@ class Admin {
         }
     }
 
-    // Panel principal: lista de comedores pendientes
+    /**
+     * Muestra el panel principal con la lista de comedores pendientes.
+     * @return void
+     */
     public function panel() {
         $comedores = Comedor::obtenerPendientes();
         require_once $this->config['dir_vistas'] . 'panelAdministracion.php';
@@ -20,7 +36,10 @@ class Admin {
         $vista->mostrar();
     }
 
-    // Ver detalle de solicitud de comedor
+    /**
+     * Muestra el detalle de una solicitud de comedor.
+     * @return void
+     */
     public function verSolicitud() {
         $id = $_GET['id'] ?? null;
         if (!$id) {
@@ -33,7 +52,10 @@ class Admin {
         $vista->mostrar();
     }
 
-    // Aprobar comedor
+    /**
+     * Aprueba una solicitud de comedor.
+     * @return void
+     */
     public function aprobar() {
         $id = $_POST['id'] ?? null;
         if ($id) {
@@ -43,7 +65,10 @@ class Admin {
         exit;
     }
 
-    // Rechazar comedor
+    /**
+     * Rechaza una solicitud de comedor.
+     * @return void
+     */
     public function rechazar() {
         $id = $_POST['id'] ?? null;
         if ($id) {

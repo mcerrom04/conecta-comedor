@@ -1,11 +1,34 @@
 <?php
+/**
+ * Vista para mostrar la solicitud de un comedor.
+ */
 class ComedorSolicitudVista {
+    /**
+     * Configuración global de la aplicación.
+     * @var array
+     */
     private $config;
+
+    /**
+     * Datos del comedor solicitado.
+     * @var array
+     */
     private $comedor;
+
+    /**
+     * Constructor.
+     * @param array $config Configuración global
+     * @param array $comedor Datos del comedor
+     */
     public function __construct($config, $comedor) {
         $this->config = $config;
         $this->comedor = $comedor;
     }
+
+    /**
+     * Muestra la solicitud del comedor y los botones de acción.
+     * @return void
+     */
     public function mostrar() {
         $comedor = $this->comedor;
         $html = '';

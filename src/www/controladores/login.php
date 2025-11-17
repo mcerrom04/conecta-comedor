@@ -1,14 +1,29 @@
 <?php
 require_once __DIR__ . '/../modelos/usuario.php';
 
+/**
+ * Controlador para la autenticación de administradores.
+ */
 class Login {
+    /**
+     * Configuración global de la aplicación.
+     * @var array
+     */
     private $config;
+
+    /**
+     * Constructor. Inicia la sesión.
+     * @param array $config Configuración global
+     */
     public function __construct($config) {
         $this->config = $config;
         session_start();
     }
 
-    // Muestra el formulario de login
+    /**
+     * Muestra el formulario de login.
+     * @return void
+     */
     public function index() {
         $error = $_SESSION['login_error'] ?? '';
         unset($_SESSION['login_error']);
@@ -17,7 +32,10 @@ class Login {
         $vista->mostrar();
     }
 
-    // Procesa el login
+    /**
+     * Procesa el login del administrador.
+     * @return void
+     */
     public function autenticar() {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
@@ -33,7 +51,10 @@ class Login {
         }
     }
 
-    // Cerrar sesión
+    /**
+     * Cierra la sesión del usuario.
+     * @return void
+     */
     public function logout() {
         session_destroy();
         header('Location: index.php?controlador=login&metodo=index');

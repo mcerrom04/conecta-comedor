@@ -1,11 +1,34 @@
 <?php
+/**
+ * Vista para mostrar el panel de administración de comedores.
+ */
 class PanelAdministracionVista {
+    /**
+     * Configuración global de la aplicación.
+     * @var array
+     */
     private $config;
+
+    /**
+     * Lista de comedores pendientes.
+     * @var array
+     */
     private $comedores;
+
+    /**
+     * Constructor.
+     * @param array $config Configuración global
+     * @param array $comedores Lista de comedores pendientes
+     */
     public function __construct($config, $comedores) {
         $this->config = $config;
         $this->comedores = $comedores;
     }
+
+    /**
+     * Muestra el panel de administración con las tarjetas de comedores pendientes.
+     * @return void
+     */
     public function mostrar() {
         // Preparamos una lista de tarjetas HTML para cada comedor pendiente
         $tarjetas = [];

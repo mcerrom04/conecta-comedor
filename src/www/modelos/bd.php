@@ -1,8 +1,20 @@
 <?php
 // Servicio: Conexión a la base de datos (estilo Biblioteca Fantástica)
+
+/**
+ * Clase para gestionar la conexión a la base de datos mediante PDO.
+ */
 class BD {
+    /**
+     * Instancia de la conexión PDO.
+     * @var PDO
+     */
     private $conexion;
 
+    /**
+     * Constructor. Establece la conexión a la base de datos.
+     * @throws PDOException Si ocurre un error de conexión
+     */
     public function __construct() {
         try {
             $config = require(__DIR__ . '/../config.php');
@@ -21,6 +33,10 @@ class BD {
         }
     }
 
+    /**
+     * Devuelve la conexión PDO activa.
+     * @return PDO
+     */
     public function obtenerConexion() {
         return $this->conexion;
     }
