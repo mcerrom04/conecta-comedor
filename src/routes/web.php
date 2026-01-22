@@ -6,16 +6,22 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // Redirigir directamente al mapa
+    return redirect()->route('mapa');
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $user = auth()->user();
+    
+    // Redirigir según el rol del usuario
+    if ($user->isAdmin()) {
+        return redirect()->route('admin.dashboard');
+    } elseif ($user->isGestor()) {
+        return redirect()->route('gestor.dashboard');
+    }
+    
+    // Ciudadanos van al mapa público
+    return redirect()->route('mapa');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -23,6 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Ruta pública del mapa (accesible para todos)
+Route::get('/mapa', function () {
+    return Inertia::render('Mapa/Index');
+})->name('mapa');
 
 // Rutas protegidas por rol de Administrador
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
