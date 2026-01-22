@@ -18,11 +18,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('id_rol', 20)->default('ciudadano');
-            $table->foreignId('id_comedor')->nullable()->constrained('comedores')->onDelete('set null');
+            $table->unsignedBigInteger('id_comedor')->nullable();
             $table->rememberToken();
             $table->timestamps();
             
             $table->foreign('id_rol')->references('id_rol')->on('roles');
+            $table->foreign('id_comedor')->references('id_comedor')->on('comedores')->onDelete('set null');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

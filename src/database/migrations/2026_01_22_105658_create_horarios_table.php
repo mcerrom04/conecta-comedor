@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('horarios', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_comedor')->constrained('comedores')->onDelete('cascade');
+            $table->id('id_horario');
+            $table->unsignedBigInteger('id_comedor');
+            $table->foreign('id_comedor')->references('id_comedor')->on('comedores')->onDelete('cascade');
             $table->enum('dia_semana', ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']);
             $table->time('hora_apertura');
             $table->time('hora_cierre');

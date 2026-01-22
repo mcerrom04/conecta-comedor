@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('necesidades', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_comedor')->constrained('comedores')->onDelete('cascade');
+            $table->id('id_necesidad');
+            $table->unsignedBigInteger('id_comedor');
+            $table->foreign('id_comedor')->references('id_comedor')->on('comedores')->onDelete('cascade');
             $table->enum('tipo', ['alimento', 'producto', 'voluntariado']);
             $table->string('descripcion');
             $table->enum('urgencia', ['baja', 'media', 'alta'])->default('media');

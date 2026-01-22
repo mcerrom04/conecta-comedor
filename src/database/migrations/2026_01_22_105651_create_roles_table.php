@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('id_rol', 20)->primary();
             $table->string('nombre', 50);
             $table->string('desc_rol', 100)->nullable();
-            $table->timestamps();
         });
     }
 
