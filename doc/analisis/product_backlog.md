@@ -35,7 +35,7 @@ Lista de Historias de Usuario y Tareas Técnicas en orden de realización.
 - ✅ HU-011: Implementar autenticación de Administrador
 - ✅ HU-006: Implementar autenticación de Gestor
 - ✅ TT-S3-010: Integrar Leaflet.js en componentes React
-- ⏳ HU-001: Migrar Búsqueda geolocalizada a React + Inertia
+- ✅ HU-001: Migrar Búsqueda geolocalizada a React + Inertia
 - ⏳ HU-003: Migrar Ficha detallada de comedor a componente React
 - ⏳ HU-009: Migrar Panel de administración (aprobar comedores)
 - ⏳ HU-002: Implementar Filtrado avanzado de comedores

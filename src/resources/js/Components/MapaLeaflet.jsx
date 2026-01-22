@@ -1,4 +1,5 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
+import { useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -10,7 +11,26 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
 });
 
-export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zoom = 12 }) {
+// Icono personalizado para la ubicación del usuario
+const userIcon = L.divIcon({
+    className: 'custom-user-marker',
+    html: '<div style="background-color: #4f46e5; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>',
+    iconSize: [20, 20],
+    iconAnchor: [10, 10]
+});
+
+// Componente para actualizar el centro del mapa cuando cambia
+function MapUpdater({ center }) {
+    const map = useMap();
+    
+    useEffect(() => {
+        map.setView(center, map.getZoom());
+    }, [center, map]);
+    
+    return null;
+}
+
+export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zoom = 12, userLocation = null }) {
     return (
         <MapContainer
             center={center}
@@ -23,6 +43,31 @@ export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zo
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             
+            <MapUpdater center={center} />
+            
+            {/* Marcador de ubicación del usuario */}
+            {userLocation && (
+                <>
+                    <Marker
+                        position={[userLocation.lat, userLocation.lng]}
+                        icon={userIcon}
+                    >
+                        <Popup>
+                            <div className="p-2">
+                                <h3 className="font-bold text-lg">Tu ubicación</h3>
+                                <p className="text-sm text-gray-600">Estás aquí</p>
+                            </div>
+                        </Popup>
+                    </Marker>
+                    <Circle
+                        center={[userLocation.lat, userLocation.lng]}
+                        radius={100}
+                        pathOptions={{ color: '#4f46e5', fillColor: '#4f46e5', fillOpacity: 0.1 }}
+                    />
+                </>
+            )}
+            
+            {/* Marcadores de comedores */}
             {comedores && comedores.map((comedor) => (
                 <Marker
                     key={comedor.id_comedor}
@@ -32,6 +77,11 @@ export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zo
                         <div className="p-2">
                             <h3 className="font-bold text-lg">{comedor.nombre}</h3>
                             <p className="text-sm text-gray-600">{comedor.direccion}</p>
+                            {comedor.distancia && (
+                                <p className="text-sm mt-1 text-indigo-600 font-semibold">
+                                    📍 {comedor.distancia.toFixed(2)} km de distancia
+                                </p>
+                            )}
                             {comedor.telefono && (
                                 <p className="text-sm mt-1">
                                     📞 <a href={`tel:${comedor.telefono}`} className="text-blue-600 hover:underline">

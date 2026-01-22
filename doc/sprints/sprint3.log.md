@@ -18,7 +18,8 @@
 - ✅ **HU-011:** Implementar autenticación de Administrador - COMPLETADO
 - ✅ **HU-006:** Implementar autenticación de Gestor - COMPLETADO
 - ✅ **TT-S3-010:** Integrar Leaflet.js en componentes React - COMPLETADO
-- ⏳ **HU-001:** Migrar Búsqueda geolocalizada a React + Inertia - NO INICIADO
+- ✅ **HU-001:** Migrar Búsqueda geolocalizada a React + Inertia - COMPLETADO
+- ⏳ **HU-003:** Migrar Ficha detallada de comedor a componente React - NO INICIADO
 - ⏳ **HU-003:** Migrar Ficha detallada de comedor a componente React - NO INICIADO
 - ⏳ **HU-009:** Migrar Panel de administración (aprobar comedores) - NO INICIADO
 - ⏳ **HU-002:** Implementar Filtrado avanzado de comedores - NO INICIADO
