@@ -24,4 +24,45 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Rutas protegidas por rol de Administrador
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Panel de administración
+    Route::get('/dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->name('dashboard');
+    
+    // Gestión de comedores pendientes
+    Route::get('/comedores/pendientes', function () {
+        return Inertia::render('Admin/ComedoresPendientes');
+    })->name('comedores.pendientes');
+    
+    // Moderación de comentarios
+    Route::get('/comentarios/moderar', function () {
+        return Inertia::render('Admin/ModerarComentarios');
+    })->name('comentarios.moderar');
+});
+
+// Rutas protegidas por rol de Gestor
+Route::middleware(['auth', 'role:gestor'])->prefix('gestor')->name('gestor.')->group(function () {
+    // Panel de gestor
+    Route::get('/dashboard', function () {
+        return Inertia::render('Gestor/Dashboard');
+    })->name('dashboard');
+    
+    // Actualizar estado del comedor
+    Route::get('/estado', function () {
+        return Inertia::render('Gestor/ActualizarEstado');
+    })->name('estado');
+    
+    // Gestionar necesidades
+    Route::get('/necesidades', function () {
+        return Inertia::render('Gestor/GestionarNecesidades');
+    })->name('necesidades');
+    
+    // Gestionar horarios
+    Route::get('/horarios', function () {
+        return Inertia::render('Gestor/GestionarHorarios');
+    })->name('horarios');
+});
+
 require __DIR__.'/auth.php';

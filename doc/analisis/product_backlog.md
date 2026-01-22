@@ -23,15 +23,15 @@ Lista de Historias de Usuario y Tareas Técnicas en orden de realización.
 
 ## Sprint 3 (En progreso)
 
-- ⏳ TT-S3-001: Limpiar código PHP puro y preparar repositorio
-- ⏳ TT-S3-002: Crear proyecto Laravel 12 en /src/
-- ⏳ TT-S3-003: Instalar Laravel Breeze con React 19 e Inertia.js
-- ⏳ TT-S3-004: Configurar Tailwind CSS y estructura de componentes
-- ⏳ TT-S3-005: Configurar base de datos y crear migraciones iniciales
-- ⏳ TT-S3-006: Crear migraciones de tablas (comedores, usuarios, horarios, necesidades, comentarios)
-- ⏳ TT-S3-007: Crear Models Eloquent con relaciones
-- ⏳ TT-S3-008: Crear seeders con datos de prueba
-- ⏳ TT-S3-009: Configurar sistema de roles (admin, gestor, ciudadano)
+- ✅ TT-S3-001: Limpiar código PHP puro y preparar repositorio
+- ✅ TT-S3-002: Crear proyecto Laravel 12 en /src/
+- ✅ TT-S3-003: Instalar Laravel Breeze con React 19 e Inertia.js
+- ✅ TT-S3-004: Configurar Tailwind CSS y estructura de componentes
+- ✅ TT-S3-005: Configurar base de datos y crear migraciones iniciales
+- ✅ TT-S3-006: Crear migraciones de tablas (comedores, usuarios, horarios, necesidades, comentarios)
+- ✅ TT-S3-007: Crear Models Eloquent con relaciones
+- ✅ TT-S3-008: Crear seeders con datos de prueba
+- ✅ TT-S3-009: Configurar sistema de roles (admin, gestor, ciudadano)
 - ⏳ HU-011: Implementar autenticación de Administrador
 - ⏳ HU-006: Implementar autenticación de Gestor
 - ⏳ TT-S3-010: Integrar Leaflet.js en componentes React

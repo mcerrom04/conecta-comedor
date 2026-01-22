@@ -6,15 +6,15 @@
 
 ## Tareas del Sprint (Orden Cronológico)
 
-- ⏳ **TT-S3-001:** Limpiar código PHP puro y preparar repositorio - NO INICIADO
-- ⏳ **TT-S3-002:** Crear proyecto Laravel 12 en /src/ - NO INICIADO
-- ⏳ **TT-S3-003:** Instalar Laravel Breeze con React 19 e Inertia.js - NO INICIADO
-- ⏳ **TT-S3-004:** Configurar Tailwind CSS y estructura de componentes - NO INICIADO
-- ⏳ **TT-S3-005:** Configurar base de datos y crear migraciones iniciales - NO INICIADO
-- ⏳ **TT-S3-006:** Crear migraciones de tablas basadas en bbdd.sql (comedores, usuarios, horarios, necesidades, comentarios) - NO INICIADO
-- ⏳ **TT-S3-007:** Crear Models Eloquent (Comedor, Usuario, Horario, Necesidad, Comentario) con relaciones - NO INICIADO
-- ⏳ **TT-S3-008:** Crear seeders con datos de prueba - NO INICIADO
-- ⏳ **TT-S3-009:** Configurar sistema de roles (admin, gestor, ciudadano) - NO INICIADO
+- ✅ **TT-S3-001:** Limpiar código PHP puro y preparar repositorio - COMPLETADO (22/01/2026)
+- ✅ **TT-S3-002:** Crear proyecto Laravel 12 en /src/ - COMPLETADO (22/01/2026)
+- ✅ **TT-S3-003:** Instalar Laravel Breeze con React 19 e Inertia.js - COMPLETADO (22/01/2026)
+- ✅ **TT-S3-004:** Configurar Tailwind CSS y estructura de componentes - COMPLETADO (22/01/2026)
+- ✅ **TT-S3-005:** Configurar base de datos y crear migraciones iniciales - COMPLETADO (22/01/2026)
+- ✅ **TT-S3-006:** Crear migraciones de tablas basadas en bbdd.sql (comedores, usuarios, horarios, necesidades, comentarios) - COMPLETADO (22/01/2026)
+- ✅ **TT-S3-007:** Crear Models Eloquent (Comedor, Usuario, Horario, Necesidad, Comentario) con relaciones - COMPLETADO (22/01/2026)
+- ✅ **TT-S3-008:** Crear seeders con datos de prueba - COMPLETADO (22/01/2026)
+- ✅ **TT-S3-009:** Configurar sistema de roles (admin, gestor, ciudadano) - COMPLETADO (22/01/2026)
 - ⏳ **HU-011:** Implementar autenticación de Administrador - NO INICIADO
 - ⏳ **HU-006:** Implementar autenticación de Gestor - NO INICIADO
 - ⏳ **TT-S3-010:** Integrar Leaflet.js en componentes React - NO INICIADO
