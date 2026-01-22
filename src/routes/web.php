@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComedorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -31,9 +32,10 @@ Route::middleware('auth')->group(function () {
 });
 
 // Ruta pública del mapa (accesible para todos)
-Route::get('/mapa', function () {
-    return Inertia::render('Mapa/Index');
-})->name('mapa');
+Route::get('/mapa', [ComedorController::class, 'mapa'])->name('mapa');
+
+// Ruta para ver ficha de comedor
+Route::get('/comedor/{id}', [ComedorController::class, 'show'])->name('comedor.show');
 
 // Rutas protegidas por rol de Administrador
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

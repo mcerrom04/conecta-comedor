@@ -6,18 +6,18 @@
 
 ## Tareas del Sprint (Orden Cronológico)
 
-- ✅ **TT-S3-001:** Limpiar código PHP puro y preparar repositorio - COMPLETADO (22/01/2026)
-- ✅ **TT-S3-002:** Crear proyecto Laravel 12 en /src/ - COMPLETADO (22/01/2026)
-- ✅ **TT-S3-003:** Instalar Laravel Breeze con React 19 e Inertia.js - COMPLETADO (22/01/2026)
-- ✅ **TT-S3-004:** Configurar Tailwind CSS y estructura de componentes - COMPLETADO (22/01/2026)
-- ✅ **TT-S3-005:** Configurar base de datos y crear migraciones iniciales - COMPLETADO (22/01/2026)
-- ✅ **TT-S3-006:** Crear migraciones de tablas basadas en bbdd.sql (comedores, usuarios, horarios, necesidades, comentarios) - COMPLETADO (22/01/2026)
-- ✅ **TT-S3-007:** Crear Models Eloquent (Comedor, Usuario, Horario, Necesidad, Comentario) con relaciones - COMPLETADO (22/01/2026)
-- ✅ **TT-S3-008:** Crear seeders con datos de prueba - COMPLETADO (22/01/2026)
-- ✅ **TT-S3-009:** Configurar sistema de roles (admin, gestor, ciudadano) - COMPLETADO (22/01/2026)
-- ⏳ **HU-011:** Implementar autenticación de Administrador - NO INICIADO
-- ⏳ **HU-006:** Implementar autenticación de Gestor - NO INICIADO
-- ⏳ **TT-S3-010:** Integrar Leaflet.js en componentes React - NO INICIADO
+- ✅ **TT-S3-001:** Limpiar código PHP puro y preparar repositorio - COMPLETADO
+- ✅ **TT-S3-002:** Crear proyecto Laravel 12 en /src/ - COMPLETADO
+- ✅ **TT-S3-003:** Instalar Laravel Breeze con React 19 e Inertia.js - COMPLETADO
+- ✅ **TT-S3-004:** Configurar Tailwind CSS y estructura de componentes - COMPLETADO
+- ✅ **TT-S3-005:** Configurar base de datos y crear migraciones iniciales - COMPLETADO
+- ✅ **TT-S3-006:** Crear migraciones de tablas basadas en bbdd.sql (comedores, usuarios, horarios, necesidades, comentarios) - COMPLETADO
+- ✅ **TT-S3-007:** Crear Models Eloquent (Comedor, Usuario, Horario, Necesidad, Comentario) con relaciones - COMPLETADO
+- ✅ **TT-S3-008:** Crear seeders con datos de prueba - COMPLETADO
+- ✅ **TT-S3-009:** Configurar sistema de roles (admin, gestor, ciudadano) - COMPLETADO
+- ✅ **HU-011:** Implementar autenticación de Administrador - COMPLETADO
+- ✅ **HU-006:** Implementar autenticación de Gestor - COMPLETADO
+- ✅ **TT-S3-010:** Integrar Leaflet.js en componentes React - COMPLETADO
 - ⏳ **HU-001:** Migrar Búsqueda geolocalizada a React + Inertia - NO INICIADO
 - ⏳ **HU-003:** Migrar Ficha detallada de comedor a componente React - NO INICIADO
 - ⏳ **HU-009:** Migrar Panel de administración (aprobar comedores) - NO INICIADO
