@@ -20,7 +20,7 @@
 - ✅ **TT-S3-010:** Integrar Leaflet.js en componentes React - COMPLETADO
 - ✅ **HU-001:** Migrar Búsqueda geolocalizada a React + Inertia - COMPLETADO
 - ✅ **HU-003:** Migrar Ficha detallada de comedor a componente React - COMPLETADO
-- ⏳ **HU-009:** Migrar Panel de administración (aprobar comedores) - NO INICIADO
+- ✅ **HU-009:** Migrar Panel de administración (aprobar comedores) - COMPLETADO
 - ⏳ **HU-002:** Implementar Filtrado avanzado de comedores - NO INICIADO
 - ⏳ **HU-005:** Implementar Ver lista de necesidades del comedor - NO INICIADO
 - ⏳ **HU-014:** Implementar Búsqueda por dirección específica - NO INICIADO

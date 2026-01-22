@@ -45,9 +45,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     })->name('dashboard');
     
     // Gestión de comedores pendientes
-    Route::get('/comedores/pendientes', function () {
-        return Inertia::render('Admin/ComedoresPendientes');
-    })->name('comedores.pendientes');
+    Route::get('/comedores/pendientes', [ComedorController::class, 'pendientes'])->name('comedores.pendientes');
+    Route::post('/comedores/{id}/aprobar', [ComedorController::class, 'aprobar'])->name('comedores.aprobar');
+    Route::post('/comedores/{id}/rechazar', [ComedorController::class, 'rechazar'])->name('comedores.rechazar');
     
     // Moderación de comentarios
     Route::get('/comentarios/moderar', function () {
