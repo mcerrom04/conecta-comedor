@@ -35,4 +35,60 @@ class ComedorController extends Controller
             'comedor' => $comedor,
         ]);
     }
+
+    /**
+     * Listar comedores pendientes de aprobación (Admin)
+     */
+    public function pendientes()
+    {
+        $comedores = Comedor::where('estado', 'pendiente')
+            ->with(['horarios'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return Inertia::render('Admin/ComedoresPendientes', [
+            'comedores' => $comedores,
+        ]);
+    }
+
+    /**
+     * Aprobar un comedor pendiente
+     */
+    public function aprobar($id)
+    {
+        $comedor = Comedor::findOrFail($id);
+        
+        if ($comedor->estado !== 'pendiente') {
+            return redirect()->back()->with('error', 'Este comedor ya ha sido procesado');
+        }
+
+        $comedor->update([
+            'estado' => 'activo',
+            'visible' => true,
+        ]);
+
+        return redirect()->back()->with('success', 'Comedor aprobado correctamente');
+    }
+
+    /**
+     * Rechazar un comedor pendiente
+     */
+    public function rechazar(Request $request, $id)
+    {
+        $comedor = Comedor::findOrFail($id);
+        
+        if ($comedor->estado !== 'pendiente') {
+            return redirect()->back()->with('error', 'Este comedor ya ha sido procesado');
+        }
+
+        $comedor->update([
+            'estado' => 'rechazado',
+            'visible' => false,
+        ]);
+
+        // Aquí se podría enviar email de notificación al gestor
+        // TODO: Implementar notificación por email (TT-S3-011)
+
+        return redirect()->back()->with('success', 'Comedor rechazado');
+    }
 }
