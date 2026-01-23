@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('id_necesidad');
             $table->unsignedBigInteger('id_comedor');
             $table->foreign('id_comedor')->references('id_comedor')->on('comedores')->onDelete('cascade');
-            $table->enum('tipo', ['alimento', 'producto', 'voluntariado']);
-            $table->string('descripcion');
+            $table->string('tipo', 100); // Cambio a string para flexibilidad
+            $table->text('descripcion')->nullable();
             $table->enum('urgencia', ['baja', 'media', 'alta'])->default('media');
             $table->timestamps();
         });
