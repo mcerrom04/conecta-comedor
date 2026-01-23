@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -30,7 +30,16 @@ function MapUpdater({ center }) {
     return null;
 }
 
-export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zoom = 12, userLocation = null }) {
+export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zoom = 12, userLocation = null, comedorSeleccionado = null }) {
+    const markersRef = useRef({});
+
+    // Efecto para abrir el popup del comedor seleccionado
+    useEffect(() => {
+        if (comedorSeleccionado && markersRef.current[comedorSeleccionado.id_comedor]) {
+            markersRef.current[comedorSeleccionado.id_comedor].openPopup();
+        }
+    }, [comedorSeleccionado]);
+
     return (
         <MapContainer
             center={center}
@@ -72,6 +81,11 @@ export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zo
                 <Marker
                     key={comedor.id_comedor}
                     position={[parseFloat(comedor.latitud), parseFloat(comedor.longitud)]}
+                    ref={(ref) => {
+                        if (ref) {
+                            markersRef.current[comedor.id_comedor] = ref;
+                        }
+                    }}
                 >
                     <Popup>
                         <div className="p-2">
