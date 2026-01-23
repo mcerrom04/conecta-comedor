@@ -10,7 +10,7 @@ export default function MapaIndex({ comedores, auth }) {
     
     // Estados de filtros
     const [filtroTexto, setFiltroTexto] = useState('');
-    const [filtroEstado, setFiltroEstado] = useState('');
+    const [filtroEstado, setFiltroEstado] = useState('todos');
     const [filtroDistancia, setFiltroDistancia] = useState(10);
     const [filtroDistanciaActivo, setFiltroDistanciaActivo] = useState(false);
     const [filtroHora, setFiltroHora] = useState('');
