@@ -18,10 +18,12 @@ return new class extends Migration
             $table->decimal('latitud', 9, 6);
             $table->decimal('longitud', 9, 6);
             $table->string('telefono', 20)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->text('descripcion')->nullable();
             $table->text('normas')->nullable();
-            $table->enum('estado', ['pendiente', 'activo', 'rechazado'])->default('pendiente');
+            $table->enum('estado', ['pendiente', 'activo', 'rechazado'])->default('pendiente'); // Estado administrativo
+            $table->enum('estado_actual', ['abierto', 'cerrado', 'completo'])->default('cerrado'); // Estado operativo del día
             $table->boolean('visible')->default(true);
-            $table->enum('estado_actual', ['abierto', 'cerrado'])->default('cerrado');
             $table->integer('aforo_disponible')->nullable();
             $table->text('observaciones')->nullable();
             $table->timestamp('ultima_actualizacion')->nullable();

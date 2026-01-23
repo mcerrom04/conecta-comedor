@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Comedor;
+use App\Models\Necesidad;
 
 class ComedorSeeder extends Seeder
 {
@@ -13,171 +15,256 @@ class ComedorSeeder extends Seeder
      */
     public function run(): void
     {
-        // Comedores visibles repartidos por Madrid
-        $comedores = [
-            [
-                'nombre' => 'Comedor Central',
-                'direccion' => 'Calle Mayor 1, Madrid',
-                'latitud' => 40.416775,
-                'longitud' => -3.703790,
-                'telefono' => '911234567',
-                'normas' => 'Normas generales de convivencia',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Norte',
-                'direccion' => 'Calle Arturo Soria 100, Madrid',
-                'latitud' => 40.4650,
-                'longitud' => -3.6540,
-                'telefono' => '911111112',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Sur',
-                'direccion' => 'Avenida de Andalucía 50, Madrid',
-                'latitud' => 40.3700,
-                'longitud' => -3.7000,
-                'telefono' => '911111113',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Este',
-                'direccion' => 'Calle Alcalá 600, Madrid',
-                'latitud' => 40.4370,
-                'longitud' => -3.6150,
-                'telefono' => '911111114',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Oeste',
-                'direccion' => 'Calle Princesa 89, Madrid',
-                'latitud' => 40.4300,
-                'longitud' => -3.7200,
-                'telefono' => '911111115',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Chamartín',
-                'direccion' => 'Plaza Castilla 1, Madrid',
-                'latitud' => 40.4675,
-                'longitud' => -3.6880,
-                'telefono' => '911111116',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Vallecas',
-                'direccion' => 'Avenida de la Albufera 200, Madrid',
-                'latitud' => 40.3910,
-                'longitud' => -3.6580,
-                'telefono' => '911111117',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Carabanchel',
-                'direccion' => 'Calle General Ricardos 150, Madrid',
-                'latitud' => 40.3840,
-                'longitud' => -3.7450,
-                'telefono' => '911111118',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Tetuán',
-                'direccion' => 'Calle Bravo Murillo 300, Madrid',
-                'latitud' => 40.4600,
-                'longitud' => -3.7030,
-                'telefono' => '911111119',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            [
-                'nombre' => 'Comedor Retiro',
-                'direccion' => 'Calle Retiro 50, Madrid',
-                'latitud' => 40.4210,
-                'longitud' => -3.6740,
-                'telefono' => '911111120',
-                'normas' => 'Normas básicas',
-                'estado' => 'activo',
-                'visible' => true,
-            ],
-            // Comedores NO visibles (pendientes de aprobación)
-            [
-                'nombre' => 'Comedor Usera',
-                'direccion' => 'Calle Marcelo Usera 150, Madrid',
-                'latitud' => 40.3800,
-                'longitud' => -3.7070,
-                'telefono' => '911111130',
-                'normas' => 'Normas básicas',
-                'estado' => 'pendiente',
-                'visible' => false,
-            ],
-            [
-                'nombre' => 'Comedor Barajas',
-                'direccion' => 'Avenida Logroño 300, Madrid',
-                'latitud' => 40.4730,
-                'longitud' => -3.5770,
-                'telefono' => '911111131',
-                'normas' => 'Normas básicas',
-                'estado' => 'pendiente',
-                'visible' => false,
-            ],
-        ];
+        // Comedores en Madrid
+        $comedor1 = Comedor::create([
+            'nombre' => 'Comedor Central Madrid',
+            'direccion' => 'Calle Mayor 1, Madrid',
+            'latitud' => 40.416775,
+            'longitud' => -3.703790,
+            'telefono' => '911234567',
+            'email' => 'central@comedores.madrid',
+            'descripcion' => 'Comedor social en el centro de Madrid. Ofrecemos comidas diarias y atención integral.',
+            'normas' => 'Respetar turnos, mantener limpieza, no consumir alcohol',
+            'estado' => 'activo',
+            'estado_actual' => 'abierto',
+            'visible' => true,
+        ]);
 
-        foreach ($comedores as $comedor) {
-            DB::table('comedores')->insert($comedor);
-        }
+        $comedor2 = Comedor::create([
+            'nombre' => 'Comedor Norte',
+            'direccion' => 'Calle Arturo Soria 100, Madrid',
+            'latitud' => 40.4650,
+            'longitud' => -3.6540,
+            'telefono' => '911111112',
+            'email' => 'norte@comedores.madrid',
+            'descripcion' => 'Comedor social en zona norte.',
+            'normas' => 'Normas básicas de convivencia',
+            'estado' => 'activo',
+            'estado_actual' => 'cerrado',
+            'visible' => true,
+        ]);
 
-        // Horarios de prueba
+        $comedor3 = Comedor::create([
+            'nombre' => 'Comedor Sur Vallecas',
+            'direccion' => 'Avenida de la Albufera 200, Madrid',
+            'latitud' => 40.3910,
+            'longitud' => -3.6580,
+            'telefono' => '911111117',
+            'email' => 'vallecas@comedores.madrid',
+            'descripcion' => 'Comedor social en Vallecas con servicio de desayuno y comida.',
+            'normas' => 'Puntualidad y respeto mutuo',
+            'estado' => 'activo',
+            'estado_actual' => 'completo',
+            'visible' => true,
+        ]);
+
+        $comedor4 = Comedor::create([
+            'nombre' => 'Comedor Carabanchel',
+            'direccion' => 'Calle General Ricardos 150, Madrid',
+            'latitud' => 40.3840,
+            'longitud' => -3.7450,
+            'telefono' => '911111118',
+            'email' => 'carabanchel@comedores.madrid',
+            'descripcion' => 'Comedor social familiar en Carabanchel.',
+            'normas' => 'Ambiente familiar y respetuoso',
+            'estado' => 'activo',
+            'estado_actual' => 'abierto',
+            'visible' => true,
+        ]);
+
+        $comedor5 = Comedor::create([
+            'nombre' => 'Comedor Tetuán',
+            'direccion' => 'Calle Bravo Murillo 300, Madrid',
+            'latitud' => 40.4600,
+            'longitud' => -3.7030,
+            'telefono' => '911111119',
+            'email' => 'tetuan@comedores.madrid',
+            'descripcion' => 'Comedor social en Tetuán.',
+            'normas' => 'Normas básicas',
+            'estado' => 'activo',
+            'estado_actual' => 'abierto',
+            'visible' => true,
+        ]);
+
+        // Comedores en Badajoz
+        $comedor6 = Comedor::create([
+            'nombre' => 'Comedor San Roque',
+            'direccion' => 'Calle San Roque 15, Badajoz',
+            'latitud' => 38.8794,
+            'longitud' => -6.9707,
+            'telefono' => '924123456',
+            'email' => 'sanroque@comedores.badajoz',
+            'descripcion' => 'Comedor social en el barrio de San Roque.',
+            'normas' => 'Respeto y convivencia pacífica',
+            'estado' => 'activo',
+            'estado_actual' => 'abierto',
+            'visible' => true,
+        ]);
+
+        $comedor7 = Comedor::create([
+            'nombre' => 'Comedor Casco Antiguo',
+            'direccion' => 'Plaza de España 8, Badajoz',
+            'latitud' => 38.8797,
+            'longitud' => -6.9700,
+            'telefono' => '924111222',
+            'email' => 'cascoantiguobadajoz@comedores.es',
+            'descripcion' => 'Comedor social en el centro histórico de Badajoz.',
+            'normas' => 'Mantener orden y limpieza',
+            'estado' => 'activo',
+            'estado_actual' => 'cerrado',
+            'visible' => true,
+        ]);
+
+        $comedor8 = Comedor::create([
+            'nombre' => 'Comedor Pardaleras',
+            'direccion' => 'Avenida de Elvas 50, Badajoz',
+            'latitud' => 38.8850,
+            'longitud' => -6.9840,
+            'telefono' => '924333444',
+            'email' => 'pardaleras@comedores.badajoz',
+            'descripcion' => 'Comedor social en el barrio de Pardaleras.',
+            'normas' => 'Respeto a todo el personal y usuarios',
+            'estado' => 'activo',
+            'estado_actual' => 'abierto',
+            'visible' => true,
+        ]);
+
+        // Comedores pendientes de aprobación
+        $comedor9 = Comedor::create([
+            'nombre' => 'Comedor Usera (Pendiente)',
+            'direccion' => 'Calle Marcelo Usera 150, Madrid',
+            'latitud' => 40.3800,
+            'longitud' => -3.7070,
+            'telefono' => '911111130',
+            'email' => 'usera@comedores.madrid',
+            'normas' => 'Normas básicas',
+            'estado' => 'pendiente',
+            'visible' => false,
+        ]);
+
+        $comedor10 = Comedor::create([
+            'nombre' => 'Comedor Valdepasillas (Pendiente)',
+            'direccion' => 'Calle Valdepasillas 20, Badajoz',
+            'latitud' => 38.8700,
+            'longitud' => -6.9600,
+            'telefono' => '924555666',
+            'email' => 'valdepasillas@comedores.badajoz',
+            'normas' => 'Normas básicas',
+            'estado' => 'pendiente',
+            'visible' => false,
+        ]);
+
+        // NECESIDADES para varios comedores
+        
+        // Comedor Central Madrid - Urgencia ALTA
+        Necesidad::create([
+            'id_comedor' => $comedor1->id_comedor,
+            'tipo' => 'Alimentos',
+            'descripcion' => 'Necesitamos arroz, pasta, legumbres y aceite de forma urgente. Atendemos a 150 personas diarias.',
+            'urgencia' => 'alta',
+        ]);
+        
+        Necesidad::create([
+            'id_comedor' => $comedor1->id_comedor,
+            'tipo' => 'Voluntariado',
+            'descripcion' => 'Buscamos voluntarios para cocina y servicio de comedor los fines de semana.',
+            'urgencia' => 'media',
+        ]);
+
+        // Comedor Vallecas - Urgencia MEDIA
+        Necesidad::create([
+            'id_comedor' => $comedor3->id_comedor,
+            'tipo' => 'Productos de higiene',
+            'descripcion' => 'Necesitamos gel de baño, champú, papel higiénico y productos de limpieza.',
+            'urgencia' => 'media',
+        ]);
+
+        Necesidad::create([
+            'id_comedor' => $comedor3->id_comedor,
+            'tipo' => 'Ropa',
+            'descripcion' => 'Ropa de invierno para adultos: abrigos, mantas y calzado.',
+            'urgencia' => 'alta',
+        ]);
+
+        // Comedor Carabanchel - Urgencia BAJA
+        Necesidad::create([
+            'id_comedor' => $comedor4->id_comedor,
+            'tipo' => 'Alimentos',
+            'descripcion' => 'Frutas frescas, verduras y lácteos.',
+            'urgencia' => 'baja',
+        ]);
+
+        Necesidad::create([
+            'id_comedor' => $comedor4->id_comedor,
+            'tipo' => 'Otros',
+            'descripcion' => 'Menaje de cocina: platos, cubiertos y vasos.',
+            'urgencia' => 'baja',
+        ]);
+
+        // Comedor San Roque Badajoz - Urgencia ALTA
+        Necesidad::create([
+            'id_comedor' => $comedor6->id_comedor,
+            'tipo' => 'Alimentos',
+            'descripcion' => 'Urgente: leche, huevos, pan y alimentos no perecederos.',
+            'urgencia' => 'alta',
+        ]);
+
+        Necesidad::create([
+            'id_comedor' => $comedor6->id_comedor,
+            'tipo' => 'Voluntariado',
+            'descripcion' => 'Necesitamos personal médico o enfermería voluntaria 1 día a la semana.',
+            'urgencia' => 'alta',
+        ]);
+
+        // Comedor Pardaleras Badajoz - Urgencia MEDIA
+        Necesidad::create([
+            'id_comedor' => $comedor8->id_comedor,
+            'tipo' => 'Productos de higiene',
+            'descripcion' => 'Pañales para bebés y adultos, toallitas húmedas.',
+            'urgencia' => 'media',
+        ]);
+
+        // HORARIOS
         $horarios = [
-            // Comedor Central (id_comedor: 1)
-            ['id_comedor' => 1, 'dia_semana' => 'lunes', 'hora_apertura' => '12:00:00', 'hora_cierre' => '15:00:00', 'tipo_servicio' => 'comida'],
-            ['id_comedor' => 1, 'dia_semana' => 'miercoles', 'hora_apertura' => '12:00:00', 'hora_cierre' => '15:00:00', 'tipo_servicio' => 'comida'],
-            ['id_comedor' => 1, 'dia_semana' => 'viernes', 'hora_apertura' => '12:00:00', 'hora_cierre' => '15:00:00', 'tipo_servicio' => 'comida'],
+            // Comedor Central (id: 1) - Lunes a Viernes
+            ['id_comedor' => $comedor1->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '12:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor1->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '19:00', 'hora_cierre' => '21:00', 'tipo_servicio' => 'cena'],
+            ['id_comedor' => $comedor1->id_comedor, 'dia_semana' => 'martes', 'hora_apertura' => '12:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor1->id_comedor, 'dia_semana' => 'miercoles', 'hora_apertura' => '12:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor1->id_comedor, 'dia_semana' => 'jueves', 'hora_apertura' => '12:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor1->id_comedor, 'dia_semana' => 'viernes', 'hora_apertura' => '12:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
             
-            // Comedor Norte (id_comedor: 2)
-            ['id_comedor' => 2, 'dia_semana' => 'martes', 'hora_apertura' => '13:00:00', 'hora_cierre' => '16:00:00', 'tipo_servicio' => 'comida'],
-            ['id_comedor' => 2, 'dia_semana' => 'jueves', 'hora_apertura' => '13:00:00', 'hora_cierre' => '16:00:00', 'tipo_servicio' => 'comida'],
+            // Comedor Norte (id: 2)
+            ['id_comedor' => $comedor2->id_comedor, 'dia_semana' => 'martes', 'hora_apertura' => '13:00', 'hora_cierre' => '16:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor2->id_comedor, 'dia_semana' => 'jueves', 'hora_apertura' => '13:00', 'hora_cierre' => '16:00', 'tipo_servicio' => 'comida'],
             
-            // Comedor Sur (id_comedor: 3)
-            ['id_comedor' => 3, 'dia_semana' => 'lunes', 'hora_apertura' => '11:30:00', 'hora_cierre' => '14:30:00', 'tipo_servicio' => 'comida'],
-            ['id_comedor' => 3, 'dia_semana' => 'viernes', 'hora_apertura' => '11:30:00', 'hora_cierre' => '14:30:00', 'tipo_servicio' => 'comida'],
+            // Comedor Vallecas (id: 3)
+            ['id_comedor' => $comedor3->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '08:00', 'hora_cierre' => '10:00', 'tipo_servicio' => 'desayuno'],
+            ['id_comedor' => $comedor3->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '13:00', 'hora_cierre' => '15:30', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor3->id_comedor, 'dia_semana' => 'viernes', 'hora_apertura' => '13:00', 'hora_cierre' => '15:30', 'tipo_servicio' => 'comida'],
             
-            // Comedor Este (id_comedor: 4)
-            ['id_comedor' => 4, 'dia_semana' => 'miercoles', 'hora_apertura' => '12:30:00', 'hora_cierre' => '15:30:00', 'tipo_servicio' => 'comida'],
+            // Comedor Carabanchel (id: 4)
+            ['id_comedor' => $comedor4->id_comedor, 'dia_semana' => 'miercoles', 'hora_apertura' => '12:30', 'hora_cierre' => '15:30', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor4->id_comedor, 'dia_semana' => 'sabado', 'hora_apertura' => '13:00', 'hora_cierre' => '16:00', 'tipo_servicio' => 'comida'],
             
-            // Comedor Oeste (id_comedor: 5)
-            ['id_comedor' => 5, 'dia_semana' => 'sabado', 'hora_apertura' => '13:00:00', 'hora_cierre' => '16:00:00', 'tipo_servicio' => 'comida'],
+            // Comedor Tetuán (id: 5)
+            ['id_comedor' => $comedor5->id_comedor, 'dia_semana' => 'domingo', 'hora_apertura' => '12:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
             
-            // Comedor Chamartín (id_comedor: 6)
-            ['id_comedor' => 6, 'dia_semana' => 'domingo', 'hora_apertura' => '12:00:00', 'hora_cierre' => '15:00:00', 'tipo_servicio' => 'comida'],
+            // Comedor San Roque Badajoz (id: 6)
+            ['id_comedor' => $comedor6->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '12:00', 'hora_cierre' => '14:30', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor6->id_comedor, 'dia_semana' => 'miercoles', 'hora_apertura' => '12:00', 'hora_cierre' => '14:30', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor6->id_comedor, 'dia_semana' => 'viernes', 'hora_apertura' => '12:00', 'hora_cierre' => '14:30', 'tipo_servicio' => 'comida'],
             
-            // Comedor Vallecas (id_comedor: 7)
-            ['id_comedor' => 7, 'dia_semana' => 'lunes', 'hora_apertura' => '12:00:00', 'hora_cierre' => '15:00:00', 'tipo_servicio' => 'comida'],
-            ['id_comedor' => 7, 'dia_semana' => 'martes', 'hora_apertura' => '12:00:00', 'hora_cierre' => '15:00:00', 'tipo_servicio' => 'comida'],
+            // Comedor Casco Antiguo Badajoz (id: 7)
+            ['id_comedor' => $comedor7->id_comedor, 'dia_semana' => 'martes', 'hora_apertura' => '13:00', 'hora_cierre' => '15:30', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor7->id_comedor, 'dia_semana' => 'jueves', 'hora_apertura' => '13:00', 'hora_cierre' => '15:30', 'tipo_servicio' => 'comida'],
             
-            // Comedor Carabanchel (id_comedor: 8)
-            ['id_comedor' => 8, 'dia_semana' => 'jueves', 'hora_apertura' => '13:00:00', 'hora_cierre' => '16:00:00', 'tipo_servicio' => 'comida'],
-            
-            // Comedor Tetuán (id_comedor: 9)
-            ['id_comedor' => 9, 'dia_semana' => 'viernes', 'hora_apertura' => '12:00:00', 'hora_cierre' => '15:00:00', 'tipo_servicio' => 'comida'],
-            
-            // Comedor Retiro (id_comedor: 10)
-            ['id_comedor' => 10, 'dia_semana' => 'sabado', 'hora_apertura' => '13:00:00', 'hora_cierre' => '16:00:00', 'tipo_servicio' => 'comida'],
+            // Comedor Pardaleras Badajoz (id: 8)
+            ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'martes', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'miercoles', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'jueves', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'viernes', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
         ];
 
         foreach ($horarios as $horario) {
