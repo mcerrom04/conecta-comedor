@@ -19,6 +19,13 @@ const userIcon = L.divIcon({
     iconAnchor: [10, 10]
 });
 
+const searchIcon = L.divIcon({
+    className: 'custom-search-marker',
+    html: '<div style="background-color: #0ea5e9; width: 22px; height: 22px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(14,165,233,0.6);"></div>',
+    iconSize: [22, 22],
+    iconAnchor: [11, 11]
+});
+
 // Componente para actualizar el centro del mapa cuando cambia
 function MapUpdater({ center }) {
     const map = useMap();
@@ -30,7 +37,7 @@ function MapUpdater({ center }) {
     return null;
 }
 
-export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zoom = 12, userLocation = null, comedorSeleccionado = null }) {
+export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zoom = 12, userLocation = null, searchLocation = null, comedorSeleccionado = null }) {
     const markersRef = useRef({});
 
     // Efecto para abrir el popup del comedor seleccionado
@@ -72,6 +79,28 @@ export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zo
                         center={[userLocation.lat, userLocation.lng]}
                         radius={100}
                         pathOptions={{ color: '#4f46e5', fillColor: '#4f46e5', fillOpacity: 0.1 }}
+                    />
+                </>
+            )}
+            {searchLocation && (
+                <>
+                    <Marker
+                        position={[searchLocation.lat, searchLocation.lng]}
+                        icon={searchIcon}
+                    >
+                        <Popup>
+                            <div className="p-2">
+                                <h3 className="font-bold text-lg">Dirección buscada</h3>
+                                <p className="text-sm text-gray-600">
+                                    {searchLocation.label}
+                                </p>
+                            </div>
+                        </Popup>
+                    </Marker>
+                    <Circle
+                        center={[searchLocation.lat, searchLocation.lng]}
+                        radius={200}
+                        pathOptions={{ color: '#0ea5e9', fillColor: '#38bdf8', fillOpacity: 0.15 }}
                     />
                 </>
             )}
