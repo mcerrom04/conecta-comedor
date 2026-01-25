@@ -125,6 +125,11 @@ export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zo
                                     📍 {comedor.distancia.toFixed(2)} km de distancia
                                 </p>
                             )}
+                            {comedor.observaciones && (
+                                <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800 italic">
+                                    <strong>Aviso:</strong> {comedor.observaciones}
+                                </div>
+                            )}
                             {comedor.telefono && (
                                 <p className="text-sm mt-1">
                                     📞 <a href={`tel:${comedor.telefono}`} className="text-blue-600 hover:underline">

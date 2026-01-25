@@ -21,13 +21,13 @@
 - ✅ **HU-001:** Migrar Búsqueda geolocalizada a React + Inertia - COMPLETADO
 - ✅ **HU-003:** Migrar Ficha detallada de comedor a componente React - COMPLETADO
 - ✅ **HU-009:** Migrar Panel de administración (aprobar comedores) - COMPLETADO
-- ✅ **HU-002:** Implementar Filtrado avanzado de comedores - NO INICIADO
-- ✅ **HU-005:** Implementar Ver lista de necesidades del comedor - NO INICIADO
+- ✅ **HU-002:** Implementar Filtrado avanzado de comedores - COMPLETADO
+- ✅ **HU-005:** Implementar Ver lista de necesidades del comedor - COMPLETADO
 - ✅ **HU-014:** Implementar Búsqueda por dirección específica - COMPLETADO
 - ✅ **HU-004:** Implementar Ver estado en tiempo real del comedor - COMPLETADO
-- ⏳ **HU-012:** Implementar Registro de nuevo comedor - NO INICIADO
+- ✅ **HU-012:** Implementar Registro de nuevo comedor - COMPLETADO
 - ⏳ **HU-013:** Implementar Gestionar horarios del comedor - NO INICIADO
-- ⏳ **HU-007:** Implementar Actualizar estado del día - NO INICIADO
+- ✅ **HU-007:** Implementar Actualizar estado del día - COMPLETADO
 - ⏳ **HU-008:** Implementar Gestionar lista de necesidades - NO INICIADO
 - ⏳ **HU-010:** Implementar Moderar comentarios - NO INICIADO
 - ⏳ **TT-S3-011:** Implementar sistema de notificaciones por email - NO INICIADO

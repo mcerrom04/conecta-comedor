@@ -16,6 +16,7 @@ export default function FichaComedor({ comedor, auth }) {
         estadoActual: comedor.estado_actual,
         aforoDisponible: comedor.aforo_disponible,
         ultimaActualizacion: comedor.ultima_actualizacion,
+        observaciones: comedor.observaciones,
     });
 
     // Obtener indicador de estado
@@ -54,6 +55,7 @@ export default function FichaComedor({ comedor, auth }) {
                     estadoActual: payload.estado_actual ?? prev.estadoActual,
                     aforoDisponible: payload.aforo_disponible ?? prev.aforoDisponible,
                     ultimaActualizacion: payload.ultima_actualizacion ?? prev.ultimaActualizacion,
+                    observaciones: payload.observaciones ?? prev.observaciones,
                 }));
             } catch (error) {
                 console.error('Error actualizando el estado del comedor:', error);
@@ -149,6 +151,18 @@ export default function FichaComedor({ comedor, auth }) {
                                         <span className="font-semibold text-indigo-600">Cada 45 segundos</span>
                                     </div>
                                 </div>
+
+                                {estadoEnVivo.observaciones && (
+                                    <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+                                        <div className="flex items-center">
+                                            <span className="text-xl mr-2">📢</span>
+                                            <h3 className="font-bold text-yellow-800">Aviso del gestor</h3>
+                                        </div>
+                                        <p className="mt-1 text-yellow-900">
+                                            {estadoEnVivo.observaciones}
+                                        </p>
+                                    </div>
+                                )}
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                                     {comedor.telefono && (

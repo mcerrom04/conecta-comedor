@@ -41,13 +41,14 @@ class ComedorController extends Controller
      */
     public function estado($id)
     {
-        $comedor = Comedor::select('id_comedor', 'estado_actual', 'aforo_disponible', 'ultima_actualizacion')
+        $comedor = Comedor::select('id_comedor', 'estado_actual', 'aforo_disponible', 'ultima_actualizacion', 'observaciones')
             ->findOrFail($id);
 
         return response()->json([
             'estado_actual' => $comedor->estado_actual,
             'aforo_disponible' => $comedor->aforo_disponible,
             'ultima_actualizacion' => $comedor->ultima_actualizacion?->toIso8601String(),
+            'observaciones' => $comedor->observaciones,
         ]);
     }
 
@@ -139,6 +140,45 @@ class ComedorController extends Controller
         $request->user()->comedores()->attach($comedor->id_comedor);
 
         return redirect()->route('gestor.dashboard')
-            ->with('success', 'Comedor registrado correctamente. EstÃ¡ pendiente de aprobaciÃ³n por el administrador.');
+            ->with('success', 'Comedor registrado correctamente. Está pendiente de aprobación por el administrador.');
+    }
+
+    /**
+     * Mostrar formulario para actualizar estado (HU-007)
+     */
+    public function editEstado(Comedor $comedor)
+    {
+        // Verificar que el gestor tiene permiso sobre este comedor
+        if (!auth()->user()->comedores->contains($comedor->id_comedor)) {
+            abort(403, 'No tienes permiso para gestionar este comedor.');
+        }
+
+        return Inertia::render('Gestor/ActualizarEstado', [
+            'comedor' => $comedor
+        ]);
+    }
+
+    /**
+     * Actualizar estado del día (HU-007)
+     */
+    public function updateEstado(Request $request, Comedor $comedor)
+    {
+        // Verificar que el gestor tiene permiso sobre este comedor
+        if (!auth()->user()->comedores->contains($comedor->id_comedor)) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'estado_actual' => 'required|in:abierto,cerrado,completo',
+            'aforo_disponible' => 'nullable|integer|min:0',
+            'observaciones' => 'nullable|string|max:500',
+        ]);
+
+        $comedor->update(array_merge($validated, [
+            'ultima_actualizacion' => now()
+        ]));
+
+        return redirect()->route('gestor.dashboard')
+            ->with('success', 'Estado del comedor actualizado correctamente.');
     }
 }

@@ -58,20 +58,20 @@ export default function Dashboard({ comedores }) {
 
                                         <div className="grid grid-cols-1 gap-3">
                                             <Link
-                                                href={route('gestor.estado')} // TODO: Pass id in future if needed
+                                                href={route('gestor.comedor.estado', { comedor: comedor.id_comedor })}
                                                 className="flex items-center justify-center p-2 bg-blue-50 text-blue-700 rounded hover:bg-blue-100 transition"
                                             >
                                                 Actualizar Estado
                                             </Link>
                                             <div className="grid grid-cols-2 gap-2">
                                                 <Link
-                                                    href={route('gestor.horarios')}
+                                                    href={route('gestor.horarios', { comedor: comedor.id_comedor })}
                                                     className="flex items-center justify-center p-2 bg-green-50 text-green-700 rounded hover:bg-green-100 transition"
                                                 >
                                                     Horarios
                                                 </Link>
                                                 <Link
-                                                    href={route('gestor.necesidades')}
+                                                    href={route('gestor.necesidades', { comedor: comedor.id_comedor })}
                                                     className="flex items-center justify-center p-2 bg-yellow-50 text-yellow-700 rounded hover:bg-yellow-100 transition"
                                                 >
                                                     Necesidades

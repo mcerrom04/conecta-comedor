@@ -70,17 +70,16 @@ Route::middleware(['auth', 'role:gestor'])->prefix('gestor')->name('gestor.')->g
     Route::post('/comedores', [ComedorController::class, 'store'])->name('comedores.store');
 
     // Actualizar estado del comedor
-    Route::get('/estado', function () {
-        return Inertia::render('Gestor/ActualizarEstado');
-    })->name('estado');
+    Route::get('/comedor/{comedor}/estado', [ComedorController::class, 'editEstado'])->name('comedor.estado');
+    Route::post('/comedor/{comedor}/estado', [ComedorController::class, 'updateEstado'])->name('comedor.update-estado');
     
     // Gestionar necesidades
-    Route::get('/necesidades', function () {
+    Route::get('/comedor/{comedor}/necesidades', function () {
         return Inertia::render('Gestor/GestionarNecesidades');
     })->name('necesidades');
     
     // Gestionar horarios
-    Route::get('/horarios', function () {
+    Route::get('/comedor/{comedor}/horarios', function () {
         return Inertia::render('Gestor/GestionarHorarios');
     })->name('horarios');
 });
