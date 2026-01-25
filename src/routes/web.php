@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComedorController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -79,9 +80,9 @@ Route::middleware(['auth', 'role:gestor'])->prefix('gestor')->name('gestor.')->g
     })->name('necesidades');
     
     // Gestionar horarios
-    Route::get('/comedor/{comedor}/horarios', function () {
-        return Inertia::render('Gestor/GestionarHorarios');
-    })->name('horarios');
+    Route::get('/comedor/{comedor}/horarios', [HorarioController::class, 'index'])->name('horarios');
+    Route::post('/comedor/{comedor}/horarios', [HorarioController::class, 'store'])->name('horarios.store');
+    Route::delete('/comedor/{comedor}/horarios/{horario}', [HorarioController::class, 'destroy'])->name('horarios.destroy');
 });
 
 require __DIR__.'/auth.php';
