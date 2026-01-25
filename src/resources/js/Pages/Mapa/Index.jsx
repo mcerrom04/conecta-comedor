@@ -17,6 +17,10 @@ export default function MapaIndex({ comedores, auth }) {
     const [panelLateralAbierto, setPanelLateralAbierto] = useState(false);
     const [comedorSeleccionado, setComedorSeleccionado] = useState(null);
     const [mostrarFiltros, setMostrarFiltros] = useState(false);
+    const [direccionBusqueda, setDireccionBusqueda] = useState('');
+    const [ubicacionBusqueda, setUbicacionBusqueda] = useState(null);
+    const [isBuscandoDireccion, setIsBuscandoDireccion] = useState(false);
+    const [errorBusqueda, setErrorBusqueda] = useState('');
 
     // Función para calcular distancia usando Haversine (en km)
     const calcularDistancia = (lat1, lon1, lat2, lon2) => {
@@ -32,12 +36,14 @@ export default function MapaIndex({ comedores, auth }) {
     };
 
     // Calcular distancias a todos los comedores
-    const comedoresConDistancia = userLocation
+    const referenciaUbicacion = ubicacionBusqueda || userLocation;
+
+    const comedoresConDistancia = referenciaUbicacion
         ? comedores.map(comedor => ({
             ...comedor,
             distancia: calcularDistancia(
-                userLocation.lat,
-                userLocation.lng,
+                referenciaUbicacion.lat,
+                referenciaUbicacion.lng,
                 parseFloat(comedor.latitud),
                 parseFloat(comedor.longitud)
             )
@@ -56,7 +62,7 @@ export default function MapaIndex({ comedores, auth }) {
         }
 
         // Filtro por estado
-        if (filtroEstado !== 'todos' && comedor.estado !== filtroEstado) {
+        if (filtroEstado !== 'todos' && comedor.estado_actual !== filtroEstado) {
             return false;
         }
 
@@ -77,6 +83,56 @@ export default function MapaIndex({ comedores, auth }) {
         return true;
     });
 
+    const limpiarBusqueda = () => {
+        setUbicacionBusqueda(null);
+        setErrorBusqueda('');
+        setDireccionBusqueda('');
+        if (userLocation) {
+            setMapCenter([userLocation.lat, userLocation.lng]);
+            setMapZoom(14);
+        } else {
+            setMapCenter([40.4168, -3.7038]);
+            setMapZoom(12);
+        }
+    };
+
+    const buscarPorDireccion = async () => {
+        const texto = direccionBusqueda.trim();
+        if (!texto) {
+            setErrorBusqueda('Introduce una dirección o código postal.');
+            return;
+        }
+        setIsBuscandoDireccion(true);
+        setErrorBusqueda('');
+        try {
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(texto)}`
+            );
+            if (!response.ok) {
+                throw new Error('No se pudo conectar con el servicio de geocodificación.');
+            }
+            const resultados = await response.json();
+            if (!resultados.length) {
+                throw new Error('No se encontraron resultados para la dirección indicada.');
+            }
+            const [coordenada] = resultados;
+            const nuevaUbicacion = {
+                lat: parseFloat(coordenada.lat),
+                lng: parseFloat(coordenada.lon),
+                label: coordenada.display_name
+            };
+            setUbicacionBusqueda(nuevaUbicacion);
+            setMapCenter([nuevaUbicacion.lat, nuevaUbicacion.lng]);
+            setMapZoom(15);
+            setPanelLateralAbierto(false);
+        } catch (error) {
+            console.error('Error geocodificando dirección:', error);
+            setErrorBusqueda(error.message || 'No se pudo encontrar la dirección.');
+        } finally {
+            setIsBuscandoDireccion(false);
+        }
+    };
+
     const obtenerUbicacion = () => {
         if (!navigator.geolocation) {
             alert('Tu navegador no soporta geolocalización');
@@ -92,6 +148,7 @@ export default function MapaIndex({ comedores, auth }) {
                     lng: position.coords.longitude
                 };
                 setUserLocation(location);
+                setUbicacionBusqueda(null);
                 setMapCenter([location.lat, location.lng]);
                 setMapZoom(14);
                 setIsGettingLocation(false);
@@ -213,6 +270,59 @@ export default function MapaIndex({ comedores, auth }) {
                                     </div>
                                 </div>
 
+                                <div className="mb-4 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 space-y-2">
+                                    <div className="flex items-center gap-2">
+                                        <h3 className="text-sm font-medium uppercase tracking-wide text-indigo-700">
+                                            Búsqueda por dirección
+                                        </h3>
+                                        <span className="text-xs text-indigo-500">Alternativa a la geolocalización</span>
+                                    </div>
+                                    <div className="flex flex-col gap-2 md:flex-row md:items-center">
+                                        <input
+                                            type="text"
+                                            value={direccionBusqueda}
+                                            onChange={(e) => setDireccionBusqueda(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault();
+                                                    buscarPorDireccion();
+                                                }
+                                            }}
+                                            placeholder="Introduce una calle, barrio o código postal"
+                                            className="w-full flex-1 px-3 py-2 rounded-lg border border-indigo-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={buscarPorDireccion}
+                                            disabled={isBuscandoDireccion}
+                                            className={`px-4 py-2 rounded-lg font-semibold transition ${
+                                                isBuscandoDireccion
+                                                    ? 'bg-indigo-300 text-white cursor-wait'
+                                                    : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                                            }`}
+                                        >
+                                            {isBuscandoDireccion ? 'Buscando…' : 'Buscar ubicación'}
+                                        </button>
+                                        {ubicacionBusqueda && (
+                                            <button
+                                                type="button"
+                                                onClick={limpiarBusqueda}
+                                                className="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-600 hover:bg-indigo-100"
+                                            >
+                                                Limpiar búsqueda
+                                            </button>
+                                        )}
+                                    </div>
+                                    {errorBusqueda && (
+                                        <p className="text-xs text-red-600">{errorBusqueda}</p>
+                                    )}
+                                    {ubicacionBusqueda && (
+                                        <p className="text-xs text-indigo-700">
+                                            Centrado en: <span className="font-semibold block truncate">{ubicacionBusqueda.label}</span>
+                                        </p>
+                                    )}
+                                </div>
+
                                 {/* Panel de Filtros - Colapsable */}
                                 <div 
                                     className={`mb-6 overflow-hidden transition-all duration-300 ease-in-out ${
@@ -259,7 +369,7 @@ export default function MapaIndex({ comedores, auth }) {
                                                 <label className="block text-sm font-medium text-gray-700">
                                                     Distancia máxima: {filtroDistancia} km
                                                 </label>
-                                                {userLocation && (
+                                                {referenciaUbicacion && (
                                                     <label className="flex items-center gap-2 cursor-pointer">
                                                         <input
                                                             type="checkbox"
@@ -271,9 +381,9 @@ export default function MapaIndex({ comedores, auth }) {
                                                     </label>
                                                 )}
                                             </div>
-                                            {!userLocation && (
+                                            {!referenciaUbicacion && (
                                                 <p className="text-xs text-gray-500 mb-2">
-                                                    Usa tu ubicación para activar este filtro
+                                                    Usa tu ubicación o busca una dirección para activar este filtro
                                                 </p>
                                             )}
                                             <input
@@ -282,7 +392,7 @@ export default function MapaIndex({ comedores, auth }) {
                                                 max="50"
                                                 value={filtroDistancia}
                                                 onChange={(e) => setFiltroDistancia(Number(e.target.value))}
-                                                disabled={!userLocation || !filtroDistanciaActivo}
+                                                disabled={!referenciaUbicacion || !filtroDistanciaActivo}
                                                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer disabled:opacity-50"
                                             />
                                             <div className="flex justify-between text-xs text-gray-500 mt-1">
@@ -398,13 +508,13 @@ export default function MapaIndex({ comedores, auth }) {
                                                                         )}
                                                                     </div>
                                                                     <span className={`text-xs font-medium px-2 py-1 rounded flex-shrink-0 ${
-                                                                        comedor.estado === 'abierto' 
+                                                                        comedor.estado_actual === 'abierto' 
                                                                             ? 'bg-green-100 text-green-800'
-                                                                            : comedor.estado === 'cerrado'
+                                                                            : comedor.estado_actual === 'cerrado'
                                                                             ? 'bg-red-100 text-red-800'
                                                                             : 'bg-yellow-100 text-yellow-800'
                                                                     }`}>
-                                                                        {comedor.estado === 'abierto' ? '🟢' : comedor.estado === 'cerrado' ? '🔴' : '🟡'}
+                                                                        {comedor.estado_actual === 'abierto' ? '🟢' : comedor.estado_actual === 'cerrado' ? '🔴' : '🟡'}
                                                                     </span>
                                                                 </div>
                                                             </button>
@@ -420,6 +530,7 @@ export default function MapaIndex({ comedores, auth }) {
                                         center={mapCenter}
                                         zoom={mapZoom}
                                         userLocation={userLocation}
+                                        searchLocation={ubicacionBusqueda}
                                         comedorSeleccionado={comedorSeleccionado}
                                     />
                                 </div>
