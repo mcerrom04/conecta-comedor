@@ -36,6 +36,7 @@ Route::get('/mapa', [ComedorController::class, 'mapa'])->name('mapa');
 
 // Ruta para ver ficha de comedor
 Route::get('/comedor/{id}', [ComedorController::class, 'show'])->name('comedor.show');
+Route::get('/comedor/{id}/estado', [ComedorController::class, 'estado'])->name('comedor.estado');
 
 // Rutas protegidas por rol de Administrador
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

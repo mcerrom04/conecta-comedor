@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 export default function FichaComedor({ comedor, auth }) {
     // Agrupar horarios por día de la semana
@@ -11,6 +12,12 @@ export default function FichaComedor({ comedor, auth }) {
     // Filtrar comentarios aprobados
     const comentariosAprobados = comedor.comentarios?.filter(c => c.aprobado) || [];
 
+    const [estadoEnVivo, setEstadoEnVivo] = useState({
+        estadoActual: comedor.estado_actual,
+        aforoDisponible: comedor.aforo_disponible,
+        ultimaActualizacion: comedor.ultima_actualizacion,
+    });
+
     // Obtener indicador de estado
     const getEstadoBadge = (estadoActual) => {
         const badges = {
@@ -21,7 +28,46 @@ export default function FichaComedor({ comedor, auth }) {
         return badges[estadoActual] || badges.cerrado;
     };
 
-    const estadoBadge = getEstadoBadge(comedor.estado_actual);
+    const formatearFecha = (valor) => {
+        if (!valor) {
+            return 'Sin datos';
+        }
+        return new Date(valor).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short' });
+    };
+
+    const estadoBadge = getEstadoBadge(estadoEnVivo.estadoActual);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchEstado = async () => {
+            try {
+                const response = await fetch(route('comedor.estado', { id: comedor.id_comedor }));
+                if (!response.ok) {
+                    throw new Error('No se pudo obtener el estado actualizado.');
+                }
+                const payload = await response.json();
+                if (!isMounted) {
+                    return;
+                }
+                setEstadoEnVivo((prev) => ({
+                    estadoActual: payload.estado_actual ?? prev.estadoActual,
+                    aforoDisponible: payload.aforo_disponible ?? prev.aforoDisponible,
+                    ultimaActualizacion: payload.ultima_actualizacion ?? prev.ultimaActualizacion,
+                }));
+            } catch (error) {
+                console.error('Error actualizando el estado del comedor:', error);
+            }
+        };
+
+        fetchEstado();
+        const interval = setInterval(fetchEstado, 45000);
+
+        return () => {
+            isMounted = false;
+            clearInterval(interval);
+        };
+    }, [comedor.id_comedor]);
 
     return (
         <>
@@ -83,6 +129,25 @@ export default function FichaComedor({ comedor, auth }) {
                                     <span className={`px-4 py-2 rounded-full text-sm font-semibold ${estadoBadge.color}`}>
                                         {estadoBadge.text}
                                     </span>
+                                </div>
+
+                                <div className="mt-4 grid gap-4 text-sm text-gray-600 sm:grid-cols-3">
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-xs uppercase tracking-wide font-semibold text-gray-500">Aforo disponible</span>
+                                        <span className="font-semibold text-gray-900">
+                                            {estadoEnVivo.aforoDisponible === null ? 'Sin datos' : `${estadoEnVivo.aforoDisponible} plazas`}
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-xs uppercase tracking-wide font-semibold text-gray-500">Última actualización</span>
+                                        <span className="font-semibold text-gray-900">
+                                            {formatearFecha(estadoEnVivo.ultimaActualizacion)}
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-xs uppercase tracking-wide font-semibold text-gray-500">Actualización</span>
+                                        <span className="font-semibold text-indigo-600">Cada 45 segundos</span>
+                                    </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
