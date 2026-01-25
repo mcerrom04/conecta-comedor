@@ -67,7 +67,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Comedor gestionado (Para compatibilidad con lÃ³gica anterior si solo tiene uno)
+     * Comedor gestionado (Para compatibilidad con lógica anterior si solo tiene uno)
      */
     public function comedor()
     {
