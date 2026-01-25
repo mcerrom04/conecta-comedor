@@ -27,6 +27,8 @@ class ComedorSeeder extends Seeder
             'normas' => 'Respetar turnos, mantener limpieza, no consumir alcohol',
             'estado' => 'activo',
             'estado_actual' => 'abierto',
+            'aforo_disponible' => 80,
+            'ultima_actualizacion' => now()->subMinutes(3),
             'visible' => true,
         ]);
 
@@ -41,6 +43,8 @@ class ComedorSeeder extends Seeder
             'normas' => 'Normas básicas de convivencia',
             'estado' => 'activo',
             'estado_actual' => 'cerrado',
+            'aforo_disponible' => 0,
+            'ultima_actualizacion' => now()->subMinutes(15),
             'visible' => true,
         ]);
 
@@ -55,6 +59,8 @@ class ComedorSeeder extends Seeder
             'normas' => 'Puntualidad y respeto mutuo',
             'estado' => 'activo',
             'estado_actual' => 'completo',
+            'aforo_disponible' => 0,
+            'ultima_actualizacion' => now()->subMinutes(5),
             'visible' => true,
         ]);
 
@@ -69,6 +75,8 @@ class ComedorSeeder extends Seeder
             'normas' => 'Ambiente familiar y respetuoso',
             'estado' => 'activo',
             'estado_actual' => 'abierto',
+            'aforo_disponible' => 22,
+            'ultima_actualizacion' => now()->subMinutes(7),
             'visible' => true,
         ]);
 
@@ -83,6 +91,8 @@ class ComedorSeeder extends Seeder
             'normas' => 'Normas básicas',
             'estado' => 'activo',
             'estado_actual' => 'abierto',
+            'aforo_disponible' => 60,
+            'ultima_actualizacion' => now()->subMinutes(10),
             'visible' => true,
         ]);
 
@@ -98,6 +108,8 @@ class ComedorSeeder extends Seeder
             'normas' => 'Respeto y convivencia pacífica',
             'estado' => 'activo',
             'estado_actual' => 'abierto',
+            'aforo_disponible' => 35,
+            'ultima_actualizacion' => now()->subMinutes(2),
             'visible' => true,
         ]);
 
@@ -112,6 +124,8 @@ class ComedorSeeder extends Seeder
             'normas' => 'Mantener orden y limpieza',
             'estado' => 'activo',
             'estado_actual' => 'cerrado',
+            'aforo_disponible' => 0,
+            'ultima_actualizacion' => now()->subMinutes(20),
             'visible' => true,
         ]);
 
@@ -126,6 +140,8 @@ class ComedorSeeder extends Seeder
             'normas' => 'Respeto a todo el personal y usuarios',
             'estado' => 'activo',
             'estado_actual' => 'abierto',
+            'aforo_disponible' => 18,
+            'ultima_actualizacion' => now()->subMinutes(4),
             'visible' => true,
         ]);
 
@@ -139,6 +155,8 @@ class ComedorSeeder extends Seeder
             'email' => 'usera@comedores.madrid',
             'normas' => 'Normas básicas',
             'estado' => 'pendiente',
+            'aforo_disponible' => null,
+            'ultima_actualizacion' => null,
             'visible' => false,
         ]);
 
@@ -151,6 +169,8 @@ class ComedorSeeder extends Seeder
             'email' => 'valdepasillas@comedores.badajoz',
             'normas' => 'Normas básicas',
             'estado' => 'pendiente',
+            'aforo_disponible' => null,
+            'ultima_actualizacion' => null,
             'visible' => false,
         ]);
 

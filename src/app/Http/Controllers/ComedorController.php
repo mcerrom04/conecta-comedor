@@ -37,6 +37,21 @@ class ComedorController extends Controller
     }
 
     /**
+     * Obtener estado actual y aforo disponible (JSON)
+     */
+    public function estado($id)
+    {
+        $comedor = Comedor::select('id_comedor', 'estado_actual', 'aforo_disponible', 'ultima_actualizacion')
+            ->findOrFail($id);
+
+        return response()->json([
+            'estado_actual' => $comedor->estado_actual,
+            'aforo_disponible' => $comedor->aforo_disponible,
+            'ultima_actualizacion' => $comedor->ultima_actualizacion?->toIso8601String(),
+        ]);
+    }
+
+    /**
      * Listar comedores pendientes de aprobación (Admin)
      */
     public function pendientes()

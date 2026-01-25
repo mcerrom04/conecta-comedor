@@ -41,7 +41,7 @@ Lista de Historias de Usuario y Tareas Técnicas en orden de realización.
 - ✅ HU-002: Implementar Filtrado avanzado de comedores
 - ✅ HU-005: Implementar Ver lista de necesidades del comedor
 - ✅ HU-014: Implementar Búsqueda por dirección específica
-- ⏳ HU-004: Implementar Ver estado en tiempo real del comedor
+- ✅ HU-004: Implementar Ver estado en tiempo real del comedor
 - ⏳ HU-012: Implementar Registro de nuevo comedor
 - ⏳ HU-013: Implementar Gestionar horarios del comedor
 - ⏳ HU-007: Implementar Actualizar estado del día
