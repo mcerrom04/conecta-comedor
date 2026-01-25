@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Comedor extends Model
 {
@@ -60,8 +61,8 @@ class Comedor extends Model
     /**
      * Gestores del comedor
      */
-    public function gestores(): HasMany
+    public function gestores(): BelongsToMany
     {
-        return $this->hasMany(User::class, 'id_comedor', 'id_comedor');
+        return $this->belongsToMany(User::class, 'comedor_user', 'id_comedor', 'user_id');
     }
 }

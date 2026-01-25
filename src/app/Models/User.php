@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -24,7 +25,6 @@ class User extends Authenticatable
         'email',
         'password',
         'id_rol',
-        'id_comedor',
     ];
 
     /**
@@ -59,11 +59,19 @@ class User extends Authenticatable
     }
 
     /**
-     * Comedor gestionado por el usuario (si es gestor)
+     * Comedores gestionados por el usuario
      */
-    public function comedor(): BelongsTo
+    public function comedores(): BelongsToMany
     {
-        return $this->belongsTo(Comedor::class, 'id_comedor', 'id_comedor');
+        return $this->belongsToMany(Comedor::class, 'comedor_user', 'user_id', 'id_comedor');
+    }
+
+    /**
+     * Comedor gestionado (Para compatibilidad con lÃ³gica anterior si solo tiene uno)
+     */
+    public function comedor()
+    {
+        return $this->comedores()->first();
     }
 
     /**

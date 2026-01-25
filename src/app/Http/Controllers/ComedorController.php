@@ -101,9 +101,44 @@ class ComedorController extends Controller
             'visible' => false,
         ]);
 
-        // Aquí se podría enviar email de notificación al gestor
-        // TODO: Implementar notificación por email (TT-S3-011)
-
         return redirect()->back()->with('success', 'Comedor rechazado');
+    }
+
+    /**
+     * Mostrar formulario para registrar un nuevo comedor (Gestor)
+     */
+    public function create()
+    {
+        return Inertia::render('Gestor/RegistrarComedor');
+    }
+
+    /**
+     * Guardar un nuevo comedor y vincularlo al gestor
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:100',
+            'direccion' => 'required|string|max:500',
+            'latitud' => 'required|numeric',
+            'longitud' => 'required|numeric',
+            'telefono' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:100',
+            'descripcion' => 'nullable|string',
+            'normas' => 'nullable|string',
+        ]);
+
+        // Por defecto, se crea como pendiente y no visible hasta que el admin lo apruebe
+        $comedor = Comedor::create(array_merge($validated, [
+            'estado' => 'pendiente',
+            'visible' => false,
+            'estado_actual' => 'cerrado',
+        ]));
+
+        // Vincular al usuario autenticado (Gestor)
+        $request->user()->comedores()->attach($comedor->id_comedor);
+
+        return redirect()->route('gestor.dashboard')
+            ->with('success', 'Comedor registrado correctamente. EstÃ¡ pendiente de aprobaciÃ³n por el administrador.');
     }
 }

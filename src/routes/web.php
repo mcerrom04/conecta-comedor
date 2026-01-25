@@ -60,9 +60,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 Route::middleware(['auth', 'role:gestor'])->prefix('gestor')->name('gestor.')->group(function () {
     // Panel de gestor
     Route::get('/dashboard', function () {
-        return Inertia::render('Gestor/Dashboard');
+        return Inertia::render('Gestor/Dashboard', [
+            'comedores' => auth()->user()->comedores
+        ]);
     })->name('dashboard');
-    
+
+    // Registrar nuevo comedor (HU-012)
+    Route::get('/comedores/crear', [ComedorController::class, 'create'])->name('comedores.create');
+    Route::post('/comedores', [ComedorController::class, 'store'])->name('comedores.store');
+
     // Actualizar estado del comedor
     Route::get('/estado', function () {
         return Inertia::render('Gestor/ActualizarEstado');
