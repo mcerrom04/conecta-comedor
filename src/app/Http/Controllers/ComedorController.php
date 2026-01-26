@@ -15,7 +15,7 @@ class ComedorController extends Controller
     {
         $comedores = Comedor::where('estado', 'activo')
             ->where('visible', true)
-            ->with(['horarios'])
+            ->select('id_comedor', 'nombre', 'direccion', 'latitud', 'longitud', 'estado_actual', 'aforo_disponible', 'ultima_actualizacion')
             ->get();
 
         return Inertia::render('Mapa/Index', [

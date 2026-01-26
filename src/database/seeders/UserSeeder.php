@@ -17,25 +17,25 @@ class UserSeeder extends Seeder
     {
         // Usuario administrador
         User::create([
-            'name' => 'Admin Conecta',
-            'email' => 'admin@conecta.com',
+            'name' => 'Administrador',
+            'email' => 'admin@admin.com',
             'password' => bcrypt('admin123'),
             'id_rol' => 'admin',
         ]);
 
-        // Usuario gestor genérico (para pruebas de registro)
-        $gestorGenerico = User::create([
-            'name' => 'Gestor General',
-            'email' => 'gestor@example.com',
+        // Usuario gestor genérico
+        User::create([
+            'name' => 'Gestor de Prueba',
+            'email' => 'gestor@gestor.com',
             'password' => bcrypt('gestor123'),
             'id_rol' => 'gestor',
         ]);
 
         // Usuario ciudadano para pruebas
         User::create([
-            'name' => 'Usuario Ciudadano',
-            'email' => 'ciudadano@example.com',
-            'password' => bcrypt('ciudadano123'),
+            'name' => 'Ciudadano de Prueba',
+            'email' => 'user@user.com',
+            'password' => bcrypt('user123'),
             'id_rol' => 'ciudadano',
         ]);
 

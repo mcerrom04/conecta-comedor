@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
 import MapaLeaflet from '@/Components/MapaLeaflet';
+import FrontendLayout from '@/Layouts/FrontendLayout';
 
 export default function MapaIndex({ comedores, auth }) {
     const [userLocation, setUserLocation] = useState(null);
@@ -162,67 +163,11 @@ export default function MapaIndex({ comedores, auth }) {
     };
 
     return (
-        <>
+        <FrontendLayout auth={auth}>
             <Head title="Mapa de Comedores" />
 
-            <div className="min-h-screen bg-gray-100">
-                {/* Header */}
-                <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-                        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                            Conecta Comedor
-                        </h1>
-                        <div className="flex gap-4 items-center">
-                            {auth?.user ? (
-                                <>
-                                    {auth.user.id_rol === 'ciudadano' ? (
-                                        <>
-                                            <Link
-                                                href={route('profile.edit')}
-                                                className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition"
-                                            >
-                                                Mi Perfil
-                                            </Link>
-                                            <Link
-                                                href={route('logout')}
-                                                method="post"
-                                                as="button"
-                                                className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
-                                            >
-                                                Cerrar Sesión
-                                            </Link>
-                                        </>
-                                    ) : (
-                                        <Link
-                                            href={route('dashboard')}
-                                            className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
-                                        >
-                                            Mi Panel
-                                        </Link>
-                                    )}
-                                </>
-                            ) : (
-                                <>
-                                    <Link
-                                        href={route('login')}
-                                        className="rounded-md px-4 py-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition"
-                                    >
-                                        Iniciar Sesión
-                                    </Link>
-                                    <Link
-                                        href={route('register')}
-                                        className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
-                                    >
-                                        Registrarse
-                                    </Link>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </header>
-
-                {/* Main Content */}
-                <main className="py-12">
+            {/* Main Content */}
+            <main className="py-12">
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                         <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                             <div className="p-6 text-gray-900">
@@ -559,7 +504,6 @@ export default function MapaIndex({ comedores, auth }) {
                         </div>
                     </div>
                 </main>
-            </div>
-        </>
+        </FrontendLayout>
     );
 }

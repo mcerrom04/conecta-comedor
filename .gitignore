@@ -63,8 +63,8 @@ composer.lock
 # Laravel - Rutas específicas del proyecto
 /src/.env
 /src/.env.backup
-/src/.env.example
 /src/vendor/
+/phpdoc.phar
 /src/node_modules/
 /src/public/hot
 /src/public/storage

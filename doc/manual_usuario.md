@@ -9,12 +9,13 @@ Este manual explica cómo utilizar la aplicación "Conecta Comedor" desde el pun
 1. Abre tu navegador web.
 2. Accede a la URL proporcionada por el administrador (por ejemplo, `http://localhost/conecta-comedor/src/www/index.php`).
 
-## Inicio de sesión (Administrador)
+## Inicio de sesión
 
-- Haz clic en el enlace o botón de "Iniciar sesión".
-- Introduce el correo y la contraseña de administrador:
-  - **Correo:** `admin@conecta.com`
-  - **Contraseña:** admin123
+- Haz clic en el enlace de "Iniciar sesión".
+- Puedes acceder con cualquiera de los siguientes perfiles de prueba:
+  - **Administrador:** `admin@admin.com` / `admin123`
+  - **Gestor:** `gestor@gestor.com` / `gestor123`
+  - **Ciudadano:** `user@user.com` / `user123`
 - Pulsa en "Entrar".
 
 ## Panel de administración

@@ -1,5 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import FrontendLayout from '@/Layouts/FrontendLayout';
 
 export default function FichaComedor({ comedor, auth }) {
     // Agrupar horarios por día de la semana
@@ -86,70 +87,11 @@ export default function FichaComedor({ comedor, auth }) {
     }, [comedor.id_comedor]);
 
     return (
-        <>
+        <FrontendLayout auth={auth}>
             <Head title={comedor.nombre} />
 
-            <div className="min-h-screen bg-gray-100">
-                {/* Header */}
-                <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-                        <Link
-                            href={route('mapa')}
-                            className="text-indigo-600 hover:text-indigo-700 flex items-center gap-2"
-                        >
-                            ← Volver al mapa
-                        </Link>
-                        <div className="flex gap-4 items-center">
-                            {auth?.user ? (
-                                <>
-                                    {auth.user.id_rol === 'ciudadano' ? (
-                                        <>
-                                            <Link
-                                                href={route('profile.edit')}
-                                                className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition"
-                                            >
-                                                Mi Perfil
-                                            </Link>
-                                            <Link
-                                                href={route('logout')}
-                                                method="post"
-                                                as="button"
-                                                className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
-                                            >
-                                                Cerrar Sesión
-                                            </Link>
-                                        </>
-                                    ) : (
-                                        <Link
-                                            href={route('dashboard')}
-                                            className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
-                                        >
-                                            Mi Panel
-                                        </Link>
-                                    )}
-                                </>
-                            ) : (
-                                <>
-                                    <Link
-                                        href={route('login')}
-                                        className="rounded-md px-4 py-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition"
-                                    >
-                                        Iniciar Sesión
-                                    </Link>
-                                    <Link
-                                        href={route('register')}
-                                        className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
-                                    >
-                                        Registrarse
-                                    </Link>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </header>
-
-                {/* Main Content */}
-                <main className="py-12">
+            {/* Main Content */}
+            <main className="py-12">
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-6">
                         {/* Información Principal */}
                         <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
@@ -484,7 +426,6 @@ export default function FichaComedor({ comedor, auth }) {
                         </div>
                     </div>
                 </main>
-            </div>
-        </>
+        </FrontendLayout>
     );
 }
