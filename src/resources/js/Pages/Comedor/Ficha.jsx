@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 export default function FichaComedor({ comedor, auth }) {
@@ -10,7 +10,21 @@ export default function FichaComedor({ comedor, auth }) {
     }));
 
     // Filtrar comentarios aprobados
-    const comentariosAprobados = comedor.comentarios?.filter(c => c.aprobado) || [];
+    const comentariosAprobados = comedor.comentarios?.filter(c => c.estado === 'aprobado') || [];
+
+    // Formulario para comentarios
+    const { data, setData, post, processing, reset, errors, wasSuccessful } = useForm({
+        id_comedor: comedor.id_comedor,
+        texto: '',
+    });
+
+    const submitComentario = (e) => {
+        e.preventDefault();
+        post(route('comentarios.store'), {
+            onSuccess: () => reset('texto'),
+            preserveScroll: true,
+        });
+    };
 
     const [estadoEnVivo, setEstadoEnVivo] = useState({
         estadoActual: comedor.estado_actual,
@@ -85,14 +99,35 @@ export default function FichaComedor({ comedor, auth }) {
                         >
                             ← Volver al mapa
                         </Link>
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 items-center">
                             {auth?.user ? (
-                                <Link
-                                    href={route('dashboard')}
-                                    className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
-                                >
-                                    Mi Panel
-                                </Link>
+                                <>
+                                    {auth.user.id_rol === 'ciudadano' ? (
+                                        <>
+                                            <Link
+                                                href={route('profile.edit')}
+                                                className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition"
+                                            >
+                                                Mi Perfil
+                                            </Link>
+                                            <Link
+                                                href={route('logout')}
+                                                method="post"
+                                                as="button"
+                                                className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
+                                            >
+                                                Cerrar Sesión
+                                            </Link>
+                                        </>
+                                    ) : (
+                                        <Link
+                                            href={route('dashboard')}
+                                            className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
+                                        >
+                                            Mi Panel
+                                        </Link>
+                                    )}
+                                </>
                             ) : (
                                 <>
                                     <Link
@@ -358,31 +393,95 @@ export default function FichaComedor({ comedor, auth }) {
                         )}
 
                         {/* Comentarios */}
-                        {comentariosAprobados.length > 0 && (
-                            <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
-                                <div className="p-6">
-                                    <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
-                                    <div className="space-y-4">
+                        <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
+                            <div className="p-6">
+                                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                                    <span>💬</span> Opiniones y Comentarios
+                                </h2>
+
+                                {/* Formulario para nuevo comentario */}
+                                {auth.user ? (
+                                    <div className="mb-10 bg-gray-50 p-6 rounded-xl border border-gray-100">
+                                        <h3 className="font-bold text-gray-900 mb-4 text-lg">Deja tu opinión</h3>
+                                        <form onSubmit={submitComentario}>
+                                            <div className="mb-4">
+                                                <textarea
+                                                    value={data.texto}
+                                                    onChange={e => setData('texto', e.target.value)}
+                                                    className="w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 transition shadow-sm"
+                                                    rows="3"
+                                                    placeholder="Escribe tu experiencia o información útil para otros usuarios..."
+                                                    required
+                                                ></textarea>
+                                                {errors.texto && <div className="text-red-600 text-sm mt-1">{errors.texto}</div>}
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <p className="text-xs text-gray-500">
+                                                    * Los comentarios serán revisados por un moderador antes de publicarse.
+                                                </p>
+                                                <button
+                                                    type="submit"
+                                                    disabled={processing}
+                                                    className="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+                                                >
+                                                    {processing ? 'Enviando...' : 'Enviar comentario'}
+                                                </button>
+                                            </div>
+                                            {wasSuccessful && (
+                                                <div className="mt-4 p-3 bg-green-100 text-green-800 rounded-lg text-sm font-medium">
+                                                    ✅ Tu comentario ha sido enviado correctamente y está pendiente de moderación.
+                                                </div>
+                                            )}
+                                        </form>
+                                    </div>
+                                ) : (
+                                    <div className="mb-10 text-center p-6 border-2 border-dashed border-gray-200 rounded-xl">
+                                        <p className="text-gray-600 mb-4">Inicia sesión para dejar un comentario</p>
+                                        <Link 
+                                            href={route('login')}
+                                            className="inline-block px-6 py-2 bg-white border border-indigo-600 text-indigo-600 font-bold rounded-lg hover:bg-indigo-50 transition"
+                                        >
+                                            Identificarse
+                                        </Link>
+                                    </div>
+                                )}
+
+                                {/* Lista de comentarios */}
+                                {comentariosAprobados.length > 0 ? (
+                                    <div className="space-y-6">
                                         {comentariosAprobados.map((comentario) => (
                                             <div 
                                                 key={comentario.id_comentario}
-                                                className="border-l-4 border-indigo-500 pl-4 py-2"
+                                                className="bg-white border border-gray-100 p-5 rounded-xl transition hover:shadow-md"
                                             >
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <span className="font-semibold text-gray-900">
-                                                        {comentario.user?.name || 'Usuario'}
-                                                    </span>
-                                                    <span className="text-sm text-gray-500">
-                                                        {new Date(comentario.created_at).toLocaleDateString('es-ES')}
-                                                    </span>
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                                                            {comentario.user?.name?.charAt(0) || 'U'}
+                                                        </div>
+                                                        <div>
+                                                            <div className="font-bold text-gray-900 leading-none">
+                                                                {comentario.user?.name || 'Usuario'}
+                                                            </div>
+                                                            <div className="text-xs text-gray-400 mt-1">
+                                                                {new Date(comentario.created_at).toLocaleDateString('es-ES')}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <p className="text-gray-700">{comentario.contenido}</p>
+                                                <p className="text-gray-700 leading-relaxed italic">
+                                                    "{comentario.texto}"
+                                                </p>
                                             </div>
                                         ))}
                                     </div>
-                                </div>
+                                ) : (
+                                    <div className="text-center py-8 bg-gray-50 rounded-xl">
+                                        <p className="text-gray-500">Aún no hay opiniones sobre este comedor.</p>
+                                    </div>
+                                )}
                             </div>
-                        )}
+                        </div>
                     </div>
                 </main>
             </div>

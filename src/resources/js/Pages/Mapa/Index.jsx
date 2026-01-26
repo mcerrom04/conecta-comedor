@@ -172,14 +172,35 @@ export default function MapaIndex({ comedores, auth }) {
                         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
                             Conecta Comedor
                         </h1>
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 items-center">
                             {auth?.user ? (
-                                <Link
-                                    href={route('dashboard')}
-                                    className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
-                                >
-                                    Mi Panel
-                                </Link>
+                                <>
+                                    {auth.user.id_rol === 'ciudadano' ? (
+                                        <>
+                                            <Link
+                                                href={route('profile.edit')}
+                                                className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition"
+                                            >
+                                                Mi Perfil
+                                            </Link>
+                                            <Link
+                                                href={route('logout')}
+                                                method="post"
+                                                as="button"
+                                                className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
+                                            >
+                                                Cerrar Sesión
+                                            </Link>
+                                        </>
+                                    ) : (
+                                        <Link
+                                            href={route('dashboard')}
+                                            className="rounded-md px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition"
+                                        >
+                                            Mi Panel
+                                        </Link>
+                                    )}
+                                </>
                             ) : (
                                 <>
                                     <Link

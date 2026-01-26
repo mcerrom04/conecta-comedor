@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             ComedorSeeder::class,  // Primero comedores
             UserSeeder::class,      // Luego usuarios (por la FK id_comedor)
+            ComentarioSeeder::class,
         ]);
     }
 }

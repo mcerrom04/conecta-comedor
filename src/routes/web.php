@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComedorController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\NecesidadController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Comentarios
+    Route::post('/comentarios', [ComentarioController::class, 'store'])->name('comentarios.store');
 });
 
 // Ruta pública del mapa (accesible para todos)
@@ -53,9 +57,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/comedores/{id}/rechazar', [ComedorController::class, 'rechazar'])->name('comedores.rechazar');
     
     // Moderación de comentarios
-    Route::get('/comentarios/moderar', function () {
-        return Inertia::render('Admin/ModerarComentarios');
-    })->name('comentarios.moderar');
+    Route::get('/comentarios/moderar', [ComentarioController::class, 'index'])->name('comentarios.moderar');
+    Route::post('/comentarios/{id}/aprobar', [ComentarioController::class, 'aprobar'])->name('comentarios.aprobar');
+    Route::post('/comentarios/{id}/rechazar', [ComentarioController::class, 'rechazar'])->name('comentarios.rechazar');
 });
 
 // Rutas protegidas por rol de Gestor
