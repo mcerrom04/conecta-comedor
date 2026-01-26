@@ -28,9 +28,8 @@
 - ✅ **HU-012:** Implementar Registro de nuevo comedor - COMPLETADO
 - ✅ **HU-013:** Implementar Gestionar horarios del comedor - COMPLETADO
 - ✅ **HU-007:** Implementar Actualizar estado del día - COMPLETADO
-- ⏳ **HU-008:** Implementar Gestionar lista de necesidades - NO INICIADO
-- ⏳ **HU-010:** Implementar Moderar comentarios - NO INICIADO
-- ⏳ **TT-S3-011:** Implementar sistema de notificaciones por email - NO INICIADO
+- ✅ **HU-008:** Implementar Gestionar lista de necesidades - COMPLETADO
+- ✅ **HU-010:** Implementar Moderar comentarios - COMPLETADO
 - ⏳ **TT-S3-012:** Testing integral de todas las funcionalidades - NO INICIADO
 - ⏳ **TT-S3-013:** Optimización de rendimiento y responsive design - NO INICIADO
 - ⏳ **TT-S3-014:** Generar documentación con PHPDoc - NO INICIADO
