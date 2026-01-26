@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ComedorController;
 use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\NecesidadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -74,10 +75,10 @@ Route::middleware(['auth', 'role:gestor'])->prefix('gestor')->name('gestor.')->g
     Route::get('/comedor/{comedor}/estado', [ComedorController::class, 'editEstado'])->name('comedor.estado');
     Route::post('/comedor/{comedor}/estado', [ComedorController::class, 'updateEstado'])->name('comedor.update-estado');
     
-    // Gestionar necesidades
-    Route::get('/comedor/{comedor}/necesidades', function () {
-        return Inertia::render('Gestor/GestionarNecesidades');
-    })->name('necesidades');
+    // Gestionar necesidades (HU-008)
+    Route::get('/comedor/{comedor}/necesidades', [NecesidadController::class, 'index'])->name('necesidades');
+    Route::post('/comedor/{comedor}/necesidades', [NecesidadController::class, 'store'])->name('necesidades.store');
+    Route::delete('/comedor/{comedor}/necesidades/{necesidad}', [NecesidadController::class, 'destroy'])->name('necesidades.destroy');
     
     // Gestionar horarios
     Route::get('/comedor/{comedor}/horarios', [HorarioController::class, 'index'])->name('horarios');
