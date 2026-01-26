@@ -263,6 +263,121 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
                                     </div>
                                 </div>
 
+                                {/* Panel de Filtros - Colapsable (Ahora debajo de los botones) */}
+                                <div 
+                                    className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${
+                                        mostrarFiltros ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+                                    }`}
+                                >
+                                    <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500">Filtros Avanzados</h3>
+                                            <button onClick={() => setMostrarFiltros(false)} className="text-gray-400 hover:text-gray-600 transition">
+                                                <X size={18} />
+                                            </button>
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                            {/* Filtro por texto */}
+                                            <div>
+                                                <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">
+                                                    Nombre o dirección
+                                                </label>
+                                                <div className="relative">
+                                                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                                    <input
+                                                        type="text"
+                                                        value={filtroTexto}
+                                                        onChange={(e) => setFiltroTexto(e.target.value)}
+                                                        placeholder="Ej: Comedor Central..."
+                                                        className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            {/* Filtro por estado */}
+                                            <div>
+                                                <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">
+                                                    Estado actual
+                                                </label>
+                                                <select
+                                                    value={filtroEstado}
+                                                    onChange={(e) => setFiltroEstado(e.target.value)}
+                                                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                                >
+                                                    <option value="todos">Cualquier estado</option>
+                                                    <option value="abierto">Abierto</option>
+                                                    <option value="cerrado">Cerrado</option>
+                                                    <option value="completo">Completo</option>
+                                                </select>
+                                            </div>
+
+                                            {/* Filtro por distancia */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <label className="block text-xs font-bold text-gray-700 uppercase">
+                                                        Radio: {filtroDistancia} km
+                                                    </label>
+                                                    {referenciaUbicacion && (
+                                                        <label className="flex items-center gap-2 cursor-pointer group">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={filtroDistanciaActivo}
+                                                                onChange={(e) => setFiltroDistanciaActivo(e.target.checked)}
+                                                                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                                                            />
+                                                            <span className="text-[10px] font-bold text-gray-500 group-hover:text-indigo-600 uppercase">Activar</span>
+                                                        </label>
+                                                    )}
+                                                </div>
+                                                <input
+                                                    type="range"
+                                                    min="1"
+                                                    max="50"
+                                                    value={filtroDistancia}
+                                                    onChange={(e) => setFiltroDistancia(Number(e.target.value))}
+                                                    disabled={!referenciaUbicacion || !filtroDistanciaActivo}
+                                                    className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600 disabled:opacity-50"
+                                                />
+                                                <div className="flex justify-between text-[10px] text-gray-400 mt-1">
+                                                    <span>1km</span>
+                                                    <span>50km</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Filtro por hora */}
+                                            <div>
+                                                <label className="block text-xs font-bold text-gray-700 mb-1 uppercase flex items-center gap-2">
+                                                    <Clock size={14} className="text-gray-400" /> Horario
+                                                </label>
+                                                <input
+                                                    type="time"
+                                                    value={filtroHora}
+                                                    onChange={(e) => setFiltroHora(e.target.value)}
+                                                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Limpiar filtros */}
+                                        {(filtroTexto || filtroEstado !== 'todos' || filtroDistanciaActivo || filtroHora) && (
+                                            <div className="mt-4 flex justify-end pt-3 border-t border-gray-200">
+                                                <button
+                                                    onClick={() => {
+                                                        setFiltroTexto('');
+                                                        setFiltroEstado('todos');
+                                                        setFiltroDistancia(50);
+                                                        setFiltroDistanciaActivo(false);
+                                                        setFiltroHora('');
+                                                    }}
+                                                    className="flex items-center gap-1 text-[11px] uppercase font-bold text-red-600 hover:text-red-700"
+                                                >
+                                                    <RotateCcw size={12} /> Limpiar filtros
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
                                 <div className="mb-4 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 space-y-2">
                                     <div className="flex items-center gap-2">
                                         <h3 className="text-sm font-medium uppercase tracking-wide text-indigo-700">
@@ -314,121 +429,6 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
                                             Centrado en: <span className="font-semibold block truncate">{ubicacionBusqueda.label}</span>
                                         </p>
                                     )}
-                                </div>
-
-                                {/* Panel de Filtros - Colapsable */}
-                                <div 
-                                    className={`mb-6 overflow-hidden transition-all duration-300 ease-in-out ${
-                                        mostrarFiltros ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
-                                    }`}
-                                >
-                                    <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                                        <h3 className="text-lg font-semibold mb-3 text-gray-900">Filtros</h3>
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        {/* Filtro por texto */}
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                Buscar por nombre o dirección
-                                            </label>
-                                            <input
-                                                type="text"
-                                                value={filtroTexto}
-                                                onChange={(e) => setFiltroTexto(e.target.value)}
-                                                placeholder="Ej: Comedor Central, Calle..."
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                            />
-                                        </div>
-
-                                        {/* Filtro por estado */}
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                Estado
-                                            </label>
-                                            <select
-                                                value={filtroEstado}
-                                                onChange={(e) => setFiltroEstado(e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                            >
-                                                <option value="todos">Todos</option>
-                                                <option value="abierto">Abierto</option>
-                                                <option value="cerrado">Cerrado</option>
-                                                <option value="completo">Completo</option>
-                                            </select>
-                                        </div>
-
-                                        {/* Filtro por distancia */}
-                                        <div>
-                                            <div className="flex items-center justify-between mb-1">
-                                                <label className="block text-sm font-medium text-gray-700">
-                                                    Distancia máxima: {filtroDistancia} km
-                                                </label>
-                                                {referenciaUbicacion && (
-                                                    <label className="flex items-center gap-2 cursor-pointer">
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={filtroDistanciaActivo}
-                                                            onChange={(e) => setFiltroDistanciaActivo(e.target.checked)}
-                                                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                                                        />
-                                                        <span className="text-xs text-gray-600">Activar</span>
-                                                    </label>
-                                                )}
-                                            </div>
-                                            {!referenciaUbicacion && (
-                                                <p className="text-xs text-gray-500 mb-2">
-                                                    Usa tu ubicación o busca una dirección para activar este filtro
-                                                </p>
-                                            )}
-                                            <input
-                                                type="range"
-                                                min="1"
-                                                max="50"
-                                                value={filtroDistancia}
-                                                onChange={(e) => setFiltroDistancia(Number(e.target.value))}
-                                                disabled={!referenciaUbicacion || !filtroDistanciaActivo}
-                                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer disabled:opacity-50"
-                                            />
-                                            <div className="flex justify-between text-xs text-gray-500 mt-1">
-                                                <span>1 km</span>
-                                                <span>50 km</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Filtro por hora */}
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
-                                                <Clock size={16} className="text-gray-400" /> Hora específica
-                                            </label>
-                                            <input
-                                                type="time"
-                                                value={filtroHora}
-                                                onChange={(e) => setFiltroHora(e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                            />
-                                            <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                                                <Info size={12} /> Filtro visual solamente (funcionalidad pendiente)
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Botón limpiar filtros */}
-                                    {(filtroTexto || filtroEstado !== 'todos' || filtroDistanciaActivo || filtroHora) && (
-                                        <div className="mt-3 text-center">
-                                            <button
-                                                onClick={() => {
-                                                    setFiltroTexto('');
-                                                    setFiltroEstado('todos');
-                                                    setFiltroDistancia(50);
-                                                    setFiltroDistanciaActivo(false);
-                                                    setFiltroHora('');
-                                                }}
-                                                className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
-                                            >
-                                                Limpiar filtros
-                                            </button>
-                                        </div>
-                                    )}
-                                    </div>
                                 </div>
                                 
                                 {/* Mapa Leaflet con botón de panel lateral */}
