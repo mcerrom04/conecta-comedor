@@ -4,8 +4,11 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import ConfirmationModal from '@/Components/ConfirmationModal';
+import { useState } from 'react';
 
 export default function GestionarHorarios({ comedor }) {
+    const [idEliminar, setIdEliminar] = useState(null);
     const { data, setData, post, processing, errors, reset } = useForm({
         dia_semana: 'lunes',
         hora_apertura: '09:00',
@@ -20,13 +23,13 @@ export default function GestionarHorarios({ comedor }) {
         });
     };
 
-    const deleteHorario = (id) => {
-        if (confirm('¿Estás seguro de que quieres eliminar este horario?')) {
-            router.delete(route('gestor.horarios.destroy', { 
-                comedor: comedor.id_comedor, 
-                horario: id 
-            }));
-        }
+    const deleteHorario = () => {
+        router.delete(route('gestor.horarios.destroy', { 
+            comedor: comedor.id_comedor, 
+            horario: idEliminar 
+        }), {
+            onSuccess: () => setIdEliminar(null),
+        });
     };
 
     const diasSemana = {
@@ -48,6 +51,17 @@ export default function GestionarHorarios({ comedor }) {
             }
         >
             <Head title={`Horarios - ${comedor.nombre}`} />
+
+            <ConfirmationModal
+                show={idEliminar !== null}
+                onClose={() => setIdEliminar(null)}
+                onConfirm={deleteHorario}
+                title="Eliminar Horario"
+                message="¿Estás seguro de que quieres eliminar esta franja horaria?"
+                confirmText="Sí, eliminar"
+                cancelText="Cancelar"
+                type="danger"
+            />
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-6">
@@ -158,7 +172,7 @@ export default function GestionarHorarios({ comedor }) {
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     <button
-                                                        onClick={() => deleteHorario(horario.id_horario)}
+                                                        onClick={() => setIdEliminar(horario.id_horario)}
                                                         className="text-red-600 hover:text-red-900"
                                                     >
                                                         Eliminar

@@ -11,7 +11,7 @@ class ComedorController extends Controller
     /**
      * Mostrar el mapa con todos los comedores activos y visibles
      */
-    public function mapa()
+    public function mapa(\Illuminate\Http\Request $request)
     {
         $comedores = Comedor::where('estado', 'activo')
             ->where('visible', true)
@@ -20,6 +20,7 @@ class ComedorController extends Controller
 
         return Inertia::render('Mapa/Index', [
             'comedores' => $comedores,
+            'selectedId' => $request->query('id'),
         ]);
     }
 
@@ -83,7 +84,8 @@ class ComedorController extends Controller
             'visible' => true,
         ]);
 
-        return redirect()->back()->with('success', 'Comedor aprobado correctamente');
+        return redirect()->route('mapa', ['id' => $comedor->id_comedor])
+            ->with('success', 'Comedor aprobado correctamente');
     }
 
     /**

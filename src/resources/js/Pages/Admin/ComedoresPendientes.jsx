@@ -1,6 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { MapPin, Phone, Mail, CheckCircle, XCircle, ArrowLeft, ExternalLink, Clock } from 'lucide-react';
+import ConfirmationModal from '@/Components/ConfirmationModal';
+import { useState } from 'react';
 
 export default function ComedoresPendientes({ comedores }) {
     return (
@@ -52,21 +54,44 @@ export default function ComedoresPendientes({ comedores }) {
 
 function ComedorCard({ comedor }) {
     const { post, processing } = useForm();
+    const [confirmingAprobacion, setConfirmingAprobacion] = useState(false);
+    const [confirmingRechazo, setConfirmingRechazo] = useState(false);
 
     const handleAprobar = () => {
-        if (confirm('¿Estás seguro de aprobar este comedor?')) {
-            post(route('admin.comedores.aprobar', comedor.id_comedor));
-        }
+        post(route('admin.comedores.aprobar', comedor.id_comedor), {
+            onSuccess: () => setConfirmingAprobacion(false),
+        });
     };
 
     const handleRechazar = () => {
-        if (confirm('¿Estás seguro de rechazar este comedor?')) {
-            post(route('admin.comedores.rechazar', comedor.id_comedor));
-        }
+        post(route('admin.comedores.rechazar', comedor.id_comedor), {
+            onSuccess: () => setConfirmingRechazo(false),
+        });
     };
 
     return (
         <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
+            <ConfirmationModal
+                show={confirmingAprobacion}
+                onClose={() => setConfirmingAprobacion(false)}
+                onConfirm={handleAprobar}
+                title="Aprobar Comedor"
+                message={`¿Estás seguro de que quieres aprobar el comedor "${comedor.nombre}"? Aparecerá inmediatamente en el mapa público.`}
+                confirmText="Sí, aprobar"
+                cancelText="Cancelar"
+            />
+
+            <ConfirmationModal
+                show={confirmingRechazo}
+                onClose={() => setConfirmingRechazo(false)}
+                onConfirm={handleRechazar}
+                title="Rechazar Comedor"
+                message={`¿Estás seguro de rechazar la solicitud del comedor "${comedor.nombre}"?`}
+                confirmText="Sí, rechazar"
+                cancelText="Cancelar"
+                type="danger"
+            />
+
             <div className="flex justify-between items-start">
                 <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
@@ -150,7 +175,7 @@ function ComedorCard({ comedor }) {
 
             <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-4 border-t border-gray-100">
                 <button
-                    onClick={handleAprobar}
+                    onClick={() => setConfirmingAprobacion(true)}
                     disabled={processing}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition shadow-sm"
                 >
@@ -158,7 +183,7 @@ function ComedorCard({ comedor }) {
                     {processing ? 'Procesando...' : 'Aprobar'}
                 </button>
                 <button
-                    onClick={handleRechazar}
+                    onClick={() => setConfirmingRechazo(true)}
                     disabled={processing}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
                 >
@@ -167,7 +192,6 @@ function ComedorCard({ comedor }) {
                 </button>
                 <Link
                     href={route('comedor.show', { id: comedor.id_comedor })}
-                    target="_blank"
                     className="flex items-center justify-center gap-2 px-6 py-2 bg-white border border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition"
                 >
                     <ExternalLink size={18} />

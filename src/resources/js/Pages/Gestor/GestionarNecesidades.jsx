@@ -4,8 +4,11 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import ConfirmationModal from '@/Components/ConfirmationModal';
+import { useState } from 'react';
 
 export default function GestionarNecesidades({ comedor }) {
+    const [idEliminar, setIdEliminar] = useState(null);
     const { data, setData, post, processing, errors, reset } = useForm({
         tipo: 'Alimentos',
         descripcion: '',
@@ -19,13 +22,13 @@ export default function GestionarNecesidades({ comedor }) {
         });
     };
 
-    const deleteNecesidad = (id) => {
-        if (confirm('¿Estás seguro de que quieres eliminar esta necesidad?')) {
-            router.delete(route('gestor.necesidades.destroy', { 
-                comedor: comedor.id_comedor, 
-                necesidad: id 
-            }));
-        }
+    const deleteNecesidad = () => {
+        router.delete(route('gestor.necesidades.destroy', { 
+            comedor: comedor.id_comedor, 
+            necesidad: idEliminar 
+        }), {
+            onSuccess: () => setIdEliminar(null),
+        });
     };
 
     const urgencias = {
@@ -43,6 +46,17 @@ export default function GestionarNecesidades({ comedor }) {
             }
         >
             <Head title={`Necesidades - ${comedor.nombre}`} />
+
+            <ConfirmationModal
+                show={idEliminar !== null}
+                onClose={() => setIdEliminar(null)}
+                onConfirm={deleteNecesidad}
+                title="Eliminar Necesidad"
+                message="¿Estás seguro de que quieres eliminar esta publicación? Ya no aparecerá en la ficha del comedor."
+                confirmText="Sí, eliminar"
+                cancelText="Cancelar"
+                type="danger"
+            />
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-6">
@@ -129,7 +143,7 @@ export default function GestionarNecesidades({ comedor }) {
                                             </div>
                                             <div className="flex justify-end">
                                                 <button
-                                                    onClick={() => deleteNecesidad(necesidad.id_necesidad)}
+                                                    onClick={() => setIdEliminar(necesidad.id_necesidad)}
                                                     className="text-sm text-red-600 hover:text-red-900 font-medium"
                                                 >
                                                     Eliminar

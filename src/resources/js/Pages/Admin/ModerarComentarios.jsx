@@ -1,6 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { MessageSquare, CheckCircle, XCircle, ArrowLeft } from 'lucide-react';
+import ConfirmationModal from '@/Components/ConfirmationModal';
+import { useState } from 'react';
 
 export default function ModerarComentarios({ comentarios }) {
     return (
@@ -59,6 +61,7 @@ export default function ModerarComentarios({ comentarios }) {
 
 function ComentarioCard({ comentario }) {
     const { post, processing } = useForm();
+    const [confirmingRechazo, setConfirmingRechazo] = useState(false);
 
     const handleAprobar = () => {
         post(route('admin.comentarios.aprobar', comentario.id_comentario), {
@@ -67,15 +70,24 @@ function ComentarioCard({ comentario }) {
     };
 
     const handleRechazar = () => {
-        if (confirm('¿Estás seguro de rechazar este comentario? Se ocultará de la vista pública.')) {
-            post(route('admin.comentarios.rechazar', comentario.id_comentario), {
-                preserveScroll: true
-            });
-        }
+        post(route('admin.comentarios.rechazar', comentario.id_comentario), {
+            preserveScroll: true,
+            onSuccess: () => setConfirmingRechazo(false),
+        });
     };
 
     return (
         <div className="border border-gray-100 bg-gray-50 rounded-xl p-6 transition-all hover:bg-white hover:shadow-md">
+            <ConfirmationModal
+                show={confirmingRechazo}
+                onClose={() => setConfirmingRechazo(false)}
+                onConfirm={handleRechazar}
+                title="Rechazar Comentario"
+                message="¿Estás seguro de que quieres rechazar este comentario? No será visible para el público."
+                confirmText="Sí, rechazar"
+                cancelText="Cancelar"
+                type="danger"
+            />
             <div className="flex flex-col md:flex-row justify-between gap-4">
                 <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
@@ -108,7 +120,7 @@ function ComentarioCard({ comentario }) {
                         Aprobar
                     </button>
                     <button
-                        onClick={handleRechazar}
+                        onClick={() => setConfirmingRechazo(true)}
                         disabled={processing}
                         className="px-4 py-2 bg-red-100 text-red-700 text-sm font-bold rounded-lg hover:bg-red-200 transition disabled:opacity-50 flex items-center justify-center gap-2"
                     >

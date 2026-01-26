@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MapaLeaflet from '@/Components/MapaLeaflet';
 import FrontendLayout from '@/Layouts/FrontendLayout';
 import { 
@@ -17,7 +17,7 @@ import {
     Info
 } from 'lucide-react';
 
-export default function MapaIndex({ comedores, auth }) {
+export default function MapaIndex({ comedores, auth, selectedId }) {
     const [userLocation, setUserLocation] = useState(null);
     const [isGettingLocation, setIsGettingLocation] = useState(false);
     const [mapCenter, setMapCenter] = useState([40.4168, -3.7038]); // Madrid por defecto
@@ -36,6 +36,18 @@ export default function MapaIndex({ comedores, auth }) {
     const [ubicacionBusqueda, setUbicacionBusqueda] = useState(null);
     const [isBuscandoDireccion, setIsBuscandoDireccion] = useState(false);
     const [errorBusqueda, setErrorBusqueda] = useState('');
+
+    // Efecto para seleccionar un comedor inicialmente si viene por parámetro
+    useEffect(() => {
+        if (selectedId && comedores.length > 0) {
+            const comedor = comedores.find(c => c.id_comedor === parseInt(selectedId));
+            if (comedor) {
+                setComedorSeleccionado(comedor);
+                setMapCenter([parseFloat(comedor.latitud), parseFloat(comedor.longitud)]);
+                setMapZoom(16);
+            }
+        }
+    }, [selectedId, comedores]);
 
     // Función para calcular distancia usando Haversine (en km)
     const calcularDistancia = (lat1, lon1, lat2, lon2) => {
