@@ -1,0 +1,1 @@
+import{c}from"./handshake-CkOcJhw8.js";const e=[["path",{d:"m12 19-7-7 7-7",key:"1l729n"}],["path",{d:"M19 12H5",key:"x3x0zl"}]],t=c("arrow-left",e);const o=[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"m15 9-6 6",key:"1uzhvr"}],["path",{d:"m9 9 6 6",key:"z0biqf"}]],a=c("circle-x",o);export{t as A,a as C};

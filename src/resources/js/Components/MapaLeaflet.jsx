@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-le
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { MapPin, Phone, MessageSquare, Info } from 'lucide-react';
 
 // Fix para los iconos de Leaflet en Vite
 delete L.Icon.Default.prototype._getIconUrl;
@@ -117,31 +118,36 @@ export default function MapaLeaflet({ comedores, center = [40.4168, -3.7038], zo
                     }}
                 >
                     <Popup>
-                        <div className="p-2">
-                            <h3 className="font-bold text-lg">{comedor.nombre}</h3>
-                            <p className="text-sm text-gray-600">{comedor.direccion}</p>
+                        <div className="p-2 min-w-[150px]">
+                            <h3 className="font-bold text-gray-900 border-b pb-1 mb-2">{comedor.nombre}</h3>
+                            <div className="flex items-start gap-1 text-xs text-gray-600 mb-1">
+                                <MapPin size={12} className="mt-0.5 flex-shrink-0" />
+                                <span>{comedor.direccion}</span>
+                            </div>
                             {comedor.distancia && (
-                                <p className="text-sm mt-1 text-indigo-600 font-semibold">
-                                    📍 {comedor.distancia.toFixed(2)} km de distancia
-                                </p>
-                            )}
-                            {comedor.observaciones && (
-                                <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800 italic">
-                                    <strong>Aviso:</strong> {comedor.observaciones}
+                                <div className="flex items-center gap-1 text-xs text-indigo-600 font-semibold mb-1">
+                                    <Info size={12} />
+                                    <span>{comedor.distancia.toFixed(2)} km de ti</span>
                                 </div>
                             )}
                             {comedor.telefono && (
-                                <p className="text-sm mt-1">
-                                    📞 <a href={`tel:${comedor.telefono}`} className="text-blue-600 hover:underline">
+                                <div className="flex items-center gap-1 text-xs mb-2">
+                                    <Phone size={12} />
+                                    <a href={`tel:${comedor.telefono}`} className="text-blue-600 hover:underline">
                                         {comedor.telefono}
                                     </a>
-                                </p>
+                                </div>
+                            )}
+                            {comedor.observaciones && (
+                                <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-[10px] text-yellow-800 italic">
+                                    <strong>Aviso:</strong> {comedor.observaciones}
+                                </div>
                             )}
                             <a
-                                href={`/comedor/${comedor.id_comedor}`}
-                                className="inline-block mt-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded"
+                                href={route('comedor.show', { id: comedor.id_comedor })}
+                                className="inline-block mt-3 text-center w-full text-xs text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded-md font-medium transition"
                             >
-                                Ver detalles
+                                Ver ficha completa
                             </a>
                         </div>
                     </Popup>

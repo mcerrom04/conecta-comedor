@@ -2,6 +2,20 @@ import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
 import MapaLeaflet from '@/Components/MapaLeaflet';
 import FrontendLayout from '@/Layouts/FrontendLayout';
+import { 
+    Search, 
+    SlidersHorizontal, 
+    LocateFixed, 
+    MapPin, 
+    RotateCcw, 
+    Check, 
+    X,
+    Navigation,
+    Clock,
+    Filter,
+    ArrowRight,
+    Info
+} from 'lucide-react';
 
 export default function MapaIndex({ comedores, auth }) {
     const [userLocation, setUserLocation] = useState(null);
@@ -184,15 +198,16 @@ export default function MapaIndex({ comedores, auth }) {
                                     <div className="order-2 flex gap-2 lg:order-2">
                                         <button
                                             onClick={() => setMostrarFiltros(!mostrarFiltros)}
-                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition border ${
                                                 mostrarFiltros 
-                                                    ? 'bg-indigo-600 text-white hover:bg-indigo-700' 
-                                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' 
+                                                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                                             }`}
                                         >
-                                            🔍 Filtros
+                                            <SlidersHorizontal size={18} />
+                                            Filtros
                                             {(filtroEstado !== 'todos' || filtroDistanciaActivo || filtroHora) && (
-                                                <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                                                <span className="bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
                                                     !
                                                 </span>
                                             )}
@@ -200,7 +215,7 @@ export default function MapaIndex({ comedores, auth }) {
                                         <button
                                             onClick={obtenerUbicacion}
                                             disabled={isGettingLocation}
-                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition shadow-sm ${
                                                 userLocation 
                                                     ? 'bg-green-600 hover:bg-green-700' 
                                                     : 'bg-indigo-600 hover:bg-indigo-700'
@@ -216,12 +231,12 @@ export default function MapaIndex({ comedores, auth }) {
                                                 </>
                                             ) : userLocation ? (
                                                 <>
-                                                    <span className="text-lg">✓</span>
+                                                    <Check size={18} />
                                                     <span>Ubicación</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <span className="text-lg">✕</span>
+                                                    <LocateFixed size={18} />
                                                     <span>Ubicación</span>
                                                 </>
                                             )}
@@ -323,9 +338,9 @@ export default function MapaIndex({ comedores, auth }) {
                                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                                             >
                                                 <option value="todos">Todos</option>
-                                                <option value="abierto">🟢 Abierto</option>
-                                                <option value="cerrado">🔴 Cerrado</option>
-                                                <option value="completo">🟡 Completo</option>
+                                                <option value="abierto">Abierto</option>
+                                                <option value="cerrado">Cerrado</option>
+                                                <option value="completo">Completo</option>
                                             </select>
                                         </div>
 
@@ -369,8 +384,8 @@ export default function MapaIndex({ comedores, auth }) {
 
                                         {/* Filtro por hora */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                🕐 Hora específica
+                                            <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                                                <Clock size={16} className="text-gray-400" /> Hora específica
                                             </label>
                                             <input
                                                 type="time"
@@ -378,8 +393,8 @@ export default function MapaIndex({ comedores, auth }) {
                                                 onChange={(e) => setFiltroHora(e.target.value)}
                                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                                             />
-                                            <p className="text-xs text-gray-500 mt-1">
-                                                ⚠️ Filtro visual solamente (funcionalidad pendiente)
+                                            <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                                                <Info size={12} /> Filtro visual solamente (funcionalidad pendiente)
                                             </p>
                                         </div>
                                     </div>
@@ -412,10 +427,9 @@ export default function MapaIndex({ comedores, auth }) {
                                             onClick={() => setPanelLateralAbierto(!panelLateralAbierto)}
                                             className="absolute top-4 right-4 z-[1000] bg-white hover:bg-gray-50 text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg border border-gray-300 transition flex items-center gap-2"
                                         >
-                                            <span>📋 Ver lista ({comedoresFiltrados.length})</span>
-                                            <span className={`transition-transform ${panelLateralAbierto ? 'rotate-180' : ''}`}>
-                                                ▼
-                                            </span>
+                                            <Filter size={18} className="text-indigo-600" />
+                                            <span>Ver lista ({comedoresFiltrados.length})</span>
+                                            <Navigation size={14} className={`transition-transform ${panelLateralAbierto ? 'rotate-180' : 'rotate-90'}`} />
                                         </button>
                                     )}
 
@@ -464,24 +478,24 @@ export default function MapaIndex({ comedores, auth }) {
                                                                         <h4 className="font-semibold text-gray-900 truncate text-sm">
                                                                             {comedor.nombre}
                                                                         </h4>
-                                                                        <p className="text-xs text-gray-600 truncate mt-1">
-                                                                            📍 {comedor.direccion}
-                                                                        </p>
-                                                                        {comedor.distancia && (
-                                                                            <p className="text-xs text-gray-500 mt-1">
-                                                                                🚶 {comedor.distancia.toFixed(1)} km
-                                                                            </p>
+                                                                        <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
+                                                                            <MapPin size={12} className="flex-shrink-0" />
+                                                                            <span className="truncate">{comedor.direccion}</span>
+                                                                        </div>
+                                                                        {comedor.distancia !== undefined && (
+                                                                            <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+                                                                                <Navigation size={12} className="flex-shrink-0" />
+                                                                                <span>{comedor.distancia.toFixed(1)} km</span>
+                                                                            </div>
                                                                         )}
                                                                     </div>
-                                                                    <span className={`text-xs font-medium px-2 py-1 rounded flex-shrink-0 ${
+                                                                    <div className={`w-2.5 h-2.5 rounded-full mt-1 flex-shrink-0 ${
                                                                         comedor.estado_actual === 'abierto' 
-                                                                            ? 'bg-green-100 text-green-800'
+                                                                            ? 'bg-green-500'
                                                                             : comedor.estado_actual === 'cerrado'
-                                                                            ? 'bg-red-100 text-red-800'
-                                                                            : 'bg-yellow-100 text-yellow-800'
-                                                                    }`}>
-                                                                        {comedor.estado_actual === 'abierto' ? '🟢' : comedor.estado_actual === 'cerrado' ? '🔴' : '🟡'}
-                                                                    </span>
+                                                                            ? 'bg-red-500'
+                                                                            : 'bg-yellow-500'
+                                                                    }`} title={comedor.estado_actual}></div>
                                                                 </div>
                                                             </button>
                                                         ))

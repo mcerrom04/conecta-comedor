@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { Handshake } from 'lucide-react';
 
 export default function FrontendLayout({ auth, children, title }) {
     return (
@@ -9,7 +10,7 @@ export default function FrontendLayout({ auth, children, title }) {
                     <div className="flex h-16 justify-between items-center">
                         <div className="flex items-center">
                             <Link href={route('mapa')} className="flex items-center gap-2">
-                                <span className="text-2xl">🤝</span>
+                                <Handshake size={28} className="text-indigo-600" />
                                 <span className="text-xl font-bold tracking-tight text-gray-900 hidden sm:block">
                                     Conecta Comedor
                                 </span>

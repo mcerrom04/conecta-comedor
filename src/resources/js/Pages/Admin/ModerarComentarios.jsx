@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { MessageSquare, CheckCircle, XCircle, ArrowLeft } from 'lucide-react';
 
 export default function ModerarComentarios({ comentarios }) {
     return (
@@ -11,9 +12,9 @@ export default function ModerarComentarios({ comentarios }) {
                     </h2>
                     <Link
                         href={route('admin.dashboard')}
-                        className="text-indigo-600 hover:text-indigo-700 font-medium"
+                        className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-medium transition"
                     >
-                        ← Volver al panel
+                        <ArrowLeft size={16} /> Volver al panel
                     </Link>
                 </div>
             }
@@ -25,8 +26,10 @@ export default function ModerarComentarios({ comentarios }) {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             {comentarios.length === 0 ? (
-                                <div className="text-center py-12">
-                                    <div className="text-gray-400 mb-4 text-6xl">💬</div>
+                                <div className="text-center py-16">
+                                    <div className="flex justify-center mb-4">
+                                        <MessageSquare size={64} className="text-gray-200" />
+                                    </div>
                                     <p className="text-gray-500 text-lg">
                                         No hay comentarios pendientes de moderación
                                     </p>
@@ -101,7 +104,7 @@ function ComentarioCard({ comentario }) {
                         disabled={processing}
                         className="px-4 py-2 bg-green-600 text-white text-sm font-bold rounded-lg hover:bg-green-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
                     >
-                        <span>✅</span>
+                        <CheckCircle size={16} />
                         Aprobar
                     </button>
                     <button
@@ -109,7 +112,7 @@ function ComentarioCard({ comentario }) {
                         disabled={processing}
                         className="px-4 py-2 bg-red-100 text-red-700 text-sm font-bold rounded-lg hover:bg-red-200 transition disabled:opacity-50 flex items-center justify-center gap-2"
                     >
-                        <span>❌</span>
+                        <XCircle size={16} />
                         Rechazar
                     </button>
                 </div>

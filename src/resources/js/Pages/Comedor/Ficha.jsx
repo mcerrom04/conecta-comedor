@@ -1,6 +1,27 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import FrontendLayout from '@/Layouts/FrontendLayout';
+import { 
+    MapPin, 
+    Phone, 
+    Mail, 
+    Map as MapIcon, 
+    Megaphone, 
+    Utensils, 
+    Shirt, 
+    Package, 
+    Droplet, 
+    Accessibility, 
+    AlertCircle,
+    Info,
+    Calendar,
+    Users,
+    Clock,
+    History,
+    Handshake,
+    MessageSquare,
+    CheckCircle
+} from 'lucide-react';
 
 export default function FichaComedor({ comedor, auth }) {
     // Agrupar horarios por día de la semana
@@ -37,9 +58,9 @@ export default function FichaComedor({ comedor, auth }) {
     // Obtener indicador de estado
     const getEstadoBadge = (estadoActual) => {
         const badges = {
-            abierto: { text: '🟢 Abierto', color: 'bg-green-100 text-green-800' },
-            cerrado: { text: '🔴 Cerrado', color: 'bg-red-100 text-red-800' },
-            completo: { text: '🟡 Completo', color: 'bg-yellow-100 text-yellow-800' }
+            abierto: { text: 'Abierto', color: 'bg-green-100 text-green-800' },
+            cerrado: { text: 'Cerrado', color: 'bg-red-100 text-red-800' },
+            completo: { text: 'Completo', color: 'bg-yellow-100 text-yellow-800' }
         };
         return badges[estadoActual] || badges.cerrado;
     };
@@ -101,11 +122,16 @@ export default function FichaComedor({ comedor, auth }) {
                                         <h1 className="text-3xl font-bold text-gray-900 mb-2">
                                             {comedor.nombre}
                                         </h1>
-                                        <p className="text-gray-600 mb-4">
-                                            📍 {comedor.direccion}
-                                        </p>
+                                        <div className="flex items-center text-gray-600 mb-4">
+                                            <MapPin size={18} className="mr-2" />
+                                            <p>{comedor.direccion}</p>
+                                        </div>
                                     </div>
-                                    <span className={`px-4 py-2 rounded-full text-sm font-semibold ${estadoBadge.color}`}>
+                                    <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold ${estadoBadge.color}`}>
+                                        <div className={`w-2 h-2 rounded-full mr-2 ${
+                                            estadoEnVivo.estadoActual === 'abierto' ? 'bg-green-500' : 
+                                            estadoEnVivo.estadoActual === 'completo' ? 'bg-yellow-500' : 'bg-red-500'
+                                        }`}></div>
                                         {estadoBadge.text}
                                     </span>
                                 </div>
@@ -132,7 +158,7 @@ export default function FichaComedor({ comedor, auth }) {
                                 {estadoEnVivo.observaciones && (
                                     <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
                                         <div className="flex items-center">
-                                            <span className="text-xl mr-2">📢</span>
+                                            <Megaphone className="text-yellow-600 mr-2" size={20} />
                                             <h3 className="font-bold text-yellow-800">Aviso del gestor</h3>
                                         </div>
                                         <p className="mt-1 text-yellow-900">
@@ -144,7 +170,8 @@ export default function FichaComedor({ comedor, auth }) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                                     {comedor.telefono && (
                                         <div className="flex items-center gap-2">
-                                            <span className="text-gray-700 font-semibold">📞 Teléfono:</span>
+                                            <Phone size={18} className="text-gray-500" />
+                                            <span className="text-gray-700 font-semibold">Teléfono:</span>
                                             <a 
                                                 href={`tel:${comedor.telefono}`}
                                                 className="text-indigo-600 hover:underline"
@@ -155,7 +182,8 @@ export default function FichaComedor({ comedor, auth }) {
                                     )}
                                     {comedor.email && (
                                         <div className="flex items-center gap-2">
-                                            <span className="text-gray-700 font-semibold">✉️ Email:</span>
+                                            <Mail size={18} className="text-gray-500" />
+                                            <span className="text-gray-700 font-semibold">Email:</span>
                                             <a 
                                                 href={`mailto:${comedor.email}`}
                                                 className="text-indigo-600 hover:underline"
@@ -188,7 +216,8 @@ export default function FichaComedor({ comedor, auth }) {
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
                                     >
-                                        🗺️ Cómo llegar
+                                        <MapIcon size={20} />
+                                        Cómo llegar
                                     </a>
                                 </div>
                             </div>
@@ -263,7 +292,9 @@ export default function FichaComedor({ comedor, auth }) {
                                     
                                     {/* Call to action para donaciones */}
                                     <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 mb-6">
-                                        <h3 className="font-semibold text-indigo-900 mb-2">💙 ¿Quieres colaborar?</h3>
+                                        <h3 className="font-semibold text-indigo-900 mb-2 flex items-center gap-2">
+                                            <Info size={18} /> ¿Quieres colaborar?
+                                        </h3>
                                         <p className="text-sm text-indigo-800 mb-3">
                                             Estas son las necesidades más urgentes del comedor. Puedes ayudar donando estos productos o contactándolos para ofrecerte como voluntario.
                                         </p>
@@ -273,7 +304,7 @@ export default function FichaComedor({ comedor, auth }) {
                                                     href={`tel:${comedor.telefono}`}
                                                     className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
                                                 >
-                                                    📞 Llamar: {comedor.telefono}
+                                                    <Phone size={16} /> Llamar: {comedor.telefono}
                                                 </a>
                                             )}
                                             {comedor.email && (
@@ -281,7 +312,7 @@ export default function FichaComedor({ comedor, auth }) {
                                                     href={`mailto:${comedor.email}`}
                                                     className="inline-flex items-center gap-2 px-4 py-2 bg-white text-indigo-600 border border-indigo-600 rounded-lg hover:bg-indigo-50 transition"
                                                 >
-                                                    ✉️ Enviar email
+                                                    <Mail size={16} /> Enviar email
                                                 </a>
                                             )}
                                         </div>
@@ -290,39 +321,41 @@ export default function FichaComedor({ comedor, auth }) {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {comedor.necesidades.map((necesidad) => {
                                             const urgencias = {
-                                                baja: { text: 'Baja', color: 'bg-blue-100 text-blue-800', icon: '🔵' },
-                                                media: { text: 'Media', color: 'bg-yellow-100 text-yellow-800', icon: '🟡' },
-                                                alta: { text: 'Alta', color: 'bg-red-100 text-red-800', icon: '🔴' }
+                                                baja: { text: 'Baja', color: 'bg-blue-100 text-blue-800', dot: 'bg-blue-500' },
+                                                media: { text: 'Media', color: 'bg-yellow-100 text-yellow-800', dot: 'bg-yellow-500' },
+                                                alta: { text: 'Alta', color: 'bg-red-100 text-red-800', dot: 'bg-red-500' }
                                             };
                                             const urgencia = urgencias[necesidad.urgencia] || urgencias.baja;
 
                                             // Iconos por tipo de necesidad
                                             const tipoIconos = {
-                                                'Alimentos': '🍽️',
-                                                'Productos de higiene': '🧴',
-                                                'Voluntariado': '🤝',
-                                                'Ropa': '👕',
-                                                'Otros': '📦'
+                                                'Alimentos': <Utensils size={24} className="text-indigo-500" />,
+                                                'Productos de higiene': <Droplet size={24} className="text-indigo-500" />,
+                                                'Voluntariado': <Handshake size={24} className="text-indigo-500" />,
+                                                'Ropa': <Shirt size={24} className="text-indigo-500" />,
+                                                'Otros': <Package size={24} className="text-indigo-500" />
                                             };
-                                            const icono = tipoIconos[necesidad.tipo] || '📋';
+                                            const icono = tipoIconos[necesidad.tipo] || <Info size={24} className="text-indigo-500" />;
 
                                             return (
                                                 <div 
                                                     key={necesidad.id_necesidad}
-                                                    className="border-2 border-gray-200 rounded-lg p-4 hover:shadow-md transition"
+                                                    className="border-2 border-gray-100 rounded-lg p-5 hover:border-indigo-200 transition"
                                                 >
                                                     <div className="flex justify-between items-start mb-3">
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-2xl">{icono}</span>
-                                                            <h3 className="font-semibold text-lg">{necesidad.tipo}</h3>
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="p-2 bg-indigo-50 rounded-lg">
+                                                                {icono}
+                                                            </div>
+                                                            <h3 className="font-semibold text-lg text-gray-900">{necesidad.tipo}</h3>
                                                         </div>
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 ${urgencia.color}`}>
-                                                            <span>{urgencia.icon}</span>
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-2 ${urgencia.color}`}>
+                                                            <div className={`w-2 h-2 rounded-full ${urgencia.dot}`}></div>
                                                             {urgencia.text}
                                                         </span>
                                                     </div>
                                                     {necesidad.descripcion && (
-                                                        <p className="text-sm text-gray-700 leading-relaxed">
+                                                        <p className="text-sm text-gray-600 leading-relaxed">
                                                             {necesidad.descripcion}
                                                         </p>
                                                     )}
@@ -337,8 +370,8 @@ export default function FichaComedor({ comedor, auth }) {
                         {/* Comentarios */}
                         <div className="bg-white shadow-sm sm:rounded-lg overflow-hidden">
                             <div className="p-6">
-                                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                                    <span>💬</span> Opiniones y Comentarios
+                                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-900 border-b pb-4">
+                                    <MessageSquare className="text-indigo-600" /> Opiniones y Comentarios
                                 </h2>
 
                                 {/* Formulario para nuevo comentario */}
@@ -370,8 +403,9 @@ export default function FichaComedor({ comedor, auth }) {
                                                 </button>
                                             </div>
                                             {wasSuccessful && (
-                                                <div className="mt-4 p-3 bg-green-100 text-green-800 rounded-lg text-sm font-medium">
-                                                    ✅ Tu comentario ha sido enviado correctamente y está pendiente de moderación.
+                                                <div className="mt-4 p-4 bg-green-50 text-green-800 border-l-4 border-green-400 rounded-r-lg text-sm font-medium flex items-center gap-2">
+                                                    <CheckCircle size={18} className="text-green-600" />
+                                                    Tu comentario ha sido enviado correctamente y está pendiente de moderación.
                                                 </div>
                                             )}
                                         </form>

@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { MapPin, Phone, Mail, CheckCircle, XCircle, ArrowLeft, ExternalLink, Clock } from 'lucide-react';
 
 export default function ComedoresPendientes({ comedores }) {
     return (
@@ -11,9 +12,9 @@ export default function ComedoresPendientes({ comedores }) {
                     </h2>
                     <Link
                         href={route('admin.dashboard')}
-                        className="text-indigo-600 hover:text-indigo-700"
+                        className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-medium transition"
                     >
-                        ← Volver al panel
+                        <ArrowLeft size={16} /> Volver al panel
                     </Link>
                 </div>
             }
@@ -77,24 +78,27 @@ function ComedorCard({ comedor }) {
                         </span>
                     </div>
 
-                    <div className="space-y-2 text-sm text-gray-600">
-                        <p className="flex items-center gap-2">
-                            <span className="font-semibold">📍 Dirección:</span>
+                    <div className="space-y-3 text-sm text-gray-600">
+                        <div className="flex items-center gap-2">
+                            <MapPin size={16} className="text-gray-400" />
+                            <span className="font-semibold text-gray-700">Dirección:</span>
                             {comedor.direccion}
-                        </p>
+                        </div>
                         
                         {comedor.telefono && (
-                            <p className="flex items-center gap-2">
-                                <span className="font-semibold">📞 Teléfono:</span>
+                            <div className="flex items-center gap-2">
+                                <Phone size={16} className="text-gray-400" />
+                                <span className="font-semibold text-gray-700">Teléfono:</span>
                                 {comedor.telefono}
-                            </p>
+                            </div>
                         )}
                         
                         {comedor.email && (
-                            <p className="flex items-center gap-2">
-                                <span className="font-semibold">✉️ Email:</span>
+                            <div className="flex items-center gap-2">
+                                <Mail size={16} className="text-gray-400" />
+                                <span className="font-semibold text-gray-700">Email:</span>
                                 {comedor.email}
-                            </p>
+                            </div>
                         )}
 
                         {comedor.descripcion && (
@@ -144,27 +148,30 @@ function ComedorCard({ comedor }) {
                 </div>
             </div>
 
-            <div className="flex gap-3 mt-6 pt-4 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-4 border-t border-gray-100">
                 <button
                     onClick={handleAprobar}
                     disabled={processing}
-                    className="flex-1 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition shadow-sm"
                 >
-                    {processing ? 'Procesando...' : '✓ Aprobar'}
+                    <CheckCircle size={18} />
+                    {processing ? 'Procesando...' : 'Aprobar'}
                 </button>
                 <button
                     onClick={handleRechazar}
                     disabled={processing}
-                    className="flex-1 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
                 >
-                    {processing ? 'Procesando...' : '✗ Rechazar'}
+                    <XCircle size={18} />
+                    {processing ? 'Procesando...' : 'Rechazar'}
                 </button>
                 <Link
-                    href={`/comedor/${comedor.id_comedor}`}
+                    href={route('comedor.show', { id: comedor.id_comedor })}
                     target="_blank"
-                    className="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition text-center"
+                    className="flex items-center justify-center gap-2 px-6 py-2 bg-white border border-indigo-600 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 transition"
                 >
-                    Ver detalles →
+                    <ExternalLink size={18} />
+                    Ver ficha
                 </Link>
             </div>
         </div>
