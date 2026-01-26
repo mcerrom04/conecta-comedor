@@ -26,7 +26,7 @@
 - ✅ **HU-014:** Implementar Búsqueda por dirección específica - COMPLETADO
 - ✅ **HU-004:** Implementar Ver estado en tiempo real del comedor - COMPLETADO
 - ✅ **HU-012:** Implementar Registro de nuevo comedor - COMPLETADO
-- ⏳ **HU-013:** Implementar Gestionar horarios del comedor - NO INICIADO
+- ✅ **HU-013:** Implementar Gestionar horarios del comedor - COMPLETADO
 - ✅ **HU-007:** Implementar Actualizar estado del día - COMPLETADO
 - ⏳ **HU-008:** Implementar Gestionar lista de necesidades - NO INICIADO
 - ⏳ **HU-010:** Implementar Moderar comentarios - NO INICIADO
