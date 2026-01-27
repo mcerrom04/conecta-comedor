@@ -48,7 +48,7 @@ Lista de Historias de Usuario y Tareas Técnicas en orden de realización.
 - ✅ HU-008: Implementar Gestionar lista de necesidades
 - ✅ HU-010: Implementar Moderar comentarios
 - ✅ TT-S3-012: Testing integral de todas las funcionalidades
-- ⏳ TT-S3-013: Optimización de rendimiento y responsive design
+- ✅ TT-S3-013: Optimización de rendimiento y responsive design
 - ⏳ TT-S3-014: Generar documentación con PHPDoc
 - ⏳ TT-S3-015: Actualizar Manual de Usuario con capturas de pantalla
 - ✅ TT-S3-016: Actualizar Manual de Instalación para Laravel

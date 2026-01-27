@@ -2,13 +2,13 @@ import { Head, Link } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import MapaLeaflet from '@/Components/MapaLeaflet';
 import FrontendLayout from '@/Layouts/FrontendLayout';
-import { 
-    Search, 
-    SlidersHorizontal, 
-    LocateFixed, 
-    MapPin, 
-    RotateCcw, 
-    Check, 
+import {
+    Search,
+    SlidersHorizontal,
+    LocateFixed,
+    MapPin,
+    RotateCcw,
+    Check,
     X,
     Navigation,
     Clock,
@@ -22,7 +22,7 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
     const [isGettingLocation, setIsGettingLocation] = useState(false);
     const [mapCenter, setMapCenter] = useState([40.4168, -3.7038]); // Madrid por defecto
     const [mapZoom, setMapZoom] = useState(12);
-    
+
     // Estados de filtros
     const [filtroTexto, setFiltroTexto] = useState('');
     const [filtroEstado, setFiltroEstado] = useState('todos');
@@ -54,7 +54,7 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
         const R = 6371; // Radio de la Tierra en km
         const dLat = (lat2 - lat1) * Math.PI / 180;
         const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = 
+        const a =
             Math.sin(dLat / 2) * Math.sin(dLat / 2) +
             Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
             Math.sin(dLon / 2) * Math.sin(dLon / 2);
@@ -82,7 +82,7 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
         // Filtro por texto (nombre o dirección)
         if (filtroTexto) {
             const textoLower = filtroTexto.toLowerCase();
-            const coincide = 
+            const coincide =
                 comedor.nombre.toLowerCase().includes(textoLower) ||
                 comedor.direccion.toLowerCase().includes(textoLower);
             if (!coincide) return false;
@@ -194,342 +194,338 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
 
             {/* Main Content */}
             <main className="py-12">
-                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                            <div className="p-6 text-gray-900">
-                                {/* Header responsive: columna en móvil, dos columnas en desktop */}
-                                <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-start">
-                                    {/* Título */}
-                                    <div className="order-1">
-                                        <h2 className="text-2xl font-bold mb-2">
-                                            Busca comedores cercanos
-                                        </h2>
-                                    </div>
-                                    
-                                    {/* Botones */}
-                                    <div className="order-2 flex gap-2 lg:order-2">
-                                        <button
-                                            onClick={() => setMostrarFiltros(!mostrarFiltros)}
-                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition border ${
-                                                mostrarFiltros 
-                                                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' 
-                                                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                                            }`}
-                                        >
-                                            <SlidersHorizontal size={18} />
-                                            Filtros
-                                            {comedoresFiltrados.length === 0 && comedores.length > 0 && (
-                                                <span className="bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
-                                                    !
-                                                </span>
-                                            )}
-                                        </button>
-                                        <button
-                                            onClick={obtenerUbicacion}
-                                            disabled={isGettingLocation}
-                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition shadow-sm ${
-                                                userLocation 
-                                                    ? 'bg-green-600 hover:bg-green-700' 
-                                                    : 'bg-indigo-600 hover:bg-indigo-700'
-                                            } text-white disabled:bg-gray-400 disabled:cursor-not-allowed`}
-                                        >
-                                            {isGettingLocation ? (
-                                                <>
-                                                    <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                    </svg>
-                                                    <span>Obteniendo...</span>
-                                                </>
-                                            ) : userLocation ? (
-                                                <>
-                                                    <Check size={18} />
-                                                    <span>Ubicación</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <LocateFixed size={18} />
-                                                    <span>Ubicación</span>
-                                                </>
-                                            )}
-                                        </button>
-                                    </div>
-
-                                    {/* Contador de comedores */}
-                                    <div className="order-3 lg:order-1">
-                                        <p className="text-gray-600">
-                                            Mostrando: <span className="font-semibold">{comedoresFiltrados.length}</span> de {comedores.length} comedores
-                                        </p>
-                                    </div>
+                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900">
+                            {/* Header responsive: columna en móvil, dos columnas en desktop */}
+                            <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-start">
+                                {/* Título */}
+                                <div className="order-1">
+                                    <h2 className="text-2xl font-bold mb-2">
+                                        Busca comedores cercanos
+                                    </h2>
                                 </div>
 
-                                {/* Panel de Filtros - Colapsable (Ahora debajo de los botones) */}
-                                <div 
-                                    className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${
-                                        mostrarFiltros ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+                                {/* Botones */}
+                                <div className="order-2 flex gap-2 lg:order-2">
+                                    <button
+                                        onClick={() => setMostrarFiltros(!mostrarFiltros)}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg transition border ${mostrarFiltros
+                                                ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
+                                                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                                            }`}
+                                    >
+                                        <SlidersHorizontal size={18} />
+                                        Filtros
+                                        {comedoresFiltrados.length === 0 && comedores.length > 0 && (
+                                            <span className="bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
+                                                !
+                                            </span>
+                                        )}
+                                    </button>
+                                    <button
+                                        onClick={obtenerUbicacion}
+                                        disabled={isGettingLocation}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg transition shadow-sm ${userLocation
+                                                ? 'bg-green-600 hover:bg-green-700'
+                                                : 'bg-indigo-600 hover:bg-indigo-700'
+                                            } text-white disabled:bg-gray-400 disabled:cursor-not-allowed`}
+                                    >
+                                        {isGettingLocation ? (
+                                            <>
+                                                <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                <span>Obteniendo...</span>
+                                            </>
+                                        ) : userLocation ? (
+                                            <>
+                                                <Check size={18} />
+                                                <span>Ubicación</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <LocateFixed size={18} />
+                                                <span>Ubicación</span>
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+
+                                {/* Contador de comedores */}
+                                <div className="order-3 lg:order-1">
+                                    <p className="text-gray-600">
+                                        Mostrando: <span className="font-semibold">{comedoresFiltrados.length}</span> de {comedores.length} comedores
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Panel de Filtros - Colapsable (Ahora debajo de los botones) */}
+                            <div
+                                className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${mostrarFiltros ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
                                     }`}
-                                >
-                                    <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
-                                        <div className="flex justify-between items-center mb-4">
-                                            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500">Filtros Avanzados</h3>
-                                            <button onClick={() => setMostrarFiltros(false)} className="text-gray-400 hover:text-gray-600 transition">
-                                                <X size={18} />
+                            >
+                                <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-inner">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500">Filtros Avanzados</h3>
+                                        <button onClick={() => setMostrarFiltros(false)} className="text-gray-400 hover:text-gray-600 transition">
+                                            <X size={18} />
+                                        </button>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                        {/* Filtro por texto */}
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">
+                                                Nombre o dirección
+                                            </label>
+                                            <div className="relative">
+                                                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                                <input
+                                                    type="text"
+                                                    value={filtroTexto}
+                                                    onChange={(e) => setFiltroTexto(e.target.value)}
+                                                    placeholder="Ej: Comedor Central..."
+                                                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Filtro por estado */}
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">
+                                                Estado actual
+                                            </label>
+                                            <select
+                                                value={filtroEstado}
+                                                onChange={(e) => setFiltroEstado(e.target.value)}
+                                                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                            >
+                                                <option value="todos">Cualquier estado</option>
+                                                <option value="abierto">Abierto</option>
+                                                <option value="cerrado">Cerrado</option>
+                                                <option value="completo">Completo</option>
+                                            </select>
+                                        </div>
+
+                                        {/* Filtro por distancia */}
+                                        <div>
+                                            <div className="flex items-center justify-between mb-1">
+                                                <label className="block text-xs font-bold text-gray-700 uppercase">
+                                                    Radio: {filtroDistancia} km
+                                                </label>
+                                                {referenciaUbicacion && (
+                                                    <label className="flex items-center gap-2 cursor-pointer group">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={filtroDistanciaActivo}
+                                                            onChange={(e) => setFiltroDistanciaActivo(e.target.checked)}
+                                                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                                                        />
+                                                        <span className="text-[10px] font-bold text-gray-500 group-hover:text-indigo-600 uppercase">Activar</span>
+                                                    </label>
+                                                )}
+                                            </div>
+                                            <input
+                                                type="range"
+                                                min="1"
+                                                max="50"
+                                                value={filtroDistancia}
+                                                onChange={(e) => setFiltroDistancia(Number(e.target.value))}
+                                                disabled={!referenciaUbicacion || !filtroDistanciaActivo}
+                                                className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600 disabled:opacity-50"
+                                            />
+                                            <div className="flex justify-between text-[10px] text-gray-400 mt-1">
+                                                <span>1km</span>
+                                                <span>50km</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Filtro por hora */}
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-700 mb-1 uppercase flex items-center gap-2">
+                                                <Clock size={14} className="text-gray-400" /> Horario
+                                            </label>
+                                            <input
+                                                type="time"
+                                                value={filtroHora}
+                                                onChange={(e) => setFiltroHora(e.target.value)}
+                                                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Limpiar filtros */}
+                                    {(filtroTexto || filtroEstado !== 'todos' || filtroDistanciaActivo || filtroHora) && (
+                                        <div className="mt-4 flex justify-end pt-3 border-t border-gray-200">
+                                            <button
+                                                onClick={() => {
+                                                    setFiltroTexto('');
+                                                    setFiltroEstado('todos');
+                                                    setFiltroDistancia(50);
+                                                    setFiltroDistanciaActivo(false);
+                                                    setFiltroHora('');
+                                                }}
+                                                className="flex items-center gap-1 text-[11px] uppercase font-bold text-red-600 hover:text-red-700"
+                                            >
+                                                <RotateCcw size={12} /> Limpiar filtros
                                             </button>
                                         </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                            {/* Filtro por texto */}
-                                            <div>
-                                                <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">
-                                                    Nombre o dirección
-                                                </label>
-                                                <div className="relative">
-                                                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                                                    <input
-                                                        type="text"
-                                                        value={filtroTexto}
-                                                        onChange={(e) => setFiltroTexto(e.target.value)}
-                                                        placeholder="Ej: Comedor Central..."
-                                                        className="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            {/* Filtro por estado */}
-                                            <div>
-                                                <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">
-                                                    Estado actual
-                                                </label>
-                                                <select
-                                                    value={filtroEstado}
-                                                    onChange={(e) => setFiltroEstado(e.target.value)}
-                                                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                                >
-                                                    <option value="todos">Cualquier estado</option>
-                                                    <option value="abierto">Abierto</option>
-                                                    <option value="cerrado">Cerrado</option>
-                                                    <option value="completo">Completo</option>
-                                                </select>
-                                            </div>
-
-                                            {/* Filtro por distancia */}
-                                            <div>
-                                                <div className="flex items-center justify-between mb-1">
-                                                    <label className="block text-xs font-bold text-gray-700 uppercase">
-                                                        Radio: {filtroDistancia} km
-                                                    </label>
-                                                    {referenciaUbicacion && (
-                                                        <label className="flex items-center gap-2 cursor-pointer group">
-                                                            <input
-                                                                type="checkbox"
-                                                                checked={filtroDistanciaActivo}
-                                                                onChange={(e) => setFiltroDistanciaActivo(e.target.checked)}
-                                                                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                                                            />
-                                                            <span className="text-[10px] font-bold text-gray-500 group-hover:text-indigo-600 uppercase">Activar</span>
-                                                        </label>
-                                                    )}
-                                                </div>
-                                                <input
-                                                    type="range"
-                                                    min="1"
-                                                    max="50"
-                                                    value={filtroDistancia}
-                                                    onChange={(e) => setFiltroDistancia(Number(e.target.value))}
-                                                    disabled={!referenciaUbicacion || !filtroDistanciaActivo}
-                                                    className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600 disabled:opacity-50"
-                                                />
-                                                <div className="flex justify-between text-[10px] text-gray-400 mt-1">
-                                                    <span>1km</span>
-                                                    <span>50km</span>
-                                                </div>
-                                            </div>
-
-                                            {/* Filtro por hora */}
-                                            <div>
-                                                <label className="block text-xs font-bold text-gray-700 mb-1 uppercase flex items-center gap-2">
-                                                    <Clock size={14} className="text-gray-400" /> Horario
-                                                </label>
-                                                <input
-                                                    type="time"
-                                                    value={filtroHora}
-                                                    onChange={(e) => setFiltroHora(e.target.value)}
-                                                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        {/* Limpiar filtros */}
-                                        {(filtroTexto || filtroEstado !== 'todos' || filtroDistanciaActivo || filtroHora) && (
-                                            <div className="mt-4 flex justify-end pt-3 border-t border-gray-200">
-                                                <button
-                                                    onClick={() => {
-                                                        setFiltroTexto('');
-                                                        setFiltroEstado('todos');
-                                                        setFiltroDistancia(50);
-                                                        setFiltroDistanciaActivo(false);
-                                                        setFiltroHora('');
-                                                    }}
-                                                    className="flex items-center gap-1 text-[11px] uppercase font-bold text-red-600 hover:text-red-700"
-                                                >
-                                                    <RotateCcw size={12} /> Limpiar filtros
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
+                                    )}
                                 </div>
+                            </div>
 
-                                <div className="mb-4 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 space-y-2">
-                                    <div className="flex items-center gap-2">
-                                        <h3 className="text-sm font-medium uppercase tracking-wide text-indigo-700">
-                                            Búsqueda por dirección
-                                        </h3>
-                                        <span className="text-xs text-indigo-500">Alternativa a la geolocalización</span>
-                                    </div>
-                                    <div className="flex flex-col gap-2 md:flex-row md:items-center">
-                                        <input
-                                            type="text"
-                                            value={direccionBusqueda}
-                                            onChange={(e) => setDireccionBusqueda(e.target.value)}
-                                            onKeyDown={(e) => {
-                                                if (e.key === 'Enter') {
-                                                    e.preventDefault();
-                                                    buscarPorDireccion();
-                                                }
-                                            }}
-                                            placeholder="Introduce una calle, barrio o código postal"
-                                            className="w-full flex-1 px-3 py-2 rounded-lg border border-indigo-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
-                                        />
+                            <div className="mb-4 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <h3 className="text-sm font-medium uppercase tracking-wide text-indigo-700">
+                                        Búsqueda por dirección
+                                    </h3>
+                                    <span className="text-xs text-indigo-500">Alternativa a la geolocalización</span>
+                                </div>
+                                <div className="flex flex-col gap-2 md:flex-row md:items-center">
+                                    <input
+                                        type="text"
+                                        value={direccionBusqueda}
+                                        onChange={(e) => setDireccionBusqueda(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                buscarPorDireccion();
+                                            }
+                                        }}
+                                        placeholder="Introduce una calle, barrio o código postal"
+                                        className="w-full flex-1 px-3 py-2 rounded-lg border border-indigo-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={buscarPorDireccion}
+                                        disabled={isBuscandoDireccion}
+                                        className={`px-4 py-2 rounded-lg font-semibold transition ${isBuscandoDireccion
+                                                ? 'bg-indigo-300 text-white cursor-wait'
+                                                : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                                            }`}
+                                    >
+                                        {isBuscandoDireccion ? 'Buscando…' : 'Buscar ubicación'}
+                                    </button>
+                                    {ubicacionBusqueda && (
                                         <button
                                             type="button"
-                                            onClick={buscarPorDireccion}
-                                            disabled={isBuscandoDireccion}
-                                            className={`px-4 py-2 rounded-lg font-semibold transition ${
-                                                isBuscandoDireccion
-                                                    ? 'bg-indigo-300 text-white cursor-wait'
-                                                    : 'bg-indigo-600 text-white hover:bg-indigo-700'
-                                            }`}
+                                            onClick={limpiarBusqueda}
+                                            className="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-600 hover:bg-indigo-100"
                                         >
-                                            {isBuscandoDireccion ? 'Buscando…' : 'Buscar ubicación'}
+                                            Limpiar búsqueda
                                         </button>
-                                        {ubicacionBusqueda && (
-                                            <button
-                                                type="button"
-                                                onClick={limpiarBusqueda}
-                                                className="px-4 py-2 rounded-lg border border-indigo-300 text-indigo-600 hover:bg-indigo-100"
-                                            >
-                                                Limpiar búsqueda
-                                            </button>
-                                        )}
-                                    </div>
-                                    {errorBusqueda && (
-                                        <p className="text-xs text-red-600">{errorBusqueda}</p>
-                                    )}
-                                    {ubicacionBusqueda && (
-                                        <p className="text-xs text-indigo-700">
-                                            Centrado en: <span className="font-semibold block truncate">{ubicacionBusqueda.label}</span>
-                                        </p>
                                     )}
                                 </div>
-                                
-                                {/* Mapa Leaflet con botón de panel lateral */}
-                                <div className="relative h-[600px] rounded-lg overflow-hidden border border-gray-200">
-                                    {/* Botón para abrir panel lateral (solo si hay filtros activos) */}
-                                    {(filtroTexto || filtroEstado !== 'todos' || filtroDistanciaActivo || filtroHora) && (
-                                        <button
-                                            onClick={() => setPanelLateralAbierto(!panelLateralAbierto)}
-                                            className="absolute top-4 right-4 z-[1000] bg-white hover:bg-gray-50 text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg border border-gray-300 transition flex items-center gap-2"
-                                        >
-                                            <Filter size={18} className="text-indigo-600" />
-                                            <span>Ver lista ({comedoresFiltrados.length})</span>
-                                            <Navigation size={14} className={`transition-transform ${panelLateralAbierto ? 'rotate-180' : 'rotate-90'}`} />
-                                        </button>
-                                    )}
+                                {errorBusqueda && (
+                                    <p className="text-xs text-red-600">{errorBusqueda}</p>
+                                )}
+                                {ubicacionBusqueda && (
+                                    <p className="text-xs text-indigo-700">
+                                        Centrado en: <span className="font-semibold block truncate">{ubicacionBusqueda.label}</span>
+                                    </p>
+                                )}
+                            </div>
 
-                                    {/* Panel lateral desplegable */}
-                                    {panelLateralAbierto && (
-                                        <div className="absolute top-0 right-0 w-80 h-full bg-white shadow-2xl z-[999] overflow-y-auto border-l border-gray-300">
-                                            <div className="p-4">
-                                                <div className="flex justify-between items-center mb-4 pb-3 border-b">
-                                                    <h3 className="text-lg font-bold text-gray-800">
-                                                        Comedores filtrados
-                                                    </h3>
-                                                    <button
-                                                        onClick={() => setPanelLateralAbierto(false)}
-                                                        className="text-gray-500 hover:text-gray-700 font-bold text-xl"
-                                                    >
-                                                        ×
-                                                    </button>
-                                                </div>
-                                                
-                                                <div className="space-y-2">
-                                                    {comedoresFiltrados.length === 0 ? (
-                                                        <p className="text-gray-500 text-center py-8">
-                                                            No hay comedores que cumplan los filtros
-                                                        </p>
-                                                    ) : (
-                                                        comedoresFiltrados.map(comedor => (
-                                                            <button
-                                                                key={comedor.id_comedor}
-                                                                onClick={() => {
-                                                                    setComedorSeleccionado(comedor);
-                                                                    setMapCenter([
-                                                                        parseFloat(comedor.latitud),
-                                                                        parseFloat(comedor.longitud)
-                                                                    ]);
-                                                                    setMapZoom(16);
-                                                                    setPanelLateralAbierto(false);
-                                                                }}
-                                                                className={`w-full text-left p-3 rounded-lg border transition-all ${
-                                                                    comedorSeleccionado?.id_comedor === comedor.id_comedor
-                                                                        ? 'bg-indigo-50 border-indigo-400 shadow-md'
-                                                                        : 'bg-gray-50 border-gray-200 hover:bg-gray-100 hover:border-gray-300'
+                            {/* Mapa Leaflet con botón de panel lateral */}
+                            <div className="relative h-[600px] rounded-lg overflow-hidden border border-gray-200">
+                                {/* Botón para abrir panel lateral (solo si hay filtros activos) */}
+                                {(filtroTexto || filtroEstado !== 'todos' || filtroDistanciaActivo || filtroHora) && (
+                                    <button
+                                        onClick={() => setPanelLateralAbierto(!panelLateralAbierto)}
+                                        className="absolute top-4 right-4 z-[1000] bg-white hover:bg-gray-50 text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg border border-gray-300 transition flex items-center gap-2"
+                                    >
+                                        <Filter size={18} className="text-indigo-600" />
+                                        <span>Ver lista ({comedoresFiltrados.length})</span>
+                                        <Navigation size={14} className={`transition-transform ${panelLateralAbierto ? 'rotate-180' : 'rotate-90'}`} />
+                                    </button>
+                                )}
+
+                                {/* Panel lateral desplegable */}
+                                {panelLateralAbierto && (
+                                    <div className="absolute top-0 right-0 w-80 h-full bg-white shadow-2xl z-[999] overflow-y-auto border-l border-gray-300">
+                                        <div className="p-4">
+                                            <div className="flex justify-between items-center mb-4 pb-3 border-b">
+                                                <h3 className="text-lg font-bold text-gray-800">
+                                                    Comedores filtrados
+                                                </h3>
+                                                <button
+                                                    onClick={() => setPanelLateralAbierto(false)}
+                                                    className="text-gray-500 hover:text-gray-700 font-bold text-xl"
+                                                >
+                                                    ×
+                                                </button>
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                {comedoresFiltrados.length === 0 ? (
+                                                    <p className="text-gray-500 text-center py-8">
+                                                        No hay comedores que cumplan los filtros
+                                                    </p>
+                                                ) : (
+                                                    comedoresFiltrados.map(comedor => (
+                                                        <button
+                                                            key={comedor.id_comedor}
+                                                            onClick={() => {
+                                                                setComedorSeleccionado(comedor);
+                                                                setMapCenter([
+                                                                    parseFloat(comedor.latitud),
+                                                                    parseFloat(comedor.longitud)
+                                                                ]);
+                                                                setMapZoom(16);
+                                                                setPanelLateralAbierto(false);
+                                                            }}
+                                                            className={`w-full text-left p-3 rounded-lg border transition-all ${comedorSeleccionado?.id_comedor === comedor.id_comedor
+                                                                    ? 'bg-indigo-50 border-indigo-400 shadow-md'
+                                                                    : 'bg-gray-50 border-gray-200 hover:bg-gray-100 hover:border-gray-300'
                                                                 }`}
-                                                            >
-                                                                <div className="flex items-start justify-between gap-2">
-                                                                    <div className="flex-1 min-w-0">
-                                                                        <h4 className="font-semibold text-gray-900 truncate text-sm">
-                                                                            {comedor.nombre}
-                                                                        </h4>
-                                                                        <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
-                                                                            <MapPin size={12} className="flex-shrink-0" />
-                                                                            <span className="truncate">{comedor.direccion}</span>
-                                                                        </div>
-                                                                        {comedor.distancia !== undefined && (
-                                                                            <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
-                                                                                <Navigation size={12} className="flex-shrink-0" />
-                                                                                <span>{comedor.distancia.toFixed(1)} km</span>
-                                                                            </div>
-                                                                        )}
+                                                        >
+                                                            <div className="flex items-start justify-between gap-2">
+                                                                <div className="flex-1 min-w-0">
+                                                                    <h4 className="font-semibold text-gray-900 truncate text-sm">
+                                                                        {comedor.nombre}
+                                                                    </h4>
+                                                                    <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
+                                                                        <MapPin size={12} className="flex-shrink-0" aria-hidden="true" />
+                                                                        <span className="truncate">{comedor.direccion}</span>
                                                                     </div>
-                                                                    <div className={`w-2.5 h-2.5 rounded-full mt-1 flex-shrink-0 ${
-                                                                        comedor.estado_actual === 'abierto' 
-                                                                            ? 'bg-green-500'
-                                                                            : comedor.estado_actual === 'cerrado'
+                                                                    {comedor.distancia !== undefined && (
+                                                                        <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+                                                                            <Navigation size={12} className="flex-shrink-0" aria-hidden="true" />
+                                                                            <span aria-label={`${comedor.distancia.toFixed(1)} kilómetros de distancia`}>{comedor.distancia.toFixed(1)} km</span>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                <div className={`w-2.5 h-2.5 rounded-full mt-1 flex-shrink-0 ${comedor.estado_actual === 'abierto'
+                                                                        ? 'bg-green-500'
+                                                                        : comedor.estado_actual === 'cerrado'
                                                                             ? 'bg-red-500'
                                                                             : 'bg-yellow-500'
-                                                                    }`} title={comedor.estado_actual}></div>
+                                                                    }`} title={`Estado: ${comedor.estado_actual}`} role="status">
+                                                                    <span className="sr-only">Estado: {comedor.estado_actual}</span>
                                                                 </div>
-                                                            </button>
-                                                        ))
-                                                    )}
-                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    ))
+                                                )}
                                             </div>
                                         </div>
-                                    )}
+                                    </div>
+                                )}
 
-                                    <MapaLeaflet 
-                                        comedores={comedoresFiltrados}
-                                        center={mapCenter}
-                                        zoom={mapZoom}
-                                        userLocation={userLocation}
-                                        searchLocation={ubicacionBusqueda}
-                                        comedorSeleccionado={comedorSeleccionado}
-                                    />
-                                </div>
+                                <MapaLeaflet
+                                    comedores={comedoresFiltrados}
+                                    center={mapCenter}
+                                    zoom={mapZoom}
+                                    userLocation={userLocation}
+                                    searchLocation={ubicacionBusqueda}
+                                    comedorSeleccionado={comedorSeleccionado}
+                                />
                             </div>
                         </div>
                     </div>
-                </main>
+                </div>
+            </main>
         </FrontendLayout>
     );
 }

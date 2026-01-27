@@ -4,8 +4,13 @@ import { Handshake } from 'lucide-react';
 export default function FrontendLayout({ auth, children, title }) {
     return (
         <div className="min-h-screen bg-gray-100">
+            {/* Skip Link para Accesibilidad */}
+            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-md shadow-lg">
+                Saltar al contenido principal
+            </a>
+
             {/* Header / Navbar mejorado */}
-            <nav className="bg-white shadow-sm border-b">
+            <nav className="bg-white shadow-sm border-b" aria-label="Navegación principal">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between items-center">
                         <div className="flex items-center">
@@ -68,7 +73,7 @@ export default function FrontendLayout({ auth, children, title }) {
             </nav>
 
             {/* Contenido principal */}
-            <main>
+            <main id="main-content" role="main">
                 {children}
             </main>
 
