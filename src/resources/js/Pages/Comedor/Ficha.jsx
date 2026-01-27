@@ -184,8 +184,8 @@ export default function FichaComedor({ comedor, auth }) {
             )}
 
             {/* Main Content */}
-            <main className="py-12">
-                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-6">
+            <main className="py-6">
+                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-4">
                         {/* Botón Volver */}
                         <div className="flex justify-start">
                             <button
