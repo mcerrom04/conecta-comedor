@@ -218,7 +218,7 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
                                         >
                                             <SlidersHorizontal size={18} />
                                             Filtros
-                                            {(filtroEstado !== 'todos' || filtroDistanciaActivo || filtroHora) && (
+                                            {comedoresFiltrados.length === 0 && comedores.length > 0 && (
                                                 <span className="bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
                                                     !
                                                 </span>
