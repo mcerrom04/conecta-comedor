@@ -35,7 +35,7 @@
 - ⏳ **TT-S3-014:** Generar documentación con PHPDoc - NO INICIADO
 - ⏳ **TT-S3-015:** Actualizar Manual de Usuario con capturas de pantalla - NO INICIADO
 - ✅ **TT-S3-016:** Actualizar Manual de Instalación para Laravel - COMPLETADO
-- ⏳ **TT-S3-017:** Crear diagrama E/R gráfico actualizado - NO INICIADO
+- ✅ **TT-S3-017:** Crear diagrama E/R gráfico actualizado - COMPLETADO
 - ✅ **TT-S3-018:** Crear guía de estilo gráfica - COMPLETADO
 
 ---

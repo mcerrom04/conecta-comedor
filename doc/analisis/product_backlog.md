@@ -52,5 +52,5 @@ Lista de Historias de Usuario y Tareas Técnicas en orden de realización.
 - ⏳ TT-S3-014: Generar documentación con PHPDoc
 - ⏳ TT-S3-015: Actualizar Manual de Usuario con capturas de pantalla
 - ✅ TT-S3-016: Actualizar Manual de Instalación para Laravel
-- ⏳ TT-S3-017: Crear diagrama E/R gráfico actualizado
+- ✅ TT-S3-017: Crear diagrama E/R gráfico actualizado
 - ✅ TT-S3-018: Crear guía de estilo gráfica
