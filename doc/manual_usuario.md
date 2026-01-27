@@ -1,42 +1,71 @@
-# Manual de Usuario
+# Manual de Usuario - Conecta Comedor
 
-## Introducción
+Bienvenido al manual de usuario de **Conecta Comedor**, la plataforma para la gestión y localización de comedores sociales.
 
-Este manual explica cómo utilizar la aplicación "Conecta Comedor" desde el punto de vista del usuario final. Incluye los pasos básicos para acceder, iniciar sesión y realizar las acciones disponibles según las funcionalidades implementadas en el primer sprint.
+## 1. Acceso y Registro
 
-## Acceso a la aplicación
+### 1.1. Página Principal y Mapa Público
+Cualquier usuario puede acceder a la página principal para ver el mapa de comedores.
 
-1. Abre tu navegador web.
-2. Accede a la URL proporcionada por el administrador (por ejemplo, `http://localhost/conecta-comedor/src/www/index.php`).
+- **URL de Acceso**: [https://conecta-comedor.mariocm.dev](https://conecta-comedor.mariocm.dev) (Producción) o `http://localhost:8000` (Local).
+- **Mapa Interactivo**: Muestra marcadores con la ubicación de comedores activos.
+- **Filtros**: Usa el botón "Filtros" para buscar por cercanía, estado (abierto/cerrado) o nombre.
 
-## Inicio de sesión
+![Vista principal con mapa y filtros](img/mapa_principal.png)
 
-- Haz clic en el enlace de "Iniciar sesión".
-- Puedes acceder con cualquiera de los siguientes perfiles de prueba:
-  - **Administrador:** `admin@admin.com` / `admin123`
-  - **Gestor:** `gestor@gestor.com` / `gestor123`
-  - **Ciudadano:** `user@user.com` / `user123`
-- Pulsa en "Entrar".
+### 1.2. Registro e Inicio de Sesión
+Para acceder a funciones avanzadas, debes tener una cuenta.
 
-## Panel de administración
+1. Haz clic en **"Registrarse"** en la barra superior.
+2. Rellena el formulario con tus datos.
+3. Automáticamente se te asignará el rol de **Ciudadano**.
 
-Una vez autenticado como administrador, tendrás acceso a:
+Si ya tienes cuenta, pulsa **"Iniciar Sesión"**.
 
-- **Ver solicitudes de comedores:**
-  - Se muestra una lista de comedores pendientes de aprobación.
-  - Haz clic en un comedor para ver los detalles de la solicitud.
-- **Aprobar o rechazar solicitudes:**
-  - En la vista de detalle, puedes aprobar o rechazar la solicitud usando los botones correspondientes.
+![Pantalla de inicio de sesión](img/login_screen.png)
 
-## Visualización del mapa
+## 2. Perfiles de Usuario
 
-- Desde la página principal, puedes acceder al mapa para ver los comedores disponibles (visibles).
-- Haz clic en un comedor del mapa para ver información básica.
+### 2.1. Ciudadano
+- **Funciones**:
+  - Buscar comedores en el mapa.
+  - Ver fichas detalladas con horarios y necesidades.
+  - Enviar comentarios y valoraciones.
+  - Gestionar su perfil personal.
 
-## Cierre de sesión
+![Ficha de detalle de un comedor](img/ficha_comedor.png)
 
-- Haz clic en el botón o enlace de "Cerrar sesión" para salir de la administración.
+### 2.2. Gestor de Comedor
+Usuarios encargados de mantener la información de sus centros.
 
----
+- **Panel de Control (Dashboard)**:
+  - Vista resumen de los comedores asignados.
+  - Estado actual del comedor (Abierto/Cerrado/Completo).
+- **Gestión de Comedores**:
+  - **Editar Información**: Actualizar dirección, teléfono y descripción.
+  - **Horarios**: Definir horas de apertura y cierre por día.
+  - **Necesidades**: Publicar listas de necesidades urgentes (ej: "Aceite", "Voluntarios").
+  - **Solicitar Nuevo Comedor**: Formulario para dar de alta un nuevo centro.
 
-Este manual se irá ampliando a medida que se desarrollen nuevas funcionalidades y se implementen nuevas historias de usuario.
+![Panel de control del gestor](img/dashboard_gestor.png)
+
+### 2.3. Administrador
+Responsables globales de la plataforma.
+
+- **Moderación de Comedores**:
+  - Validar nuevas solicitudes de alta de comedores.
+  - Aprobar o rechazar cambios.
+- **Moderación de Comentarios**:
+  - Revisar comentarios reportados o pendientes de aprobación.
+
+![Panel de administración y moderación](img/dashboard_admin.png)
+
+## 3. Funcionalidades Clave
+
+### 3.1. Búsqueda y Filtrado
+En el mapa, puedes:
+- **Geolocalización**: Pulsa el botón "Ubicación" para centrar el mapa en tu posición.
+- **Búsqueda por Dirección**: Escribe una calle o barrio para mover el mapa allí.
+- **Ver Lista**: Despliega el panel lateral para ver los resultados en formato lista.
+
+![Panel de filtros y búsqueda](img/filtros_avanzados.png)

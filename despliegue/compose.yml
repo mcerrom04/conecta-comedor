@@ -1,0 +1,41 @@
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: despliegue/Dockerfile
+    container_name: conecta-comedor-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    networks:
+      - red_caddy
+      - internal
+    labels:
+      caddy: conecta-comedor.mariocm.dev
+      caddy.reverse_proxy: "{{upstreams 80}}"
+    env_file:
+      - .env
+    volumes:
+      # Persistimos el storage localmente en la carpeta de despliegue
+      - ./storage_data:/var/www/html/storage
+
+  db:
+    image: mariadb:10.11
+    container_name: conecta-comedor-db
+    restart: unless-stopped
+    networks:
+      - internal
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - db_data:/var/lib/mysql
+
+networks:
+  red_caddy:
+    external: true
+  internal:
+
+volumes:
+  db_data:

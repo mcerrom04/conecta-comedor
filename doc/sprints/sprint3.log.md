@@ -32,8 +32,7 @@
 - ✅ **HU-010:** Implementar Moderar comentarios - COMPLETADO
 - ✅ **TT-S3-012:** Testing integral de todas las funcionalidades - COMPLETADO
 - ✅ **TT-S3-013:** Optimización de rendimiento y responsive design - COMPLETADO
-- ⏳ **TT-S3-014:** Generar documentación con PHPDoc - NO INICIADO
-- ⏳ **TT-S3-015:** Actualizar Manual de Usuario con capturas de pantalla - NO INICIADO
+- ✅ **TT-S3-015:** Actualizar Manual de Usuario con capturas de pantalla - COMPLETADO
 - ✅ **TT-S3-016:** Actualizar Manual de Instalación para Laravel - COMPLETADO
 - ✅ **TT-S3-017:** Crear diagrama E/R gráfico actualizado - COMPLETADO
 - ✅ **TT-S3-018:** Crear guía de estilo gráfica - COMPLETADO
