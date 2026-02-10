@@ -20,8 +20,8 @@ import {
 export default function MapaIndex({ comedores, auth, selectedId }) {
     const [userLocation, setUserLocation] = useState(null);
     const [isGettingLocation, setIsGettingLocation] = useState(false);
-    const [mapCenter, setMapCenter] = useState([40.4168, -3.7038]); // Madrid por defecto
-    const [mapZoom, setMapZoom] = useState(12);
+    const [mapCenter, setMapCenter] = useState([40.3, -3.9]); // Centro aproximado de Espana
+    const [mapZoom, setMapZoom] = useState(6);
 
     // Estados de filtros
     const [filtroTexto, setFiltroTexto] = useState('');
@@ -62,6 +62,15 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
         return R * c;
     };
 
+    const timeToMinutes = (value) => {
+        if (!value) return null;
+        const [hoursText, minutesText] = value.split(':');
+        const hours = Number(hoursText);
+        const minutes = Number(minutesText);
+        if (Number.isNaN(hours) || Number.isNaN(minutes)) return null;
+        return hours * 60 + minutes;
+    };
+
     // Calcular distancias a todos los comedores
     const referenciaUbicacion = ubicacionBusqueda || userLocation;
 
@@ -98,11 +107,33 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
             return false;
         }
 
-        // Filtro por hora (actualmente no funcional, solo UI)
-        // TODO: implementar lógica para verificar si el comedor está abierto a la hora seleccionada
+        // Filtro por hora
         if (filtroHora) {
-            // Por ahora solo filtramos los que tienen horarios definidos
+            const filtroMinutos = timeToMinutes(filtroHora);
+            if (filtroMinutos === null) {
+                return false;
+            }
+
             if (!comedor.horarios || comedor.horarios.length === 0) {
+                return false;
+            }
+
+            const tieneHorario = comedor.horarios.some((horario) => {
+                const apertura = timeToMinutes(horario.hora_apertura);
+                const cierre = timeToMinutes(horario.hora_cierre);
+
+                if (apertura === null || cierre === null) {
+                    return false;
+                }
+
+                if (cierre < apertura) {
+                    return filtroMinutos >= apertura || filtroMinutos <= cierre;
+                }
+
+                return filtroMinutos >= apertura && filtroMinutos <= cierre;
+            });
+
+            if (!tieneHorario) {
                 return false;
             }
         }
@@ -118,8 +149,8 @@ export default function MapaIndex({ comedores, auth, selectedId }) {
             setMapCenter([userLocation.lat, userLocation.lng]);
             setMapZoom(14);
         } else {
-            setMapCenter([40.4168, -3.7038]);
-            setMapZoom(12);
+            setMapCenter([40.3, -3.9]);
+            setMapZoom(6);
         }
     };
 

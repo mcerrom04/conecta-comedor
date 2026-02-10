@@ -28,11 +28,28 @@ import ConfirmationModal from '@/Components/ConfirmationModal';
 
 export default function FichaComedor({ comedor, auth }) {
     // Agrupar horarios por día de la semana
-    const diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-    const horariosPorDia = diasSemana.map(dia => ({
-        dia,
-        horarios: comedor.horarios?.filter(h => h.dia_semana === dia) || []
+    const diasSemana = [
+        { key: 'lunes', label: 'Lunes' },
+        { key: 'martes', label: 'Martes' },
+        { key: 'miercoles', label: 'Miercoles' },
+        { key: 'jueves', label: 'Jueves' },
+        { key: 'viernes', label: 'Viernes' },
+        { key: 'sabado', label: 'Sabado' },
+        { key: 'domingo', label: 'Domingo' }
+    ];
+    const horariosPorDia = diasSemana.map(({ key, label }) => ({
+        dia: label,
+        horarios: comedor.horarios?.filter(h => h.dia_semana === key) || []
     }));
+
+    const formatearHora = (valor) => {
+        if (!valor) return '-';
+        if (typeof valor === 'string') {
+            const match = valor.match(/\d{2}:\d{2}/);
+            return match ? match[0] : valor;
+        }
+        return String(valor);
+    };
 
     // Filtrar comentarios aprobados
     const comentariosAprobados = comedor.comentarios?.filter(c => c.estado === 'aprobado') || [];
@@ -341,13 +358,13 @@ export default function FichaComedor({ comedor, auth }) {
                                                                 </td>
                                                             )}
                                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                                {horario.hora_inicio}
+                                                                {formatearHora(horario.hora_apertura)}
                                                             </td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                                                {horario.hora_fin}
+                                                                {formatearHora(horario.hora_cierre)}
                                                             </td>
                                                             <td className="px-6 py-4 text-sm text-gray-500">
-                                                                {horario.observaciones || '-'}
+                                                                {horario.tipo_servicio || '-'}
                                                             </td>
                                                         </tr>
                                                     ))

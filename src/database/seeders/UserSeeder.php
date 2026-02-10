@@ -24,12 +24,20 @@ class UserSeeder extends Seeder
         ]);
 
         // Usuario gestor genérico
-        User::create([
+        $gestor = User::create([
             'name' => 'Gestor de Prueba',
             'email' => 'gestor@gestor.com',
             'password' => bcrypt('gestor123'),
             'id_rol' => 'gestor',
         ]);
+
+        $gestorComedores = Comedor::whereIn('nombre', [
+            'Comedor Central Madrid',
+            'Comedor La Arboleda',
+            'Comedor Merida Centro',
+        ])->pluck('id_comedor');
+
+        $gestor->comedores()->attach($gestorComedores);
 
         // Usuario ciudadano para pruebas
         User::create([

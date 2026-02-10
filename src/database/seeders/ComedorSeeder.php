@@ -98,13 +98,13 @@ class ComedorSeeder extends Seeder
 
         // Comedores en Badajoz
         $comedor6 = Comedor::create([
-            'nombre' => 'Comedor San Roque',
-            'direccion' => 'Calle San Roque 15, Badajoz',
+            'nombre' => 'Comedor La Arboleda',
+            'direccion' => 'Avenida de la Arboleda 1, Badajoz',
             'latitud' => 38.8794,
             'longitud' => -6.9707,
             'telefono' => '924123456',
-            'email' => 'sanroque@comedores.badajoz',
-            'descripcion' => 'Comedor social en el barrio de San Roque.',
+            'email' => 'arboleda@comedores.badajoz',
+            'descripcion' => 'Comedor social en una zona centrica de la ciudad.',
             'normas' => 'Respeto y convivencia pacífica',
             'estado' => 'activo',
             'estado_actual' => 'abierto',
@@ -114,13 +114,13 @@ class ComedorSeeder extends Seeder
         ]);
 
         $comedor7 = Comedor::create([
-            'nombre' => 'Comedor Casco Antiguo',
-            'direccion' => 'Plaza de España 8, Badajoz',
-            'latitud' => 38.8797,
-            'longitud' => -6.9700,
+            'nombre' => 'Comedor El Mirador',
+            'direccion' => 'Calle del Mirador 12, Badajoz',
+            'latitud' => 38.8880,
+            'longitud' => -6.9855,
             'telefono' => '924111222',
-            'email' => 'cascoantiguobadajoz@comedores.es',
-            'descripcion' => 'Comedor social en el centro histórico de Badajoz.',
+            'email' => 'mirador@comedores.badajoz',
+            'descripcion' => 'Comedor social en una zona elevada de la ciudad.',
             'normas' => 'Mantener orden y limpieza',
             'estado' => 'activo',
             'estado_actual' => 'cerrado',
@@ -130,13 +130,13 @@ class ComedorSeeder extends Seeder
         ]);
 
         $comedor8 = Comedor::create([
-            'nombre' => 'Comedor Pardaleras',
-            'direccion' => 'Avenida de Elvas 50, Badajoz',
-            'latitud' => 38.8850,
-            'longitud' => -6.9840,
+            'nombre' => 'Comedor Las Fuentes',
+            'direccion' => 'Calle de las Fuentes 8, Badajoz',
+            'latitud' => 38.8800,
+            'longitud' => -6.9580,
             'telefono' => '924333444',
-            'email' => 'pardaleras@comedores.badajoz',
-            'descripcion' => 'Comedor social en el barrio de Pardaleras.',
+            'email' => 'fuentes@comedores.badajoz',
+            'descripcion' => 'Comedor social en una zona residencial de la ciudad.',
             'normas' => 'Respeto a todo el personal y usuarios',
             'estado' => 'activo',
             'estado_actual' => 'abierto',
@@ -145,8 +145,72 @@ class ComedorSeeder extends Seeder
             'visible' => true,
         ]);
 
-        // Comedores pendientes de aprobación
         $comedor9 = Comedor::create([
+            'nombre' => 'Comedor Puente Nuevo',
+            'direccion' => 'Avenida del Puente 5, Badajoz',
+            'latitud' => 38.8720,
+            'longitud' => -6.9725,
+            'telefono' => '924222333',
+            'email' => 'puentenuevo@comedores.badajoz',
+            'descripcion' => 'Comedor social con atencion diaria y apoyo comunitario.',
+            'normas' => 'Respeto a usuarios y personal',
+            'estado' => 'activo',
+            'estado_actual' => 'abierto',
+            'aforo_disponible' => 25,
+            'ultima_actualizacion' => now()->subMinutes(6),
+            'visible' => true,
+        ]);
+
+        $comedor10 = Comedor::create([
+            'nombre' => 'Comedor La Encina',
+            'direccion' => 'Calle de la Encina 20, Badajoz',
+            'latitud' => 38.8920,
+            'longitud' => -6.9850,
+            'telefono' => '924444555',
+            'email' => 'encina@comedores.badajoz',
+            'descripcion' => 'Comedor social con plazas limitadas y apoyo vecinal.',
+            'normas' => 'Colaborar con el equipo y respetar turnos',
+            'estado' => 'activo',
+            'estado_actual' => 'cerrado',
+            'aforo_disponible' => 0,
+            'ultima_actualizacion' => now()->subMinutes(12),
+            'visible' => true,
+        ]);
+
+        $comedor11 = Comedor::create([
+            'nombre' => 'Comedor Merida Centro',
+            'direccion' => 'Calle Santa Eulalia 6, Merida',
+            'latitud' => 38.9170,
+            'longitud' => -6.3439,
+            'telefono' => '924777888',
+            'email' => 'merida@comedores.ext',
+            'descripcion' => 'Comedor social en el centro de Merida.',
+            'normas' => 'Puntualidad y convivencia',
+            'estado' => 'activo',
+            'estado_actual' => 'abierto',
+            'aforo_disponible' => 40,
+            'ultima_actualizacion' => now()->subMinutes(9),
+            'visible' => true,
+        ]);
+
+        $comedor12 = Comedor::create([
+            'nombre' => 'Comedor Caceres Solidario',
+            'direccion' => 'Calle San Pedro 4, Caceres',
+            'latitud' => 39.4750,
+            'longitud' => -6.3722,
+            'telefono' => '927111222',
+            'email' => 'caceres@comedores.ext',
+            'descripcion' => 'Comedor social en el casco historico de Caceres.',
+            'normas' => 'Normas basicas de convivencia',
+            'estado' => 'activo',
+            'estado_actual' => 'abierto',
+            'aforo_disponible' => 30,
+            'ultima_actualizacion' => now()->subMinutes(8),
+            'visible' => true,
+        ]);
+
+        // Comedores pendientes de aprobación
+        $comedorPendienteMadrid = Comedor::create([
             'nombre' => 'Comedor Usera (Pendiente)',
             'direccion' => 'Calle Marcelo Usera 150, Madrid',
             'latitud' => 40.3800,
@@ -160,13 +224,13 @@ class ComedorSeeder extends Seeder
             'visible' => false,
         ]);
 
-        $comedor10 = Comedor::create([
-            'nombre' => 'Comedor Valdepasillas (Pendiente)',
-            'direccion' => 'Calle Valdepasillas 20, Badajoz',
-            'latitud' => 38.8700,
-            'longitud' => -6.9600,
+        $comedorPendienteBadajoz = Comedor::create([
+            'nombre' => 'Comedor Horizonte (Pendiente)',
+            'direccion' => 'Calle Horizonte 3, Badajoz',
+            'latitud' => 38.8760,
+            'longitud' => -6.9650,
             'telefono' => '924555666',
-            'email' => 'valdepasillas@comedores.badajoz',
+            'email' => 'horizonte@comedores.badajoz',
             'normas' => 'Normas básicas',
             'estado' => 'pendiente',
             'aforo_disponible' => null,
@@ -221,7 +285,7 @@ class ComedorSeeder extends Seeder
             'urgencia' => 'baja',
         ]);
 
-        // Comedor San Roque Badajoz - Urgencia ALTA
+        // Comedor La Arboleda - Urgencia ALTA
         Necesidad::create([
             'id_comedor' => $comedor6->id_comedor,
             'tipo' => 'Alimentos',
@@ -236,7 +300,7 @@ class ComedorSeeder extends Seeder
             'urgencia' => 'alta',
         ]);
 
-        // Comedor Pardaleras Badajoz - Urgencia MEDIA
+        // Comedor Las Fuentes - Urgencia MEDIA
         Necesidad::create([
             'id_comedor' => $comedor8->id_comedor,
             'tipo' => 'Productos de higiene',
@@ -270,21 +334,37 @@ class ComedorSeeder extends Seeder
             // Comedor Tetuán (id: 5)
             ['id_comedor' => $comedor5->id_comedor, 'dia_semana' => 'domingo', 'hora_apertura' => '12:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
             
-            // Comedor San Roque Badajoz (id: 6)
+            // Comedor La Arboleda (id: 6)
             ['id_comedor' => $comedor6->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '12:00', 'hora_cierre' => '14:30', 'tipo_servicio' => 'comida'],
             ['id_comedor' => $comedor6->id_comedor, 'dia_semana' => 'miercoles', 'hora_apertura' => '12:00', 'hora_cierre' => '14:30', 'tipo_servicio' => 'comida'],
             ['id_comedor' => $comedor6->id_comedor, 'dia_semana' => 'viernes', 'hora_apertura' => '12:00', 'hora_cierre' => '14:30', 'tipo_servicio' => 'comida'],
             
-            // Comedor Casco Antiguo Badajoz (id: 7)
+            // Comedor El Mirador (id: 7)
             ['id_comedor' => $comedor7->id_comedor, 'dia_semana' => 'martes', 'hora_apertura' => '13:00', 'hora_cierre' => '15:30', 'tipo_servicio' => 'comida'],
             ['id_comedor' => $comedor7->id_comedor, 'dia_semana' => 'jueves', 'hora_apertura' => '13:00', 'hora_cierre' => '15:30', 'tipo_servicio' => 'comida'],
             
-            // Comedor Pardaleras Badajoz (id: 8)
+            // Comedor Las Fuentes (id: 8)
             ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
             ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'martes', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
             ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'miercoles', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
             ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'jueves', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
             ['id_comedor' => $comedor8->id_comedor, 'dia_semana' => 'viernes', 'hora_apertura' => '12:30', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+
+            // Comedor Puente Nuevo (id: 9)
+            ['id_comedor' => $comedor9->id_comedor, 'dia_semana' => 'martes', 'hora_apertura' => '09:00', 'hora_cierre' => '11:00', 'tipo_servicio' => 'desayuno'],
+            ['id_comedor' => $comedor9->id_comedor, 'dia_semana' => 'jueves', 'hora_apertura' => '13:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
+
+            // Comedor La Encina (id: 10)
+            ['id_comedor' => $comedor10->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '20:00', 'hora_cierre' => '22:00', 'tipo_servicio' => 'cena'],
+            ['id_comedor' => $comedor10->id_comedor, 'dia_semana' => 'sabado', 'hora_apertura' => '12:00', 'hora_cierre' => '14:00', 'tipo_servicio' => 'comida'],
+
+            // Comedor Merida Centro (id: 11)
+            ['id_comedor' => $comedor11->id_comedor, 'dia_semana' => 'lunes', 'hora_apertura' => '12:00', 'hora_cierre' => '14:00', 'tipo_servicio' => 'comida'],
+            ['id_comedor' => $comedor11->id_comedor, 'dia_semana' => 'viernes', 'hora_apertura' => '18:00', 'hora_cierre' => '20:00', 'tipo_servicio' => 'cena'],
+
+            // Comedor Caceres Solidario (id: 12)
+            ['id_comedor' => $comedor12->id_comedor, 'dia_semana' => 'miercoles', 'hora_apertura' => '08:00', 'hora_cierre' => '10:00', 'tipo_servicio' => 'desayuno'],
+            ['id_comedor' => $comedor12->id_comedor, 'dia_semana' => 'domingo', 'hora_apertura' => '13:00', 'hora_cierre' => '15:00', 'tipo_servicio' => 'comida'],
         ];
 
         foreach ($horarios as $horario) {

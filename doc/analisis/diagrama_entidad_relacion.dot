@@ -1,0 +1,125 @@
+digraph ER {
+    rankdir=LR;
+    graph [splines=true, overlap=false, ranksep=1.0, nodesep=0.6];
+    node [fontname="Arial", fontsize=10];
+    edge [fontname="Arial", fontsize=9];
+
+    // Entidades
+    ROL [shape=box, label="ROL"];
+    USUARIO [shape=box, label="USUARIO"];
+    COMEDOR [shape=box, label="COMEDOR"];
+    HORARIO [shape=box, label="HORARIO"];
+    NECESIDAD [shape=box, label="NECESIDAD"];
+    COMENTARIO [shape=box, label="COMENTARIO"];
+
+    // Relaciones
+    ROL_USUARIO [shape=diamond, label="TIENE"];
+    USUARIO_COMEDOR [shape=diamond, label="GESTIONA"];
+    COMEDOR_HORARIO [shape=diamond, label="TIENE"];
+    COMEDOR_NECESIDAD [shape=diamond, label="PUBLICA"];
+    COMEDOR_COMENTARIO [shape=diamond, label="RECIBE"];
+    USUARIO_COMENTARIO [shape=diamond, label="ESCRIBE"];
+
+    // Atributos (ovales)
+    ROL_id [shape=ellipse, label=<<u>id_rol</u> PK>];
+    ROL_nombre [shape=ellipse, label="nombre"];
+    ROL_desc [shape=ellipse, label="desc_rol"];
+
+    USU_id [shape=ellipse, label=<<u>id</u> PK>];
+    USU_name [shape=ellipse, label="name"];
+    USU_email [shape=ellipse, label="email"];
+    USU_password [shape=ellipse, label="password"];
+    USU_verified [shape=ellipse, label="email_verified_at"];
+
+    COM_id [shape=ellipse, label=<<u>id_comedor</u> PK>];
+    COM_nombre [shape=ellipse, label="nombre"];
+    COM_dir [shape=ellipse, label="direccion"];
+    COM_lat [shape=ellipse, label="latitud"];
+    COM_long [shape=ellipse, label="longitud"];
+    COM_tel [shape=ellipse, label="telefono"];
+    COM_email [shape=ellipse, label="email"];
+    COM_desc [shape=ellipse, label="descripcion"];
+    COM_normas [shape=ellipse, label="normas"];
+    COM_estado [shape=ellipse, label="estado"];
+    COM_estado_actual [shape=ellipse, label="estado_actual"];
+    COM_visible [shape=ellipse, label="visible"];
+    COM_aforo [shape=ellipse, label="aforo_disponible"];
+    COM_obs [shape=ellipse, label="observaciones"];
+    COM_ultima [shape=ellipse, label="ultima_actualizacion"];
+
+    HOR_id [shape=ellipse, label=<<u>id_horario</u> PK>];
+    HOR_dia [shape=ellipse, label="dia_semana"];
+    HOR_ap [shape=ellipse, label="hora_apertura"];
+    HOR_cie [shape=ellipse, label="hora_cierre"];
+    HOR_tipo [shape=ellipse, label="tipo_servicio"];
+
+    NEC_id [shape=ellipse, label=<<u>id_necesidad</u> PK>];
+    NEC_tipo [shape=ellipse, label="tipo"];
+    NEC_desc [shape=ellipse, label="descripcion"];
+    NEC_urg [shape=ellipse, label="urgencia"];
+
+    COMEN_id [shape=ellipse, label=<<u>id_comentario</u> PK>];
+    COMEN_texto [shape=ellipse, label="texto"];
+    COMEN_estado [shape=ellipse, label="estado"];
+
+    // Relaciones entre entidades
+    ROL -> ROL_USUARIO [label="1"];
+    ROL_USUARIO -> USUARIO [label="N"];
+
+    USUARIO -> USUARIO_COMEDOR [label="N"];
+    USUARIO_COMEDOR -> COMEDOR [label="N"];
+
+    COMEDOR -> COMEDOR_HORARIO [label="1"];
+    COMEDOR_HORARIO -> HORARIO [label="N"];
+
+    COMEDOR -> COMEDOR_NECESIDAD [label="1"];
+    COMEDOR_NECESIDAD -> NECESIDAD [label="N"];
+
+    COMEDOR -> COMEDOR_COMENTARIO [label="1"];
+    COMEDOR_COMENTARIO -> COMENTARIO [label="N"];
+
+    USUARIO -> USUARIO_COMENTARIO [label="1"];
+    USUARIO_COMENTARIO -> COMENTARIO [label="N"];
+
+    // Atributos por entidad
+    ROL -> ROL_id;
+    ROL -> ROL_nombre;
+    ROL -> ROL_desc;
+
+    USUARIO -> USU_id;
+    USUARIO -> USU_name;
+    USUARIO -> USU_email;
+    USUARIO -> USU_password;
+    USUARIO -> USU_verified;
+
+    COMEDOR -> COM_id;
+    COMEDOR -> COM_nombre;
+    COMEDOR -> COM_dir;
+    COMEDOR -> COM_lat;
+    COMEDOR -> COM_long;
+    COMEDOR -> COM_tel;
+    COMEDOR -> COM_email;
+    COMEDOR -> COM_desc;
+    COMEDOR -> COM_normas;
+    COMEDOR -> COM_estado;
+    COMEDOR -> COM_estado_actual;
+    COMEDOR -> COM_visible;
+    COMEDOR -> COM_aforo;
+    COMEDOR -> COM_obs;
+    COMEDOR -> COM_ultima;
+
+    HORARIO -> HOR_id;
+    HORARIO -> HOR_dia;
+    HORARIO -> HOR_ap;
+    HORARIO -> HOR_cie;
+    HORARIO -> HOR_tipo;
+
+    NECESIDAD -> NEC_id;
+    NECESIDAD -> NEC_tipo;
+    NECESIDAD -> NEC_desc;
+    NECESIDAD -> NEC_urg;
+
+    COMENTARIO -> COMEN_id;
+    COMENTARIO -> COMEN_texto;
+    COMENTARIO -> COMEN_estado;
+}

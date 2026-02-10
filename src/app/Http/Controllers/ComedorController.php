@@ -15,6 +15,7 @@ class ComedorController extends Controller
     {
         $comedores = Comedor::where('estado', 'activo')
             ->where('visible', true)
+            ->with(['horarios:id_horario,id_comedor,dia_semana,hora_apertura,hora_cierre,tipo_servicio'])
             ->select('id_comedor', 'nombre', 'direccion', 'latitud', 'longitud', 'estado_actual', 'aforo_disponible', 'ultima_actualizacion')
             ->get();
 

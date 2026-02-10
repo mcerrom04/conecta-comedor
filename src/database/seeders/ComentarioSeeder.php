@@ -17,7 +17,7 @@ class ComentarioSeeder extends Seeder
         $ciudadano = User::where('id_rol', 'ciudadano')->first();
         if (!$ciudadano) return;
 
-        $comedores = Comedor::take(5)->get();
+        $comedores = Comedor::all();
 
         foreach ($comedores as $comedor) {
             // Un comentario aprobado

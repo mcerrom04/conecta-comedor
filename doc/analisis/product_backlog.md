@@ -21,7 +21,7 @@ Lista de Historias de Usuario y Tareas Técnicas en orden de realización.
 - ✅ HU-009: Aprobar un nuevo comedor
 - ✅ HU-011: Autenticación de Administrador
 
-## Sprint 3 (En progreso)
+## Sprint 3 (Completado)
 
 - ✅ TT-S3-001: Limpiar código PHP puro y preparar repositorio
 - ✅ TT-S3-002: Crear proyecto Laravel 12 en /src/
